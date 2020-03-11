@@ -2,10 +2,10 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">List Groups</router-link> |
-      <router-link to="/create">Create A Group</router-link>
+      <router-link to="/">List People</router-link>|
+      <router-link to="/person/create">Create A Person</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 

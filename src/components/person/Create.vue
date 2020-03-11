@@ -1,8 +1,33 @@
 <template>
   <div>
     <div class="col-md-12 form-wrapper">
-      <h2>Create User</h2>
-      <form id="create-post-form" @submit.prevent="createUser">
+      <h2>Create Person</h2>
+      <form id="create-post-form" @submit.prevent="createPerson">
+        <div class="form-group col-md-12">
+          <label for="title">Name</label>
+          <input
+            type="text"
+            id="name"
+            v-model="name"
+            name="title"
+            class="form-control"
+            placeholder="Enter name"
+            required
+          />
+        </div>
+        <div class="form-group col-md-12">
+          <label for="title">Surname</label>
+          <input
+            type="text"
+            id="surname"
+            v-model="surname"
+            name="title"
+            class="form-control"
+            placeholder="Enter surname"
+            required
+          />
+        </div>
+
         <div class="form-group col-md-12">
           <label for="title">Userame</label>
           <input
@@ -61,7 +86,7 @@
         </div>
 
         <div class="form-group col-md-4 pull-right">
-          <button class="btn btn-success" type="submit">Create User</button>
+          <button class="btn btn-success" type="submit">Create Username</button>
         </div>
       </form>
     </div>
@@ -75,6 +100,8 @@ import router from "../../router";
 export default {
   data() {
     return {
+      name: "",
+      surname: "",
       username: "",
       password: "",
       email: "",
@@ -83,18 +110,20 @@ export default {
     };
   },
   methods: {
-    createUser() {
-      let userData = {
+    createPerson() {
+      let personData = {
+        name: this.name,
+        surname: this.surname,
         username: this.username,
         password: this.password,
         email: this.email,
         city: this.city,
         image: this.image
       };
-      this.__submitToServer(userData);
+      this.__submitToServer(personData);
     },
     __submitToServer(data) {
-      axios.post(`${server.baseURL}/user/create`, data).then(data => {
+      axios.post(`${server.baseURL}/person/create`, data).then(data => {
         router.push({ name: "home" });
       });
     }
