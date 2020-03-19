@@ -1,9 +1,12 @@
-  
 <template>
   <div id="app">
     <div id="nav">
       <router-link to="/">List People</router-link>|
       <router-link to="/person/create">Create A Person</router-link>
+      <router-link to="/musicalgroup/create"
+        >Create A Musical Group</router-link
+      >
+      <router-link to="/musicalgroup">List Musical Groups</router-link>
     </div>
     <router-view />
   </div>

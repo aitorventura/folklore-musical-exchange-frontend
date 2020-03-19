@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid">
     <div class="text-center">
-      <h1>People List</h1>
+      <h1>Musical Group List</h1>
 
-      <div v-if="people.length === 0">
+      <div v-if="mgroup.length === 0">
         <h2>No user found at the moment</h2>
       </div>
     </div>
@@ -14,21 +14,17 @@
         <thead class="thead-dark">
           <tr>
             <th scope="col">Name</th>
-            <th scope="col">Surname</th>
             <th scope="col">Username</th>
             <th scope="col">Email</th>
             <th scope="col">City</th>
-            <th scope="col">Image</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="person in people" :key="person._id">
-            <td>{{ person.name }}</td>
-            <td>{{ person.surname }}</td>
-            <td>{{ person.username }}</td>
-            <td>{{ person.email }}</td>
-            <td>{{ person.city }}</td>
-            <td>{{ person.image }}</td>
+          <tr v-for="mgroup in mgroups" :key="mgroup._id">
+            <td>{{ mgroup.name }}</td>
+            <td>{{ mgroup.username }}</td>
+            <td>{{ mgroup.email }}</td>
+            <td>{{ mgroup.city }}</td>
           </tr>
         </tbody>
       </table>
@@ -43,21 +39,21 @@ import axios from "axios";
 export default {
   data() {
     return {
-      people: []
+      mgroups: []
     };
   },
   created() {
-    this.fetchPeople();
+    this.fetchMGroups();
   },
   methods: {
-    fetchPeople() {
+    fetchMGroups() {
       axios
-        .get(`${server.baseURL}/person`)
-        .then(data => (this.people = data.data));
+        .get(`${server.baseURL}/musicalgroup`)
+        .then(data => (this.mgroups = data.data));
     },
-    deletePerson(person) {
+    deleteMGroup(mgroup) {
       axios
-        .delete(`${server.baseURL}/person/personId=${person.id}`)
+        .delete(`${server.baseURL}/musicalgroup/mgroupId=${mgroup.id}`)
         .then(data => {
           console.log(data);
           window.location.reload();
