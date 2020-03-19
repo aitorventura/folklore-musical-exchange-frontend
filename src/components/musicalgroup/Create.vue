@@ -27,7 +27,7 @@
             required
           />
         </div>
-           </div>
+           
         <div class="form-group col-md-12">
           <label for="title">Members</label>
           <input
@@ -40,7 +40,7 @@
             required
           />
         </div>
-           </div>
+           
         <div class="form-group col-md-12">
           <label for="title">NameType</label>
           <input
@@ -111,10 +111,10 @@
           <input type="file" id="image" name="title" class="form-control" placeholder="Enter image" />
         </div>
 
-        <div class="form-group col-md-4 pull-right">
-          <button class="btn btn-success" type="submit">Create Username</button>
-        </div>
-      </form>
+       <div class="form-group col-md-4 pull-right">
+          <button class="btn btn-success" type="submit">Create Musical group</button>
+      </div>
+    </form>
     </div>
   </div>
 </template>
@@ -139,7 +139,7 @@ export default {
   },
   methods: {
     createMusicalGroup() {
-      let musicalGroupData = {
+      let data = {
         name: this.name,
         description: this.description,
         members: this.members,
@@ -150,7 +150,7 @@ export default {
         city: this.city,
         image: this.image
       };
-      this.__submitToServer(musicalgroupData);
+      this.__submitToServer(data);
     },
     __submitToServer(data) {
       axios.post(`${server.baseURL}/musicalgroup/create`, data).then(data => {

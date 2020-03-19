@@ -54,7 +54,7 @@ export default {
   methods: {
     fetchPeople() {
       axios
-        .get(`${server.baseURL}/person/list`)
+        .get(`${server.baseURL}/person`)
         .then(data => (this.people = data.data));
     },
     deletePerson(person) {
