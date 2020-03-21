@@ -99,6 +99,7 @@ export default {
     };
   },
   created() {
+    console.log("Entro en created()");
     this.id = this.$route.params.id;
     this.getPerson();
   },
@@ -121,7 +122,7 @@ export default {
     },
     getPerson() {
       axios
-        .getPerson(`${server.baseURL}/person/${this.id}`)
+        .get(`${server.baseURL}/person/${this.id}`)
         .then(data => (this.person = data.data));
     },
     navigate() {

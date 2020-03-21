@@ -22,7 +22,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="person in people" :key="person._id">
+          <tr v-for="person in people" :key="person.id">
             <td>{{ person.name }}</td>
             <td>{{ person.surname }}</td>
             <td>{{ person.username }}</td>
@@ -33,9 +33,14 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group" style="margin-bottom: 20px;">
                   <router-link
-                    :to="{name: 'Edit', params: {id: person._id}}"
+                    :to="{ name: 'Edit', params: { id: person.id } }"
                     class="btn btn-sm btn-outline-secondary"
                   >Edit person</router-link>
+
+                  <button
+                    class="btn btn-sm btn-outline-secondary"
+                    v-on:click="deletePerson(person.id)"
+                  >Delete Person</button>
                 </div>
               </div>
             </td>
@@ -65,13 +70,11 @@ export default {
         .get(`${server.baseURL}/person`)
         .then(data => (this.people = data.data));
     },
-    deletePerson(person) {
-      axios
-        .delete(`${server.baseURL}/person/personId=${person.id}`)
-        .then(data => {
-          console.log(data);
-          window.location.reload();
-        });
+    deletePerson(id) {
+      axios.delete(`${server.baseURL}/person/${id}`).then(data => {
+        console.log(data);
+        window.location.reload();
+      });
     }
   }
 };
