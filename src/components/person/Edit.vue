@@ -42,17 +42,6 @@
           />
         </div>
         <div class="form-group col-md-12">
-          <label for="title">Password</label>
-          <input
-            type="text"
-            id="password"
-            v-model="person.password"
-            name="title"
-            class="form-control"
-            placeholder="Enter password"
-          />
-        </div>
-        <div class="form-group col-md-12">
           <label for="title">Email</label>
           <input
             type="text"
@@ -95,11 +84,15 @@ export default {
   data() {
     return {
       id: 0,
-      person: {}
+      person: {
+
+
+
+
+      }
     };
   },
   created() {
-    console.log("Entro en created()");
     this.id = this.$route.params.id;
     this.getPerson();
   },
@@ -107,7 +100,6 @@ export default {
     editPerson() {
       let personData = {
         username: this.person.username,
-        password: this.person.password,
         city: this.person.city,
         image: this.person.image,
         name: this.person.name,
