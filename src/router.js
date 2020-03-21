@@ -4,6 +4,7 @@ import HomeComponent from "@/views/PeopleList";
 import MGroupsComponent from "@/views/MGroupList";
 import CreatePersonComponent from "@/components/person/Create";
 import CreateMusicalGroupComponent from "@/components/musicalgroup/Create";
+import EditComponent from "@/components/person/Edit";
 
 Vue.use(Router);
 
@@ -18,6 +19,7 @@ export default new Router({
       name: "Create",
       component: CreatePersonComponent
     },
+    { path: '/person/:id', name: 'Edit', component: EditComponent },
     {
       path: "/musicalgroup/create",
       name: "Create",

@@ -29,6 +29,16 @@
             <td>{{ person.email }}</td>
             <td>{{ person.city }}</td>
             <td>{{ person.image }}</td>
+            <td>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group" style="margin-bottom: 20px;">
+                  <router-link
+                    :to="{name: 'Edit', params: {id: person._id}}"
+                    class="btn btn-sm btn-outline-secondary"
+                  >Edit person</router-link>
+                </div>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
