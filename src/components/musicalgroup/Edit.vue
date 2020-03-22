@@ -5,16 +5,15 @@
         <button class="btn btn-success" v-on:click="navigate()">View All Musicals Groups</button>
       </small>
     </h4>
-
     <div class="col-md-12 form-wrapper">
-      <h2>Create Musical Group</h2>
-      <form id="create-post-form" @submit.prevent="createMusicalGroup">
+      <h2>Edit Musical Group</h2>
+      <form id="create-post-form" @submit.prevent="editMGroup">
         <div class="form-group col-md-12">
           <label for="title">Name</label>
           <input
             type="text"
             id="name"
-            v-model="name"
+            v-model="mgroup.name"
             name="title"
             class="form-control"
             placeholder="Enter name"
@@ -27,23 +26,10 @@
           <input
             type="text"
             id="username"
-            v-model="username"
+            v-model="mgroup.username"
             name="title"
             class="form-control"
             placeholder="Enter username"
-            required
-          />
-        </div>
-
-        <div class="form-group col-md-12">
-          <label for="title">Password</label>
-          <input
-            type="password"
-            id="password"
-            v-model="password"
-            name="title"
-            class="form-control"
-            placeholder="Enter password"
             required
           />
         </div>
@@ -53,7 +39,7 @@
           <input
             type="text"
             id="email"
-            v-model="email"
+            v-model="mgroup.email"
             name="title"
             class="form-control"
             placeholder="Enter email"
@@ -66,7 +52,7 @@
           <input
             type="text"
             id="description"
-            v-model="description"
+            v-model="mgroup.description"
             name="title"
             class="form-control"
             placeholder="Description"
@@ -79,7 +65,7 @@
           <input
             type="number"
             id="members"
-            v-model="members"
+            v-model="mgroup.members"
             name="title"
             class="form-control"
             placeholder="Members"
@@ -91,8 +77,8 @@
           <label for="title">NameType</label>
           <input
             type="text"
-            id="nametype"
-            v-model="nametype"
+            id="nameType"
+            v-model="mgroup.nameType"
             name="title"
             class="form-control"
             placeholder="Group type"
@@ -105,20 +91,21 @@
           <input
             type="text"
             id="city"
-            v-model="city"
+            v-model="mgroup.city"
             name="title"
             class="form-control"
             placeholder="Enter city"
             value="mgroup.city"
           />
         </div>
+        <!--
         <div class="form-group col-md-12">
           <label for="title">Image</label>
           <input type="file" id="image" name="title" class="form-control" placeholder="Enter image" />
         </div>
-
+        -->
         <div class="form-group col-md-4 pull-right">
-          <button class="btn btn-success" type="submit">Create Musical group</button>
+          <button class="btn btn-success" type="submit">Edit musical group</button>
         </div>
       </form>
     </div>
@@ -126,42 +113,45 @@
 </template>
 
 <script>
-import axios from "axios";
 import { server } from "../../helper";
+import axios from "axios";
 import router from "../../router";
 export default {
   data() {
     return {
-      name: "",
-      username: "",
-      password: "",
-      email: "",
-      description: "",
-      members: "",
-      nametype: "",
-      city: "",
-      image: ""
+      id: 0,
+      mgroup: {}
     };
   },
+  created() {
+    this.id = this.$route.params.id;
+    this.getMGroup();
+  },
   methods: {
-    createMusicalGroup() {
+    editMGroup() {
       let mgroupData = {
         name: this.mgroup.name,
         username: this.mgroup.username,
-        password: this.password,
         email: this.mgroup.email,
         description: this.mgroup.description,
         members: this.mgroup.members,
-        nametype: this.mgroup.nametype,
+        nameType: this.mgroup.nameType,
         city: this.mgroup.city,
         image: this.mgroup.image
       };
-      this.__submitToServer(mgroupData);
+      axios
+        .put(`${server.baseURL}/musicalgroup/${this.id}`, mgroupData)
+        .then(data => {
+          router.push({ name: "home" });
+        });
     },
-    __submitToServer(data) {
-      axios.post(`${server.baseURL}/musicalgroup/create`, data).then(data => {
-        router.push({ name: "home" });
-      });
+    getMGroup() {
+      axios
+        .get(`${server.baseURL}/musicalgroup/${this.id}`)
+        .then(data => (this.mgroup = data.data));
+    },
+    navigate() {
+      router.go(-1);
     }
   }
 };
