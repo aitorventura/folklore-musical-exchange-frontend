@@ -14,19 +14,25 @@
         <thead class="thead-dark">
           <tr>
             <th scope="col">Name</th>
-            <th scope="col">Username</th>
             <th scope="col">Email</th>
+            <th scope="col">Username</th>
             <th scope="col">City</th>
             <th scope="col">NameType</th>
+            <th scope="col">Description</th>
+            <th scope="col">Members</th>
+            <th scope="col">Image</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="mgroup in mgroups" :key="mgroup.id">
             <td>{{ mgroup.name }}</td>
-            <td>{{ mgroup.username }}</td>
             <td>{{ mgroup.email }}</td>
+            <td>{{ mgroup.username }}</td>
             <td>{{ mgroup.city }}</td>
             <td>{{ mgroup.nameType }}</td>
+            <td>{{ mgroup.description }}</td>
+            <td>{{ mgroup.members }}</td>
+            <td>{{ mgroup.image }}</td>
             <td>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group" style="margin-bottom: 20px;">

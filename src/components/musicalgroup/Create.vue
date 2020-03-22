@@ -86,18 +86,15 @@
             required
           />
         </div>
-
-        <div class="form-group col-md-12">
+        <!-- Si no queréis que esté centrado quitadle el align="center"-->
+        <div class="form-group col-md-12" align="center">
           <label for="title">NameType</label>
-          <input
-            type="text"
-            id="nametype"
-            v-model="nametype"
-            name="title"
-            class="form-control"
-            placeholder="Group type"
-            required
-          />
+          <br />
+          <tr>
+            <select v-model="nameType" id="nameType">
+              <option v-for="type in nameTypes" :key="type.name">{{type.name}}</option>
+            </select>
+          </tr>
         </div>
 
         <div class="form-group col-md-12">
@@ -140,8 +137,12 @@ export default {
       members: "",
       nametype: "",
       city: "",
-      image: ""
+      image: "",
+      nameTypes: {}
     };
+  },
+  created() {
+    this.getNameTypes();
   },
   methods: {
     createMusicalGroup() {
@@ -162,6 +163,12 @@ export default {
       axios.post(`${server.baseURL}/musicalgroup/create`, data).then(data => {
         router.push({ name: "home" });
       });
+    },
+    getNameTypes() {
+      console.log("Entro en getNameTypes() en edit.vue");
+      axios
+        .get(`${server.baseURL}/type`)
+        .then(data => (this.nameTypes = data.data));
     }
   }
 };

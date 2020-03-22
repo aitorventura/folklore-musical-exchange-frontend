@@ -72,18 +72,15 @@
             required
           />
         </div>
-
-        <div class="form-group col-md-12">
+        <!-- Si no queréis que esté centrado quitadle el align="center"-->
+        <div class="form-group col-md-12" align="center">
           <label for="title">NameType</label>
-          <input
-            type="text"
-            id="nameType"
-            v-model="mgroup.nameType"
-            name="title"
-            class="form-control"
-            placeholder="Group type"
-            required
-          />
+          <br />
+          <tr>
+            <select v-model="mgroup.nameType" id="mgroup.nameType">
+              <option v-for="type in nameTypes" :key="type.name">{{type.name}}</option>
+            </select>
+          </tr>
         </div>
 
         <div class="form-group col-md-12">
@@ -98,12 +95,12 @@
             value="mgroup.city"
           />
         </div>
-        <!--
+
         <div class="form-group col-md-12">
           <label for="title">Image</label>
           <input type="file" id="image" name="title" class="form-control" placeholder="Enter image" />
         </div>
-        -->
+
         <div class="form-group col-md-4 pull-right">
           <button class="btn btn-success" type="submit">Edit musical group</button>
         </div>
@@ -120,12 +117,14 @@ export default {
   data() {
     return {
       id: 0,
-      mgroup: {}
+      mgroup: {},
+      nameTypes: {}
     };
   },
   created() {
     this.id = this.$route.params.id;
     this.getMGroup();
+    this.getNameTypes();
   },
   methods: {
     editMGroup() {
@@ -150,6 +149,13 @@ export default {
         .get(`${server.baseURL}/musicalgroup/${this.id}`)
         .then(data => (this.mgroup = data.data));
     },
+
+    getNameTypes() {
+      axios
+        .get(`${server.baseURL}/type`)
+        .then(data => (this.nameTypes = data.data));
+    },
+
     navigate() {
       router.go(-1);
     }

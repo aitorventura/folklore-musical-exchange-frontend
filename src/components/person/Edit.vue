@@ -104,9 +104,7 @@ export default {
       axios
         .put(`${server.baseURL}/person/${this.id}`, personData)
         .then(data => {
-          router.push({
-            name: "PeopleList"
-          }); /* No sé si esta bien antes había un Home*/
+          router.push({ name: "home" });
         });
     },
     getPerson() {
