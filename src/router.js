@@ -22,7 +22,7 @@ export default new Router({
     },
     {
       path: "/musicalgroup/create",
-      name: "Create",
+      name: "CreateMG",
       component: CreateMusicalGroupComponent
     },
     { path: "/person/:id", name: "Edit", component: EditComponent },

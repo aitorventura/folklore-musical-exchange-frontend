@@ -135,7 +135,7 @@ export default {
       email: "",
       description: "",
       members: "",
-      nametype: "",
+      nameType: "",
       city: "",
       image: "",
       nameTypes: {}
@@ -147,15 +147,15 @@ export default {
   methods: {
     createMusicalGroup() {
       let mgroupData = {
-        name: this.mgroup.name,
-        username: this.mgroup.username,
+        name: this.name,
+        username: this.username,
         password: this.password,
-        email: this.mgroup.email,
-        description: this.mgroup.description,
-        members: this.mgroup.members,
-        nametype: this.mgroup.nametype,
-        city: this.mgroup.city,
-        image: this.mgroup.image
+        email: this.email,
+        description: this.description,
+        members: this.members,
+        nameType: this.nameType,
+        city: this.city,
+        image: this.image
       };
       this.__submitToServer(mgroupData);
     },
@@ -165,7 +165,6 @@ export default {
       });
     },
     getNameTypes() {
-      console.log("Entro en getNameTypes() en edit.vue");
       axios
         .get(`${server.baseURL}/type`)
         .then(data => (this.nameTypes = data.data));
