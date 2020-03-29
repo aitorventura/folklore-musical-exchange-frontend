@@ -5,6 +5,8 @@
       <router-link to="/person/create">Create A Person</router-link>
       <router-link to="/musicalgroup/create">Create A Musical Group</router-link>
       <router-link to="/listMGroups">List Musical Groups</router-link>
+      <router-link to="/listMusicalExchanges">List Musical Exchanges</router-link>|
+      <router-link to="/musicalexchange/create">Create Musical Exchanges</router-link>
     </div>
     <router-view />
   </div>
