@@ -9,6 +9,8 @@ import CreateMusicalExchangeComponent from "@/components/musicalexchange/Create"
 import EditComponent from "@/components/person/Edit";
 import EditMGComponent from "@/components/musicalgroup/Edit";
 import EditMEComponent from "@/components/musicalexchange/Edit";
+import GetMGroupComponent from "@/views/MGroup";
+import GetMusicalExchangeComponent from "@/views/MusicalExchange";
 
 Vue.use(Router);
 
@@ -40,6 +42,16 @@ export default new Router({
     },
     { path: "/person/:id", name: "Edit", component: EditComponent },
     { path: "/musicalgroup/:id", name: "EditMG", component: EditMGComponent },
-    { path: "/musicalexchange/:id", name: "EditME", component: EditMEComponent }
+    {
+      path: "/musicalexchange/:id",
+      name: "EditME",
+      component: EditMEComponent
+    },
+    { path: "/musicalgroup/:id", name: "GetMG", component: GetMGroupComponent },
+    {
+      path: "/musicalexchange/:id",
+      name: "GetME",
+      component: GetMusicalExchangeComponent
+    }
   ]
 });
