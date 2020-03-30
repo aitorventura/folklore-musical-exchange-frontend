@@ -65,6 +65,7 @@
           <input
             type="number"
             id="members"
+            min="1"
             v-model="mgroup.members"
             name="title"
             class="form-control"

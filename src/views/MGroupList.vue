@@ -39,20 +39,16 @@
                   <router-link
                     :to="{ name: 'EditMG', params: { id: mgroup.id } }"
                     class="btn btn-sm btn-outline-secondary"
-                    >Edit MGroup</router-link
-                  >
+                  >Edit MGroup</router-link>
                   <router-link
                     :to="{ name: 'GetMG', params: { id: mgroup.id } }"
                     class="btn btn-sm btn-outline-primary"
-                    >Show MGroup</router-link
-                  >
+                  >Show MGroup</router-link>
 
                   <button
                     class="btn btn-sm btn-outline-secondary"
                     v-on:click="deleteMGroup(mgroup.id)"
-                  >
-                    Delete MGroup
-                  </button>
+                  >Delete MGroup</button>
                 </div>
               </div>
             </td>

@@ -37,8 +37,9 @@
             type="datetime-local"
             id="date"
             v-model="date"
+            min="2020-01-01T00:00:00"
+            max="2030-12-31T23:59:59"
             class="form-control"
-            step="1"
             placeholder="Enter date"
             required
           />
@@ -90,6 +91,7 @@
             v-model="neededMoney"
             name="title"
             class="form-control"
+            min="0"
             placeholder="Needed money"
           />
         </div>
@@ -150,11 +152,15 @@ export default {
       this.__submitToServer(musicalexchangeData);
     },
     __submitToServer(data) {
-      axios
-        .post(`${server.baseURL}/musicalexchange/create`, data)
-        .then(data => {
-          router.push({ name: "home" });
-        });
+      if (this.idMGroupA == this.idMGroupB) {
+        alert("No puedes realizar un intercambio contigo mismo");
+      } else {
+        axios
+          .post(`${server.baseURL}/musicalexchange/create`, data)
+          .then(data => {
+            router.push({ name: "home" });
+          });
+      }
     },
     getMGroups() {
       axios

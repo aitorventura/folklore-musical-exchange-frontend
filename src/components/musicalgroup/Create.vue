@@ -81,6 +81,7 @@
             id="members"
             v-model="members"
             name="title"
+            min="1"
             class="form-control"
             placeholder="Members"
             required

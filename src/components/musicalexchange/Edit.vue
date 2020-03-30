@@ -8,36 +8,15 @@
     <div class="col-md-12 form-wrapper">
       <h2>Edit Musical Exchange</h2>
       <form id="create-post-form" @submit.prevent="editMusicalExchange">
-        <!-- Si no queréis que esté centrado quitadle el align="center"-->
-        <div class="form-group col-md-12" align="center">
-          <label for="title">idMGroupA</label>
-          <br />
-          <tr>
-            <select v-model="musicalexchange.idMGroupA" id="idMGroupA">
-              <option v-for="mgroup in mgroups" :key="mgroup.id" :value="mgroup.id">{{mgroup.name}}</option>
-            </select>
-          </tr>
-        </div>
-
-        <!-- Si no queréis que esté centrado quitadle el align="center"-->
-        <div class="form-group col-md-12" align="center">
-          <label for="title">idMGroupB</label>
-          <br />
-          <tr>
-            <select v-model="musicalexchange.idMGroupB" id="idMGroupB">
-              <option v-for="mgroup in mgroups" :key="mgroup.id" :value="mgroup.id">{{mgroup.name}}</option>
-            </select>
-          </tr>
-        </div>
-
         <div class="form-group col-md-12">
           <label for="title">Date</label>
           <input
             type="datetime-local"
             id="date"
             v-model="musicalexchange.date"
+            min="2020-01-01T00:00:00"
+            max="2030-12-31T23:59:59"
             class="form-control"
-            step="1"
             placeholder="Enter date"
             required
           />
@@ -86,6 +65,7 @@
           <input
             type="number"
             id="neededMoney"
+            min="0"
             v-model="musicalexchange.neededMoney"
             name="title"
             class="form-control"
