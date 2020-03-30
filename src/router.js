@@ -9,7 +9,7 @@ import CreateMusicalExchangeComponent from "@/components/musicalexchange/Create"
 import EditComponent from "@/components/person/Edit";
 import EditMGComponent from "@/components/musicalgroup/Edit";
 import EditMEComponent from "@/components/musicalexchange/Edit";
-import GetMGroupComponent from "@/views/MGroup";
+import GetMGroupComponent from "@/components/musicalgroup/MGroup";
 import GetMusicalExchangeComponent from "@/views/MusicalExchange";
 
 Vue.use(Router);
