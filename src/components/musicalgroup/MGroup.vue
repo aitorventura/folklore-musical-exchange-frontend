@@ -3,7 +3,7 @@
     <div class="text-center">
       <h1>Musical Group</h1>
     </div>
-    <div v-if="mgroup === null">
+    <div v-if="mgroup.id === null">
       <h2>No user found at the moment</h2>
     </div>
     <!-- <div class="row"> -->
@@ -50,11 +50,11 @@ export default {
       mgroup: {}
     };
   },
+  created() {
+    this.id = this.$route.params.id;
+    this.getMGroup();
+  },
   methods: {
-    created() {
-      this.id = this.$route.params.id;
-      this.getMGroup();
-    },
     getMGroup() {
       axios
         .get(`${server.baseURL}/musicalgroup/${this.id}`)
