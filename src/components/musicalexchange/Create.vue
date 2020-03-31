@@ -92,7 +92,7 @@
             name="title"
             class="form-control"
             min="0"
-            placeholder="Needed money"
+            placeholder="0"
           />
         </div>
 
