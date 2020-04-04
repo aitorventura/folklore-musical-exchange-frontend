@@ -1,4 +1,5 @@
 <template>
+<body>
   <div>
     <div class="col-md-12 form-wrapper">
       <h2>Create Person</h2>
@@ -90,7 +91,9 @@
         </div>
       </form>
     </div>
+
   </div>
+  </body>
 </template>
 
 <script>

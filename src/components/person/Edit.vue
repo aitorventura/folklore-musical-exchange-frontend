@@ -1,4 +1,5 @@
 <template>
+<body>
   <div>
     <h4 class="text-center mt-20">
       <small>
@@ -74,6 +75,7 @@
       </form>
     </div>
   </div>
+</body>
 </template>
 
 <script>

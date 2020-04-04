@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import HomeComponent from "@/views/PeopleList";
+import PeopleComponent from "@/views/PeopleList";
 import MGroupsComponent from "@/views/MGroupList";
 import MusicalExchangeComponent from "@/views/MusicalExchangeList";
 import CreatePersonComponent from "@/components/person/Create";
@@ -11,14 +11,15 @@ import EditMGComponent from "@/components/musicalgroup/Edit";
 import EditMEComponent from "@/components/musicalexchange/Edit";
 import GetMGroupComponent from "@/components/musicalgroup/MGroup";
 import GetMusicalExchangeComponent from "@/views/MusicalExchange";
+import HomeComponent from "@/components/home/Home"
 
 Vue.use(Router);
 
 export default new Router({
   mode: "history",
   routes: [
-    { path: "/", redirect: { name: "PeopleList" } },
-    { path: "/listPeople", name: "PeopleList", component: HomeComponent },
+    { path: "/", name: "Home", component: HomeComponent},
+    { path: "/listPeople", name: "PeopleList", component: PeopleComponent },
     { path: "/listMGroups", name: "MGroupList", component: MGroupsComponent },
     {
       path: "/listMusicalExchanges",
