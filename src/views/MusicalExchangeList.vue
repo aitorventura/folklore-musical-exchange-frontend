@@ -24,10 +24,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="musicalexchange in musicalexchanges"
-            :key="musicalexchange.id"
-          >
+          <tr v-for="musicalexchange in musicalexchanges" :key="musicalexchange.id">
             <td>{{ musicalexchange.idMGroupA }}</td>
             <td>{{ musicalexchange.idMGroupB }}</td>
             <td>
@@ -45,21 +42,17 @@
                   <router-link
                     :to="{ name: 'EditME', params: { id: musicalexchange.id } }"
                     class="btn btn-sm btn-outline-secondary"
-                    >Edit Exchange</router-link
-                  >
+                  >Edit Exchange</router-link>
 
                   <router-link
                     :to="{ name: 'GetME', params: { id: musicalexchange.id } }"
                     class="btn btn-sm btn-outline-primary"
-                    >Show Exchange</router-link
-                  >
+                  >Show Exchange</router-link>
 
                   <button
                     class="btn btn-sm btn-outline-secondary"
                     v-on:click="deleteMGroup(musicalexchange.id)"
-                  >
-                    Delete Exchange
-                  </button>
+                  >Delete Exchange</button>
                 </div>
               </div>
             </td>
@@ -117,7 +110,8 @@ export default {
   filters: {
     moment: function(date) {
       //return moment(date).format("DD de MMMM del YYYY, hh:mm");
-      return moment(date).format("DD/MM/YYYY, hh:mm");
+      //TODO: He puesto HH para que salga formato 24h
+      return moment(date).format("DD/MM/YYYY, HH:mm");
     }
   }
 };

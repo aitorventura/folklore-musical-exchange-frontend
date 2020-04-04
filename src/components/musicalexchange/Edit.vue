@@ -2,9 +2,7 @@
   <div>
     <h4 class="text-center mt-20">
       <small>
-        <button class="btn btn-success" v-on:click="navigate()">
-          View All Musicals Exchanges
-        </button>
+        <button class="btn btn-success" v-on:click="navigate()">View All Musicals Exchanges</button>
       </small>
     </h4>
     <div class="col-md-12 form-wrapper">
@@ -87,9 +85,7 @@
         </div>
 
         <div class="form-group col-md-4 pull-right">
-          <button class="btn btn-success" type="submit">
-            Edit musical group
-          </button>
+          <button class="btn btn-success" type="submit">Edit musical group</button>
         </div>
       </form>
     </div>
@@ -137,6 +133,8 @@ export default {
         });
     },
     getMusicalExchange() {
+      //TODO: Revisar tipos: https://momentjs.com/docs/
+      //Mirar si coincide en la BBDD con lo que muestra en el list, y lo que muestra en el edit (Creo que la hora cambiaba)
       axios
         .get(`${server.baseURL}/musicalexchange/${this.id}`)
         .then(
@@ -152,10 +150,6 @@ export default {
       axios
         .get(`${server.baseURL}/type`)
         .then(data => (this.nameTypes = data.data));
-    },
-    changeDate() {
-      this.date = this.musicalexchange.date.substring(0, 16);
-      this.musicalexchange.date = moment().format("2027-12-31T23:00");
     }
   }
 };
