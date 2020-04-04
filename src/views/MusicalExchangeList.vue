@@ -27,7 +27,10 @@
           <tr v-for="musicalexchange in musicalexchanges" :key="musicalexchange.id">
             <td>{{ musicalexchange.idMGroupA }}</td>
             <td>{{ musicalexchange.idMGroupB }}</td>
-            <td>{{ musicalexchange.date }}</td>
+            <td>
+              <span>{{ musicalexchange.date | moment }}</span>
+            </td>
+            <!--<td>{{ musicalexchange.date }}</td>-->
             <td>{{ musicalexchange.place }}</td>
             <td>{{ musicalexchange.description }}</td>
             <td>{{ musicalexchange.repertoire }}</td>
@@ -64,6 +67,15 @@
 <script>
 import { server } from "../helper";
 import axios from "axios";
+import moment from "moment";
+//import moment from "moment-timezone";
+//Vue.prototype.moment = moment;
+// Load Locales ('en' comes loaded by default)
+require("moment/locale/es");
+
+// Choose Locale
+moment.locale("es");
+
 export default {
   data() {
     return {
@@ -72,17 +84,33 @@ export default {
   },
   created() {
     this.fetchMExchanges();
+    //this.convertDate();
   },
   methods: {
     fetchMExchanges() {
       axios
         .get(`${server.baseURL}/musicalexchange`)
         .then(data => (this.musicalexchanges = data.data));
-    },
+
+      //this.musicalexchanges.forEach(ob => this.$set(ob, date, "prueba"));
+    } /*,
+    convertDate() {
+      for (var i in this.musicalexchanges) {
+        this.musicalexchanges[i].push({
+          date: "Prueba" //Date.parse(this.musicalexchange[i].date).toString()
+        });
+      }
+    }*/,
     deleteMGroup(id) {
       axios.delete(`${server.baseURL}/musicalexchange/${id}`).then(data => {
         window.location.reload();
       });
+    }
+  },
+  filters: {
+    moment: function(date) {
+      //return moment(date).format("DD de MMMM del YYYY, hh:mm");
+      return moment(date).format("DD/MM/YYYY, hh:mm");
     }
   }
 };

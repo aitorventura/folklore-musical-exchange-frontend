@@ -2,7 +2,9 @@
   <div>
     <h4 class="text-center mt-20">
       <small>
-        <button class="btn btn-success" v-on:click="navigate()">View All Musicals Exchanges</button>
+        <button class="btn btn-success" v-on:click="navigate()">
+          View All Musicals Exchanges
+        </button>
       </small>
     </h4>
 
@@ -15,7 +17,12 @@
           <br />
           <tr>
             <select v-model="idMGroupA" id="idMGroupA">
-              <option v-for="mgroup in mgroups" :key="mgroup.id" :value="mgroup.id">{{mgroup.name}}</option>
+              <option
+                v-for="mgroup in mgroups"
+                :key="mgroup.id"
+                :value="mgroup.id"
+                >{{ mgroup.name }}</option
+              >
             </select>
           </tr>
         </div>
@@ -26,7 +33,12 @@
           <br />
           <tr>
             <select v-model="idMGroupB" id="idMGroupB">
-              <option v-for="mgroup in mgroups" :key="mgroup.id" :value="mgroup.id">{{mgroup.name}}</option>
+              <option
+                v-for="mgroup in mgroups"
+                :key="mgroup.id"
+                :value="mgroup.id"
+                >{{ mgroup.name }}</option
+              >
             </select>
           </tr>
         </div>
@@ -43,6 +55,16 @@
             placeholder="Enter date"
             required
           />
+
+          <!--
+          <b-col md="auto">
+            <b-calendar
+              v-model="value"
+              @context="onContext"
+              locale="en-US"
+            ></b-calendar>
+          </b-col>
+          -->
         </div>
 
         <div class="form-group col-md-12">
@@ -109,7 +131,9 @@
         </div>
 
         <div class="form-group col-md-4 pull-right">
-          <button class="btn btn-success" type="submit">Create Musical exchange</button>
+          <button class="btn btn-success" type="submit">
+            Create Musical exchange
+          </button>
         </div>
       </form>
     </div>
@@ -120,6 +144,8 @@
 import axios from "axios";
 import { server } from "../../helper";
 import router from "../../router";
+//import { BCalendar } from "bootstrap-vue";
+
 export default {
   data() {
     return {
@@ -131,7 +157,10 @@ export default {
       repertoire: "",
       neededMoney: "",
       crowdfundingLink: "",
-      mgroups: {}
+      mgroups: {} /*,
+      value: "",
+      context: null
+      */
     };
   },
   created() {
@@ -166,7 +195,10 @@ export default {
       axios
         .get(`${server.baseURL}/musicalgroup`)
         .then(data => (this.mgroups = data.data));
-    }
+    } /*,
+    onContext(ctx) {
+      this.context = ctx;
+    }*/
   }
 };
 </script>

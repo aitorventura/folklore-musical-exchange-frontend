@@ -2,7 +2,9 @@
   <div>
     <h4 class="text-center mt-20">
       <small>
-        <button class="btn btn-success" v-on:click="navigate()">View All Musicals Exchanges</button>
+        <button class="btn btn-success" v-on:click="navigate()">
+          View All Musicals Exchanges
+        </button>
       </small>
     </h4>
     <div class="col-md-12 form-wrapper">
@@ -14,6 +16,7 @@
             type="datetime-local"
             id="date"
             v-model="musicalexchange.date"
+            value="musicalexchange.date"
             min="2020-01-01T00:00:00"
             max="2030-12-31T23:59:59"
             class="form-control"
@@ -86,7 +89,9 @@
         </div>
 
         <div class="form-group col-md-4 pull-right">
-          <button class="btn btn-success" type="submit">Edit musical group</button>
+          <button class="btn btn-success" type="submit">
+            Edit musical group
+          </button>
         </div>
       </form>
     </div>
