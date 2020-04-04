@@ -16,7 +16,6 @@
             type="datetime-local"
             id="date"
             v-model="musicalexchange.date"
-            value="musicalexchange.date"
             min="2020-01-01T00:00:00"
             max="2030-12-31T23:59:59"
             class="form-control"
@@ -24,7 +23,6 @@
             required
           />
         </div>
-
         <div class="form-group col-md-12">
           <label for="title">Place</label>
           <input
@@ -102,6 +100,8 @@
 import { server } from "../../helper";
 import axios from "axios";
 import router from "../../router";
+import moment from "moment";
+
 export default {
   data() {
     return {
@@ -139,17 +139,23 @@ export default {
     getMusicalExchange() {
       axios
         .get(`${server.baseURL}/musicalexchange/${this.id}`)
-        .then(data => (this.musicalexchange = data.data));
+        .then(
+          data => (
+            (this.musicalexchange = data.data),
+            (this.musicalexchange.date = moment().format(
+              this.musicalexchange.date.substring(0, 16)
+            ))
+          )
+        );
     },
-
     getNameTypes() {
       axios
         .get(`${server.baseURL}/type`)
         .then(data => (this.nameTypes = data.data));
     },
-
-    navigate() {
-      router.go(-1);
+    changeDate() {
+      this.date = this.musicalexchange.date.substring(0, 16);
+      this.musicalexchange.date = moment().format("2027-12-31T23:00");
     }
   }
 };
