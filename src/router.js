@@ -10,15 +10,15 @@ import EditComponent from "@/components/person/Edit";
 import EditMGComponent from "@/components/musicalgroup/Edit";
 import EditMEComponent from "@/components/musicalexchange/Edit";
 import GetMGroupComponent from "@/components/musicalgroup/MGroup";
-import GetMusicalExchangeComponent from "@/views/MusicalExchange";
-import HomeComponent from "@/components/home/Home"
+import GetMusicalExchangeComponent from "@/components/musicalexchange/MusicalExchange";
+import HomeComponent from "@/components/home/Home";
 
 Vue.use(Router);
 
 export default new Router({
   mode: "history",
   routes: [
-    { path: "/", name: "Home", component: HomeComponent},
+    { path: "/", name: "Home", component: HomeComponent },
     { path: "/listPeople", name: "PeopleList", component: PeopleComponent },
     { path: "/listMGroups", name: "MGroupList", component: MGroupsComponent },
     {
