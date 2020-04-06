@@ -1,5 +1,10 @@
 <template>
+<body>
+   <br>
+  <br>
+  <br>
   <div class="container-fluid">
+    
     <div class="text-center">
       <h1>Musical Group List</h1>
 
@@ -58,6 +63,7 @@
     </div>
     <!-- </div> -->
   </div>
+</body>
 </template>
 
 <script>

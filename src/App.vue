@@ -1,6 +1,7 @@
 <template>
 
   <div id="app">
+    <div>
   <nav id= "nav" class="navbar navbar-default navbar-fixed-top">
     
     <div class="container-fluid">
@@ -29,12 +30,13 @@
                 </ul>
             </div>
         </div>
-      
+       
     </nav>
-    <router-view />
+   
+     
+    </div>
+    <router-view/>
   </div>
-
-
 </template>
 
 <style scoped>
@@ -91,6 +93,8 @@ body{
 /* Add a gray color to all navbar links - COLOR DE LETRA*/
 .navbar li a, .navbar .navbar-brand {
   color: #d5d5d5 !important;
+  display: block;
+
 }
 /* On hover, the links will turn white */
 .navbar-nav li a:hover {
