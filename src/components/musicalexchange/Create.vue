@@ -1,14 +1,12 @@
 <template>
 <body>
-   <br>
-  <br>
-  <br>
+  <br />
+  <br />
+  <br />
   <div>
     <h4 class="text-center mt-20">
       <small>
-        <button class="btn btn-success" v-on:click="navigate()">
-          View All Musicals Exchanges
-        </button>
+        <button class="btn btn-success" v-on:click="navigate()">View All Musicals Exchanges</button>
       </small>
     </h4>
 
@@ -25,8 +23,7 @@
                 v-for="mgroup in mgroups"
                 :key="mgroup.id"
                 :value="mgroup.id"
-                >{{ mgroup.name }}</option
-              >
+              >{{ mgroup.name }}</option>
             </select>
           </tr>
         </div>
@@ -41,8 +38,7 @@
                 v-for="mgroup in mgroups"
                 :key="mgroup.id"
                 :value="mgroup.id"
-                >{{ mgroup.name }}</option
-              >
+              >{{ mgroup.name }}</option>
             </select>
           </tr>
         </div>
@@ -86,27 +82,32 @@
 
         <div class="form-group col-md-12">
           <label for="title">Description</label>
-          <input
-            type="text"
+          <label for="title">Description</label>
+          <textarea
+            rows="4"
+            cols="50"
+            type="textarea"
             id="description"
             v-model="description"
             name="title"
             class="form-control"
             placeholder="Description"
             required
-          />
+          ></textarea>
         </div>
 
         <div class="form-group col-md-12">
           <label for="title">Repertoire</label>
-          <input
-            type="text"
+          <textarea
+            rows="4"
+            cols="50"
+            type="textarea"
             id="repertoire"
             v-model="repertoire"
             name="title"
             class="form-control"
             placeholder="Enter repertoire"
-          />
+          ></textarea>
         </div>
 
         <div class="form-group col-md-12">
@@ -135,14 +136,12 @@
         </div>
 
         <div class="form-group col-md-4 pull-right">
-          <button class="btn btn-success" type="submit">
-            Create Musical exchange
-          </button>
+          <button class="btn btn-success" type="submit">Create Musical exchange</button>
         </div>
       </form>
     </div>
   </div>
-  </body>
+</body>
 </template>
 
 <script>
@@ -162,10 +161,7 @@ export default {
       repertoire: "",
       neededMoney: "",
       crowdfundingLink: "",
-      mgroups: {} /*,
-      value: "",
-      context: null
-      */
+      mgroups: {}
     };
   },
   created() {
@@ -192,12 +188,14 @@ export default {
         axios
           .post(`${server.baseURL}/musicalexchange/create`, data)
           .then(data => {
-             if(data.data){
+            if (data.data) {
+              router.push({ name: "MusicalExchangeList" });
+            } else {
+              alert(
+                "No puede haber dos intercambios de la misma persona a la misma hora."
+              );
+            }
             router.push({ name: "MusicalExchangeList" });
-          } else {
-              alert("No puede haber dos intercambios de la misma persona a la misma hora.");
-          }
-            router.push({ name: "home" });
           });
       }
     },
@@ -205,10 +203,7 @@ export default {
       axios
         .get(`${server.baseURL}/musicalgroup`)
         .then(data => (this.mgroups = data.data));
-    } /*,
-    onContext(ctx) {
-      this.context = ctx;
-    }*/
+    }
   }
 };
 </script>

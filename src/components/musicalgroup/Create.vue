@@ -1,8 +1,8 @@
 <template>
 <body>
-   <br>
-  <br>
-  <br>
+  <br />
+  <br />
+  <br />
   <div>
     <h4 class="text-center mt-20">
       <small>
@@ -67,15 +67,17 @@
 
         <div class="form-group col-md-12">
           <label for="title">Description</label>
-          <input
-            type="text"
+          <textarea
+            rows="4"
+            cols="50"
+            type="textarea"
             id="description"
             v-model="description"
             name="title"
             class="form-control"
             placeholder="Description"
             required
-          />
+          ></textarea>
         </div>
 
         <div class="form-group col-md-12">
@@ -167,11 +169,13 @@ export default {
     },
     __submitToServer(data) {
       axios.post(`${server.baseURL}/musicalgroup/create`, data).then(data => {
-         if(data.data){
-            router.push({ name: "MusicalExchangeList" });
-          } else {
-            alert("El usuario y/o correo que quieres usar ya están registrados en la plataforma, por favor, pruebe con otros.");
-          }
+        if (data.data) {
+          router.push({ name: "MusicalExchangeList" });
+        } else {
+          alert(
+            "El usuario y/o correo que quieres usar ya están registrados en la plataforma, por favor, pruebe con otros."
+          );
+        }
       });
     },
     getNameTypes() {

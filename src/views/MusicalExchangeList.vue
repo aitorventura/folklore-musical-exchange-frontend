@@ -1,8 +1,8 @@
 <template>
 <body>
-   <br>
-  <br>
-  <br>
+  <br />
+  <br />
+  <br />
   <div class="container-fluid">
     <div class="text-center">
       <h1>Musical Exchange List</h1>
@@ -77,7 +77,6 @@ import moment from "moment";
 //Vue.prototype.moment = moment;
 // Load Locales ('en' comes loaded by default)
 require("moment/locale/es");
-
 // Choose Locale
 moment.locale("es");
 
@@ -89,23 +88,13 @@ export default {
   },
   created() {
     this.fetchMExchanges();
-    //this.convertDate();
   },
   methods: {
     fetchMExchanges() {
       axios
         .get(`${server.baseURL}/musicalexchange`)
         .then(data => (this.musicalexchanges = data.data));
-
-      //this.musicalexchanges.forEach(ob => this.$set(ob, date, "prueba"));
-    } /*,
-    convertDate() {
-      for (var i in this.musicalexchanges) {
-        this.musicalexchanges[i].push({
-          date: "Prueba" //Date.parse(this.musicalexchange[i].date).toString()
-        });
-      }
-    }*/,
+    },
     deleteMGroup(id) {
       axios.delete(`${server.baseURL}/musicalexchange/${id}`).then(data => {
         window.location.reload();
@@ -114,7 +103,6 @@ export default {
   },
   filters: {
     moment: function(date) {
-      //return moment(date).format("DD de MMMM del YYYY, hh:mm");
       //TODO: He puesto HH para que salga formato 24h
       return moment(date).format("DD/MM/YYYY, HH:mm");
     }

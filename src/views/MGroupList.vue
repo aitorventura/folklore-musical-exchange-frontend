@@ -109,8 +109,13 @@ export default {
     },
     deleteMGroup(id) {
       axios.delete(`${server.baseURL}/musicalgroup/${id}`).then(data => {
-        console.log(data);
-        window.location.reload();
+        if (data.data) {
+          window.location.reload();
+        } else {
+          alert(
+            "No puede darse de baja mientras tenga intercambios pendientes."
+          );
+        }
       });
     }
   }

@@ -1,8 +1,8 @@
 <template>
 <body>
- <br>
-  <br>
-  <br>
+  <br />
+  <br />
+  <br />
   <div>
     <h4 class="text-center mt-20">
       <small>
@@ -40,27 +40,31 @@
 
         <div class="form-group col-md-12">
           <label for="title">Description</label>
-          <input
-            type="text"
+          <textarea
+            rows="4"
+            cols="50"
+            type="textarea"
             id="description"
             v-model="musicalexchange.description"
             name="title"
             class="form-control"
             placeholder="Description"
             required
-          />
+          ></textarea>
         </div>
 
         <div class="form-group col-md-12">
           <label for="title">Repertoire</label>
-          <input
-            type="text"
+          <textarea
+            rows="4"
+            cols="50"
+            type="textarea"
             id="repertoire"
             v-model="musicalexchange.repertoire"
             name="title"
             class="form-control"
             placeholder="Enter repertoire"
-          />
+          ></textarea>
         </div>
 
         <div class="form-group col-md-12">
@@ -102,6 +106,10 @@ import { server } from "../../helper";
 import axios from "axios";
 import router from "../../router";
 import moment from "moment";
+// Load Locales ('en' comes loaded by default)
+require("moment/locale/es");
+// Choose Locale
+moment.locale("es");
 
 export default {
   data() {
@@ -134,7 +142,7 @@ export default {
           musicalexchangeData
         )
         .then(data => {
-          router.push({ name: "home" });
+          router.push({ name: "MusicalExchangeList" });
         });
     },
     getMusicalExchange() {
@@ -146,7 +154,8 @@ export default {
           data => (
             (this.musicalexchange = data.data),
             (this.musicalexchange.date = moment().format(
-              this.musicalexchange.date.substring(0, 16)
+              this.musicalexchange.date.substring(0, 16),
+              "YYYY/MM/DD HH:mm"
             ))
           )
         );
