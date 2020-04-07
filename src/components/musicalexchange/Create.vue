@@ -192,6 +192,11 @@ export default {
         axios
           .post(`${server.baseURL}/musicalexchange/create`, data)
           .then(data => {
+             if(data.data){
+            router.push({ name: "MusicalExchangeList" });
+          } else {
+              alert("No puede haber dos intercambios de la misma persona a la misma hora.");
+          }
             router.push({ name: "home" });
           });
       }

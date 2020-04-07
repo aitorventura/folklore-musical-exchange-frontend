@@ -17,8 +17,8 @@
       <table class="table table-bordered">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">idMGroupA</th>
-            <th scope="col">idMGroupB</th>
+            <th scope="col">Primera Agrupación</th>
+            <th scope="col">Segunda Agrupación</th>
             <th scope="col">Date</th>
             <th scope="col">Place</th>
             <th scope="col">Description</th>
@@ -29,8 +29,8 @@
         </thead>
         <tbody>
           <tr v-for="musicalexchange in musicalexchanges" :key="musicalexchange.id">
-            <td>{{ musicalexchange.idMGroupA }}</td>
-            <td>{{ musicalexchange.idMGroupB }}</td>
+            <td>{{ musicalexchange.nombreMA }}</td>
+            <td>{{ musicalexchange.nombreMB }}</td>
             <td>
               <span>{{ musicalexchange.date | moment }}</span>
             </td>

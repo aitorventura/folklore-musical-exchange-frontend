@@ -167,7 +167,11 @@ export default {
     },
     __submitToServer(data) {
       axios.post(`${server.baseURL}/musicalgroup/create`, data).then(data => {
-        router.push({ name: "home" });
+         if(data.data){
+            router.push({ name: "MusicalExchangeList" });
+          } else {
+            alert("El usuario y/o correo que quieres usar ya están registrados en la plataforma, por favor, pruebe con otros.");
+          }
       });
     },
     getNameTypes() {

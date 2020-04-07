@@ -147,7 +147,11 @@ export default {
       axios
         .put(`${server.baseURL}/musicalgroup/${this.id}`, mgroupData)
         .then(data => {
-          router.push({ name: "home" });
+          if(data.data){
+            router.push({ name: "MusicalExchangeList" });
+          } else {
+            alert("El usuario y/o correo que quieres usar ya están registrados en la plataforma, por favor, pruebe con otros.");
+          }
         });
     },
     getMGroup() {
