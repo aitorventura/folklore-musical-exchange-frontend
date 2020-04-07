@@ -1,10 +1,9 @@
 <template>
 <body>
-   <br>
-  <br>
-  <br>
+  <br />
+  <br />
+  <br />
   <div class="container-fluid">
-    
     <div class="text-center">
       <h1>Musical Group List</h1>
 
@@ -15,6 +14,16 @@
 
     <!-- <div class="row"> -->
     <div class>
+      <input type="text" v-model="searchName" placeholder="Search by name" style="margin: 10px" />
+      <input type="text" v-model="searchCity" placeholder="Search by city" style="margin: 10px" />
+      <input type="text" v-model="searchType" placeholder="Search by type" style="margin: 10px" />
+
+      <!--b-dropdown id="dropdown-1" text="Select a group type">
+        <b-dropdown-item>Charanga</b-dropdown-item>
+        <b-dropdown-item>Rondalla</b-dropdown-item>
+        <b-dropdown-item>Orquesta</b-dropdown-item>
+        <b-dropdown-item>Banda</b-dropdown-item>
+      </b-dropdown-->
       <table class="table table-bordered">
         <thead class="thead-dark">
           <tr>
@@ -29,7 +38,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="mgroup in mgroups" :key="mgroup.id">
+          <tr v-for="mgroup in filterName" :key="mgroup.id">
             <td>{{ mgroup.name }}</td>
             <td>{{ mgroup.email }}</td>
             <td>{{ mgroup.username }}</td>
@@ -72,11 +81,25 @@ import axios from "axios";
 export default {
   data() {
     return {
-      mgroups: []
+      mgroups: [],
+      searchName: "",
+      searchCity: "",
+      searchType: ""
     };
   },
   created() {
     this.fetchMGroups();
+  },
+  computed: {
+    filterName() {
+      return this.mgroups.filter(mgroup => {
+        return (
+          mgroup.name.toLowerCase().match(this.searchName.toLowerCase()) &&
+          mgroup.city.toLowerCase().match(this.searchCity.toLowerCase()) &&
+          mgroup.nameType.toLowerCase().match(this.searchType.toLowerCase())
+        );
+      });
+    }
   },
   methods: {
     fetchMGroups() {
