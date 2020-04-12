@@ -149,12 +149,32 @@ export default {
       axios
         .put(`${server.baseURL}/musicalgroup/${this.id}`, mgroupData)
         .then(data => {
-          if (data.data) {
+          if (data.data === 0) {
             router.push({ name: "MusicalExchangeList" });
           } else {
-            alert(
-              "El usuario y/o correo que quieres usar ya están registrados en la plataforma, por favor, pruebe con otros."
-            );
+            if (data.data === 1) {
+              alert(
+                "El correo que quiere usar ya está registrado en la plataforma, por favor, pruebe con otro."
+              );
+            } else {
+              if (data.data === 2) {
+                alert(
+                  "El usuario que quiere emplear ya está registrado en la plataforma, por favor, pruebe con otro."
+                );
+              }
+              /*
+              else {
+                if (data.data === 3){
+                  alert("Error al crear el usuario");
+                }
+                else {
+                if (data.data === 4){
+                  alert("Error al crear la agrupación");
+                }
+              }
+              }
+              */
+            }
           }
         });
     },

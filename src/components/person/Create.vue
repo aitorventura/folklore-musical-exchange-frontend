@@ -1,8 +1,8 @@
 <template>
 <body>
-  <br>
-  <br>
-  <br>
+  <br />
+  <br />
+  <br />
   <div>
     <div class="col-md-12 form-wrapper">
       <h2>Create Person</h2>
@@ -94,9 +94,8 @@
         </div>
       </form>
     </div>
-
   </div>
-  </body>
+</body>
 </template>
 
 <script>
@@ -130,10 +129,28 @@ export default {
     },
     __submitToServer(data) {
       axios.post(`${server.baseURL}/person/create`, data).then(data => {
-        if(data.data){
+        if (data.data === 0) {
           router.push({ name: "PeopleList" });
         } else {
-          alert("El usuario y/o correo que quieres usar ya están registrados en la plataforma, por favor, pruebe con otros.");
+          if (data.data === 1) {
+            alert(
+              "El correo que quiere usar ya está registrado en la plataforma, por favor, pruebe con otro."
+            );
+          } else {
+            if (data.data === 2) {
+              alert(
+                "El usuario que quiere emplear ya está registrado en la plataforma, por favor, pruebe con otro."
+              );
+            } else {
+              if (data.data === 3) {
+                alert("Error al crear el usuario");
+              } else {
+                if (data.data === 4) {
+                  alert("Error al crear la persona");
+                }
+              }
+            }
+          }
         }
       });
     }
