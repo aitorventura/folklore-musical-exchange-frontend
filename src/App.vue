@@ -1,50 +1,71 @@
 <template>
-
   <div id="app">
     <div>
-  <nav id= "nav" class="navbar navbar-default navbar-fixed-top">
-    
-    <div class="container-fluid">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">
-                    <a><img src="./assets/logoBlanco.png" alt="logo" style="width:40px;"></a>
-                </a>
-                <ul class="nav navbar-nav navbar-left">
-                    <li class="nav-item" ><a class="nav-link" href="/contacto">Contáctanos</a></li>
-                </ul>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="nav-item" ><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item" ><a class="nav-link" href="/listPeople">ListPeople</a></li>
-                    <li class="nav-item" ><a class="nav-link" href="/person/create">Create A Person</a></li>
-                    <li class="nav-item" ><a class="nav-link" href="/musicalgroup/create">Create A Musical Group</a></li>  
-                    <li class="nav-item" ><a class="nav-link" href="/listMGroups">List Musical Groups</a></li>
-                    <li class="nav-item" ><a class="nav-link" href="/listMusicalExchanges">List Musical Exchanges</a> </li>
-                    <li class="nav-item" ><a class="nav-link" href="/musicalexchange/create">Create Musical Exchanges</a></li>
-                </ul>
-            </div>
+      <nav id="nav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button
+              type="button"
+              class="navbar-toggle"
+              data-toggle="collapse"
+              data-target="#myNavbar"
+            >
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+              <a>
+                <img src="./assets/logoBlanco.png" alt="logo" style="width:40px;" />
+              </a>
+            </a>
+            <ul class="nav navbar-nav navbar-left">
+              <li class="nav-item">
+                <a class="nav-link" href="/contacto">Contáctanos</a>
+              </li>
+            </ul>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/listPeople">ListPeople</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/person/create">Create A Person</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/musicalgroup/create">Create A Musical Group</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/listMGroups">List Musical Groups</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/listMusicalExchanges">List Musical Exchanges</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/musicalexchange/create">Create Musical Exchanges</a>
+              </li>
+            </ul>
+          </div>
         </div>
-       
-    </nav>
-   
-     
+      </nav>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <style scoped>
 .jumbotron {
-            background-color: #465bff;
-            color: #fff;
-            padding: 100px 25px;
- }
+  background-color: #465bff;
+  color: #fff;
+  padding: 100px 25px;
+}
 .container {
   margin-top: 80px;
 }
@@ -68,12 +89,14 @@
   color: #fff !important;
 }
 
-h1, h2, h3 {
-    text-align: center
+h1,
+h2,
+h3 {
+  text-align: center;
 }
 
-body{
-  text-align: center
+body {
+  text-align: center;
 }
 
 @media (max-width: 600px) {
@@ -91,10 +114,10 @@ body{
   opacity: 0.9;
 }
 /* Add a gray color to all navbar links - COLOR DE LETRA*/
-.navbar li a, .navbar .navbar-brand {
+.navbar li a,
+.navbar .navbar-brand {
   color: #d5d5d5 !important;
   display: block;
-
 }
 /* On hover, the links will turn white */
 .navbar-nav li a:hover {
@@ -103,7 +126,7 @@ body{
 /* The active link */
 .navbar-nav li.active a {
   color: #03c120 !important;
-  background-color:#29292c !important;
+  background-color: #29292c !important;
 }
 /* Remove border color from the collapsible button */
 .navbar-default .navbar-toggle {
@@ -111,7 +134,7 @@ body{
 }
 /* Dropdown */
 .open .dropdown-toggle {
-  color: #fff ;
+  color: #fff;
   background-color: #555 !important;
 }
 /* Dropdown links */
@@ -124,71 +147,72 @@ body{
 }
 
 /*alinear a la derecha*/
-.derecha{
+.derecha {
   text-align: right;
 }
 
 .btn {
-    padding: 10px 20px;
-    background-color: #333;
-    color: #f1f1f1;
-    border-radius: 0;
-    transition: .2s;
-  }
-  .btn:hover, .btn:focus {
-    border: 1px solid #333;
-    background-color: #fff;
-    color: #000;
-  }
-.email{
-background-color: black;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #f1f1f1;
+  border-radius: 0;
+  transition: 0.2s;
+}
+.btn:hover,
+.btn:focus {
+  border: 1px solid #333;
+  background-color: #fff;
+  color: #000;
+}
+.email {
+  background-color: black;
   color: white;
   margin: 15px;
   padding: 15px;
 }
 
-table, th, td, tr{
-    background-color: #F8F8F8;
-    text-align: center;
+table,
+th,
+td,
+tr {
+  background-color: #f8f8f8;
+  text-align: center;
 }
 
-  
-.main-section{
-      margin:0 auto;
-      margin-top:10%;
-      padding: 0;
-  }
+.main-section {
+  margin: 0 auto;
+  margin-top: 10%;
+  padding: 0;
+}
 
-.modal-content{
-      background-color: #F1F1F1;
-      opacity: .75;
-      padding: 0 5px;
-      box-shadow: 0px 0px 3px #F1F1F1;
-  }
+.modal-content {
+  background-color: #f1f1f1;
+  opacity: 0.75;
+  padding: 0 5px;
+  box-shadow: 0px 0px 3px #f1f1f1;
+}
 
-.button{
-      width: 20%;
-      margin: 10px 0 30px;
-  }
+.button {
+  width: 20%;
+  margin: 10px 0 30px;
+}
 
-.forgot{
-      padding: 5px 0;
-  }
+.forgot {
+  padding: 5px 0;
+}
 
-.forgot a{
-      color: white;
-  }
-  /* Para el login */
-IMG.imgcenter{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    border:none;
+.forgot a {
+  color: white;
+}
+/* Para el login */
+img.imgcenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
 }
 
 .errorRojo {
-    color: red;
+  color: red;
 }
-
-
 </style>

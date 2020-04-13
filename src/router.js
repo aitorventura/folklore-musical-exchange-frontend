@@ -13,6 +13,7 @@ import GetMGroupComponent from "@/components/musicalgroup/MGroup";
 import GetMusicalExchangeComponent from "@/components/musicalexchange/MusicalExchange";
 import GetPersonComponent from "@/components/person/Person";
 import HomeComponent from "@/components/home/Home";
+import LoginComponent from "@/views/Login";
 
 Vue.use(Router);
 
@@ -20,6 +21,7 @@ export default new Router({
   mode: "history",
   routes: [
     { path: "/", name: "Home", component: HomeComponent },
+    { path: "/login", name: "Login", component: LoginComponent },
     { path: "/listPeople", name: "PeopleList", component: PeopleComponent },
     { path: "/listMGroups", name: "MGroupList", component: MGroupsComponent },
     {
