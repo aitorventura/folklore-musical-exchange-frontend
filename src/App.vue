@@ -51,6 +51,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="/musicalexchange/create">Create Musical Exchanges</a>
               </li>
+               <li class="nav-item">
+                <a class="nav-link" href ="#" @click="logout">Logout</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -60,6 +63,20 @@
   </div>
 </template>
 
+
+
+<script>
+import router from './router'
+export default {
+  methods: {
+    logout(){
+      localStorage.clear()
+      router.push({ name: "Home" });
+
+    }
+  }
+}
+</script>
 <style scoped>
 .jumbotron {
   background-color: #465bff;
@@ -216,3 +233,4 @@ img.imgcenter {
   color: red;
 }
 </style>
+

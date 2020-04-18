@@ -1,57 +1,7 @@
-<style scoped>
-body {
-  font: 400 15px/1.8 Lato, sans-serif;
-  color: #777;
-  background: #2d2d30;
-} /*
-.bg-1 {
-  background: #2d2d30;
-}*/
-.btn {
-  padding: 10px 20px;
-  background-color: #333;
-  color: #f1f1f1;
-  border-radius: 0;
-  transition: 0.2s;
-}
-.btn:hover,
-.btn:focus {
-  border: 1px solid #333;
-  background-color: #fff;
-  color: #000;
-}
-.modal-header,
-.close {
-  background-color: #333;
-  text-align: center;
-  font-size: 30px;
-}
-.modal-header,
-.modal-body {
-  padding: 40px 50px;
-}
-#app {
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  display: flex;
-  height: 100%;
-  background: #2d2d30;
-}
-
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-</style>
 
 <template>
 <body>
-  <link
-    rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
-  />
+
   <br />
   <br />
   <br />
@@ -95,3 +45,41 @@ body {
   </div>
 </body>
 </template>
+
+<script>
+import { server } from "../helper";
+import axios from "axios";
+import router from "../router"
+export default {
+  data() {
+    return {
+      username: "",
+      password: "",
+    };
+  },
+  methods: {
+    login() {
+      let userData = {
+        username: this.username,
+        password: this.password,
+      };
+      this.__submitToServer(userData);
+    },
+    __submitToServer(data) {
+      axios.post(`${server.baseURL}/login`, data).then(data => {
+        if(!data.data){
+          alert("Incorrect user or password")
+        } else { 
+          localStorage.setItem("token", data.data.token)
+          localStorage.setItem("role", data.data.role)
+          localStorage.setItem("id", data.data.id)
+          localStorage.setItem("listMusicalExchanges", data.data.listMusicalExchanges)
+          console.log( data.data.listMusicalExchanges)
+
+          router.push({ name: "Home" });
+        }
+      });
+    }
+  }
+};
+</script>
