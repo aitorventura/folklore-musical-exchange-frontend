@@ -1,50 +1,43 @@
 <template>
 <body>
-  <div id="app">
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
-    />
-    <br />
-    <br />
-    <br />
+  <br />
+  <br />
+  <br />
 
-    <div class="thumbnail">
-      <h4>
-        <strong>LOG IN</strong>
-      </h4>
-      <form @submit.prevent="login">
-        <div class="form-group col-md-12">
-          <label for="title">Userame</label>
-          <input
-            type="text"
-            id="username"
-            v-model="username"
-            name="title"
-            class="form-control"
-            placeholder="Enter username"
-            required
-          />
-        </div>
+  <div class="thumbnail">
+    <h3>
+      <strong>LOG IN</strong>
+    </h3>
+    <br />
+    <form @submit.prevent="login">
+      <div id="centro" class="form-group col-md-12">
+        <label for="title">Userame</label>
+        <input
+          type="text"
+          id="username"
+          v-model="username"
+          name="title"
+          class="form-control"
+          placeholder="Enter username"
+          required
+        />
+      </div>
 
-        <div class="form-group col-md-12">
-          <label for="title">Password</label>
-          <input
-            type="password"
-            id="password"
-            v-model="password"
-            name="title"
-            class="form-control"
-            placeholder="Enter password"
-            required
-          />
-        </div>
-
-        <!--<div class="form-group col-md-4 pull-right">-->
-        <button class="btn" data-toggle="modal" type="submit">Log in</button>
-        <!--</div>-->
-      </form>
-    </div>
+      <div class="form-group col-md-12">
+        <label for="title">Password</label>
+        <input
+          type="password"
+          id="password"
+          v-model="password"
+          name="title"
+          class="form-control"
+          placeholder="Enter password"
+          required
+        />
+      </div>
+      <button class="btn" type="submit">Log in</button>
+    </form>
+    <br />
   </div>
 </body>
 </template>
@@ -76,12 +69,12 @@ export default {
           localStorage.setItem("token", data.data.token);
           localStorage.setItem("role", data.data.role);
           localStorage.setItem("id", data.data.id);
+          localStorage.setItem("username", data.data.username); //
           localStorage.setItem(
             "listMusicalExchanges",
             data.data.listMusicalExchanges
           );
           console.log(data.data.listMusicalExchanges);
-          //FIXME: En lugar de Home tendría que ser dónde quería acceder? O cómo?
           router.push({ name: "Home" });
         }
       });
@@ -92,6 +85,17 @@ export default {
 
 
 <style scoped>
+.thumbnail {
+  line-height: 100%;
+  border-color: #fff;
+  border-left-width: 0.5cm;
+  border-right-width: 0.5cm;
+}
+#centro {
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 body {
   font: 400 15px/1.8 Lato, sans-serif;
   color: #777;
@@ -107,7 +111,7 @@ body {
   display: flex;
 }
 .btn {
-  padding: 10px 20px;
+  padding: 6px 15px;
   background-color: #333;
   color: #f1f1f1;
   border-radius: 0;
