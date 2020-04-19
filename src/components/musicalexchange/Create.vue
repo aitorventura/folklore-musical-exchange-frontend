@@ -14,8 +14,9 @@
       <h2>Create Musical Exchange</h2>
       <form id="create-post-form" @submit.prevent="createMusicalExchange">
         <!-- Si no queréis que esté centrado quitadle el align="center"-->
+        <!--
         <div class="form-group col-md-12" align="center">
-          <label for="title">idMGroupA</label>
+          <label for="title">Nombre agrupación</label>
           <br />
           <tr>
             <select v-model="idMGroupA" id="idMGroupA">
@@ -27,10 +28,11 @@
             </select>
           </tr>
         </div>
+        -->
 
         <!-- Si no queréis que esté centrado quitadle el align="center"-->
         <div class="form-group col-md-12" align="center">
-          <label for="title">idMGroupB</label>
+          <label for="title">Nombre agrupación</label>
           <br />
           <tr>
             <select v-model="idMGroupB" id="idMGroupB">
@@ -148,7 +150,7 @@
 import axios from "axios";
 import { server } from "../../helper";
 import router from "../../router";
-//import { BCalendar } from "bootstrap-vue";
+import { locale } from "moment";
 
 export default {
   data() {
@@ -170,7 +172,7 @@ export default {
   methods: {
     createMusicalExchange() {
       let musicalexchangeData = {
-        idMGroupA: this.idMGroupA,
+        idMGroupA: localStorage.getItem("id"),
         idMGroupB: this.idMGroupB,
         date: this.date,
         place: this.place,
@@ -200,8 +202,10 @@ export default {
       }
     },
     getMGroups() {
-      axios
-        .get(`${server.baseURL}/musicalgroup`)
+      axios //TODO: Estoyu haciendo la prueba
+        .get(
+          `${server.baseURL}/musicalgroup/others/` + localStorage.getItem("id")
+        )
         .then(data => (this.mgroups = data.data));
     }
   }

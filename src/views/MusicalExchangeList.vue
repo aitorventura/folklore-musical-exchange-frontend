@@ -103,7 +103,6 @@ export default {
   },
   filters: {
     moment: function(date) {
-      //TODO: He puesto HH para que salga formato 24h
       return moment(date).format("DD/MM/YYYY, HH:mm");
     }
   }
