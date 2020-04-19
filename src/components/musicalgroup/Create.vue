@@ -12,7 +12,11 @@
 
     <div class="col-md-12 form-wrapper">
       <h2>Create Musical Group</h2>
-      <form id="create-post-form" @submit.prevent="createMusicalGroup">
+      <form
+        id="create-post-form"
+        @submit.prevent="createMusicalGroup"
+        enctype="multipart/form-data"
+      >
         <div class="form-group col-md-12">
           <label for="title">Name</label>
           <input
@@ -118,7 +122,16 @@
         </div>
         <div class="form-group col-md-12">
           <label for="title">Image</label>
-          <input type="file" id="image" name="title" class="form-control" placeholder="Enter image" />
+          <input
+            type="file"
+            id="image"
+            @change="onFileChange"
+            name="title"
+            class="form-control"
+            placeholder="Enter image"
+            accept="image/*"
+            multiple="false"
+          />
         </div>
 
         <div class="form-group col-md-4 pull-right">
@@ -166,6 +179,22 @@ export default {
         image: this.image
       };
       this.__submitToServer(mgroupData);
+    },
+    onFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(files[0]);
+    },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = e => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      this.image = image;
     },
     __submitToServer(data) {
       axios.post(`${server.baseURL}/musicalgroup/create`, data).then(data => {
