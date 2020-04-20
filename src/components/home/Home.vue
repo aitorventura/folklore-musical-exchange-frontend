@@ -54,7 +54,7 @@
 
         
         <p>Conoce ya los diferentes tipos de agrupación musical y comienza a hacer todos los preparativos para el intercambio.</p>
-
+        <br>
         <div class="row">
             <div class="col-sm-4">
                 <p><strong>Dolçaina i tabal</strong></p><br>
