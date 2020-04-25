@@ -14,38 +14,24 @@
 
     <!-- <div class="row"> -->
     <div class>
-      <input type="text" v-model="searchName" placeholder="Search by name" style="margin: 10px" />
-      <input type="text" v-model="searchCity" placeholder="Search by city" style="margin: 10px" />
-      <input type="text" v-model="searchType" placeholder="Search by city" style="margin: 10px" />
-      <ejs-multiselect
-        :id="searchType"
-        v-model="searchTypeA"
-        :dataSource="nameTypes"
-        placeholder="Select a type"
-        mode="CheckBox"
-        :fields="fields"
-        :showSelectAll="showSelectAll"
-        selectAllText="Select All"
-        unSelectAllText="Unselect All"
-      ></ejs-multiselect>
-      <!--<button v-on:click="mostrarValor">Valor</button>-->
+      <div>
+        <input type="text" v-model="searchName" placeholder="Search by name" style="margin: 10px" />
+        <input type="text" v-model="searchCity" placeholder="Search by city" style="margin: 10px" />
 
-      <!--:maximumSelectionLength="maximumSelectionLength"-->
-      <!--<input type="text" v-model="searchType" placeholder="Search by type" style="margin: 10px" />-->
-      <select v-model="searchTypeA" :options="nameTypes" id="nameType">
-        <option v-for="type in nameTypes" :key="type.name">
-          {{
-          type.name
-          }}
-        </option>
-      </select>
+        <ejs-multiselect
+          :id="searchType"
+          v-model="searchType"
+          :dataSource="nameTypes"
+          placeholder="Select a type"
+          mode="CheckBox"
+          :fields="fields"
+          :showSelectAll="showSelectAll"
+          selectAllText="Seleccionar todos"
+          unSelectAllText="Deseleccionar todos"
+          width="200px"
+        ></ejs-multiselect>
+      </div>
 
-      <!--b-dropdown id="dropdown-1" text="Select a group type">
-        <b-dropdown-item>Charanga</b-dropdown-item>
-        <b-dropdown-item>Rondalla</b-dropdown-item>
-        <b-dropdown-item>Orquesta</b-dropdown-item>
-        <b-dropdown-item>Banda</b-dropdown-item>
-      </b-dropdown-->
       <table class="table table-bordered">
         <thead class="thead-dark">
           <tr>
@@ -69,7 +55,8 @@
             <td>{{ mgroup.description }}</td>
             <td>{{ mgroup.members }}</td>
             <td>
-              <img v-bind: charset="UTF-8" src="mgroup.image" />
+              <img v-bind:src="mgroup.image" />
+              <!--<img v-bind: charset="UTF-8" src="mgroup.image" />-->
             </td>
             <td>
               <div class="d-flex justify-content-between align-items-center">
@@ -116,8 +103,6 @@ export default {
       searchName: "",
       searchCity: "",
       searchType: [],
-      searchType1: [],
-      searchTypeA: [],
       nameTypes: [],
       fields: { text: "name", value: "name" },
       /*maximumSelectionLength: "",*/
@@ -131,13 +116,10 @@ export default {
   computed: {
     filterName() {
       return this.mgroups.filter(mgroup => {
-        //TODO: Se ha de buscar alguna manera para que coincida con toda la array, no sé si se usa match o no
-        //https://stackoverflow.com/questions/49895936/vue-js-how-to-split-string-to-array-and-use-in-v-for-list-renderer
         return (
           mgroup.name.toLowerCase().match(this.searchName.toLowerCase()) &&
           mgroup.city.toLowerCase().match(this.searchCity.toLowerCase()) &&
-          mgroup.nameType.match(this.searchTypeA)
-          //this.searchNameTypes()
+          this.isType(mgroup.nameType)
         );
       });
     }
@@ -169,30 +151,16 @@ export default {
           )
         );
     },
-    searchNameTypes() {
-      if (this.searchTypeA.length != 0) {
-        //alert("searchNameTypes");
-        //var length = this.searchTypeA.length;
-        //alert("lenght: " + this.searchTypeA.length);
-        for (var i = 0; i < this.searchTypeA.length; i++) {
-          //this.searchType1 = this.mgroups.nameType.match(this.searchTypeA[i]);
-          alert(
-            "SearchaType 1: " + this.mgroups.nameType.match(this.searchTypeA[i])
-          );
-          for (
-            var j = 0;
-            j < this.mgroups.nameType.match(this.searchTypeA[i]).length;
-            j++
-          ) {
-            this.searchType.push(
-              this.mgroups.nameType.match(this.searchTypeA[i])[j]
-            );
+    isType(mgroupType) {
+      if (this.searchType.length != 0) {
+        for (var i = 0; i < this.searchType.length; i++) {
+          if (mgroupType.toLowerCase() === this.searchType[i].toLowerCase()) {
+            return true;
           }
-          //alert("Search name types: " + this.searchType);
-          return this.searchType;
         }
+        return false;
       } else {
-        return this.mgroups;
+        return true;
       }
     }
   }
