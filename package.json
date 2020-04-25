@@ -9,9 +9,11 @@
   },
   "dependencies": {
     "@syncfusion/ej2-dropdowns": "^18.1.44",
+    "@syncfusion/ej2-vue-calendars": "^18.1.44",
     "@syncfusion/ej2-vue-charts": "*",
     "@syncfusion/ej2-vue-dropdowns": "^18.1.44",
     "@syncfusion/ej2-vue-grids": "*",
+    "@syncfusion/ej2-vue-inputs": "^18.1.45",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.10.1",
