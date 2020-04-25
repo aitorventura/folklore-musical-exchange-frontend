@@ -16,7 +16,29 @@
     <div class>
       <input type="text" v-model="searchName" placeholder="Search by name" style="margin: 10px" />
       <input type="text" v-model="searchCity" placeholder="Search by city" style="margin: 10px" />
-      <input type="text" v-model="searchType" placeholder="Search by type" style="margin: 10px" />
+      <input type="text" v-model="searchType" placeholder="Search by city" style="margin: 10px" />
+      <ejs-multiselect
+        :id="searchType"
+        v-model="searchTypeA"
+        :dataSource="nameTypes"
+        placeholder="Select a type"
+        mode="CheckBox"
+        :fields="fields"
+        :showSelectAll="showSelectAll"
+        selectAllText="Select All"
+        unSelectAllText="Unselect All"
+      ></ejs-multiselect>
+      <!--<button v-on:click="mostrarValor">Valor</button>-->
+
+      <!--:maximumSelectionLength="maximumSelectionLength"-->
+      <!--<input type="text" v-model="searchType" placeholder="Search by type" style="margin: 10px" />-->
+      <select v-model="searchTypeA" :options="nameTypes" id="nameType">
+        <option v-for="type in nameTypes" :key="type.name">
+          {{
+          type.name
+          }}
+        </option>
+      </select>
 
       <!--b-dropdown id="dropdown-1" text="Select a group type">
         <b-dropdown-item>Charanga</b-dropdown-item>
@@ -80,25 +102,42 @@
 <script>
 import { server } from "../helper";
 import axios from "axios";
+import Vue from "vue";
+import { MultiSelectPlugin } from "@syncfusion/ej2-vue-dropdowns";
+import { MultiSelect, CheckBoxSelection } from "@syncfusion/ej2-dropdowns";
+MultiSelect.Inject(CheckBoxSelection);
+
+Vue.use(MultiSelectPlugin);
+
 export default {
   data() {
     return {
       mgroups: [],
       searchName: "",
       searchCity: "",
-      searchType: ""
+      searchType: [],
+      searchType1: [],
+      searchTypeA: [],
+      nameTypes: [],
+      fields: { text: "name", value: "name" },
+      /*maximumSelectionLength: "",*/
+      showSelectAll: true
     };
   },
   created() {
     this.fetchMGroups();
+    this.getNameTypes();
   },
   computed: {
     filterName() {
       return this.mgroups.filter(mgroup => {
+        //TODO: Se ha de buscar alguna manera para que coincida con toda la array, no sé si se usa match o no
+        //https://stackoverflow.com/questions/49895936/vue-js-how-to-split-string-to-array-and-use-in-v-for-list-renderer
         return (
           mgroup.name.toLowerCase().match(this.searchName.toLowerCase()) &&
           mgroup.city.toLowerCase().match(this.searchCity.toLowerCase()) &&
-          mgroup.nameType.toLowerCase().match(this.searchType.toLowerCase())
+          mgroup.nameType.match(this.searchTypeA)
+          //this.searchNameTypes()
         );
       });
     }
@@ -119,7 +158,51 @@ export default {
           );
         }
       });
+    },
+    getNameTypes() {
+      axios
+        .get(`${server.baseURL}/type`)
+        .then(
+          data => (
+            (this.nameTypes = data.data),
+            (this.maximumSelectionLength = data.data.length)
+          )
+        );
+    },
+    searchNameTypes() {
+      if (this.searchTypeA.length != 0) {
+        //alert("searchNameTypes");
+        //var length = this.searchTypeA.length;
+        //alert("lenght: " + this.searchTypeA.length);
+        for (var i = 0; i < this.searchTypeA.length; i++) {
+          //this.searchType1 = this.mgroups.nameType.match(this.searchTypeA[i]);
+          alert(
+            "SearchaType 1: " + this.mgroups.nameType.match(this.searchTypeA[i])
+          );
+          for (
+            var j = 0;
+            j < this.mgroups.nameType.match(this.searchTypeA[i]).length;
+            j++
+          ) {
+            this.searchType.push(
+              this.mgroups.nameType.match(this.searchTypeA[i])[j]
+            );
+          }
+          //alert("Search name types: " + this.searchType);
+          return this.searchType;
+        }
+      } else {
+        return this.mgroups;
+      }
     }
   }
 };
 </script>
+
+<style>
+@import url(http://cdn.syncfusion.com/ej2/material.css);
+@import "../../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "../../node_modules/@syncfusion/ej2-vue-dropdowns/styles/material.css";
+@import "../../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+</style>
