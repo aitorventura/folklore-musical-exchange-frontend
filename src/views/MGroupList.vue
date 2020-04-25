@@ -46,7 +46,9 @@
             <td>{{ mgroup.nameType }}</td>
             <td>{{ mgroup.description }}</td>
             <td>{{ mgroup.members }}</td>
-            <td>{{ mgroup.image }}</td>
+            <td>
+              <img v-bind: charset="UTF-8" src="mgroup.image" />
+            </td>
             <td>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group" style="margin-bottom: 20px;">

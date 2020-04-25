@@ -181,6 +181,8 @@ export default {
       this.__submitToServer(mgroupData);
     },
     onFileChange(e) {
+      //this.image = e.target.files[0];
+      //console.log("Nombre imagen: ", this.image.name);
       var files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       this.createImage(files[0]);
@@ -197,31 +199,41 @@ export default {
       this.image = image;
     },
     __submitToServer(data) {
-      axios.post(`${server.baseURL}/musicalgroup/create`, data).then(data => {
-        if (data.data === 0) {
-          router.push({ name: "MGroupList" });
-        } else {
-          if (data.data === 1) {
-            alert(
-              "El correo que quiere usar ya está registrado en la plataforma, por favor, pruebe con otro."
+      axios
+        .post(`${server.baseURL}/musicalgroup/create`, data, {
+          onUploadProgress: uploadEvent => {
+            console.log(
+              "Upload progress: " +
+                Math.round((uploadEvent.loaded / uploadEvent.total) * 100) +
+                "%"
             );
+          }
+        })
+        .then(data => {
+          if (data.data === 0) {
+            router.push({ name: "MGroupList" });
           } else {
-            if (data.data === 2) {
+            if (data.data === 1) {
               alert(
-                "El usuario que quiere emplear ya está registrado en la plataforma, por favor, pruebe con otro."
+                "El correo que quiere usar ya está registrado en la plataforma, por favor, pruebe con otro."
               );
             } else {
-              if (data.data === 3) {
-                alert("Error al crear el usuario");
+              if (data.data === 2) {
+                alert(
+                  "El usuario que quiere emplear ya está registrado en la plataforma, por favor, pruebe con otro."
+                );
               } else {
-                if (data.data === 4) {
-                  alert("Error al crear la agrupación");
+                if (data.data === 3) {
+                  alert("Error al crear el usuario");
+                } else {
+                  if (data.data === 4) {
+                    alert("Error al crear la agrupación");
+                  }
                 }
               }
             }
           }
-        }
-      });
+        });
     },
     getNameTypes() {
       axios
