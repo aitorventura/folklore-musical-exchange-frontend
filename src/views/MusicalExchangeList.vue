@@ -24,11 +24,14 @@
             width="200px"
           ></ejs-textbox>
 
+          <!--<button v-on:click="prueba">Prueba</button>-->
+
           <ejs-datepicker
             v-model="searchDate"
             :placeholder="waterMark"
             :format="dateFormat"
             width="150px"
+            hide="hideS"
           ></ejs-datepicker>
 
           <ejs-multiselect
@@ -44,6 +47,35 @@
             width="300px"
           ></ejs-multiselect>
         </div>
+
+        <!--<ejs-multiselect
+          v-model="dateType"
+          :dataSource="dateTypes"
+          placeholder="Select how to search a date"
+          :fields="fieldsDate"
+          width="300px"
+          :value="simple"
+          :maximumSelectionLength="1"
+        ></ejs-multiselect>-->
+
+        <!--<ejs-splitbutton v-model="dateType" :items="dateTypes" :fields="fieldsDate" content="simple"></ejs-splitbutton>-->
+        <!--<ejs-combobox
+          v-model="dateType"
+          :fields="fieldsDate"
+          :dataSource="dateTypes"
+          placeholder="Select how to search a date"
+          width="300px"
+        ></ejs-combobox>-->
+
+        <!--
+        <ejs-daterangepicker
+          v-model="searchDates"
+          :placeholder="placeholder"
+          width="200px"
+          format="dd/MM/yyyy"
+        ></ejs-daterangepicker>
+        -->
+
         <table class="table table-bordered">
           <thead class="thead-dark">
             <tr>
@@ -108,6 +140,7 @@
   </body>
 </template>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
 <script>
 import { server } from "../helper";
 import axios from "axios";
@@ -123,10 +156,21 @@ import { MultiSelectPlugin } from "@syncfusion/ej2-vue-dropdowns";
 import { MultiSelect, CheckBoxSelection } from "@syncfusion/ej2-dropdowns";
 MultiSelect.Inject(CheckBoxSelection);
 Vue.use(MultiSelectPlugin);
-import { DatePickerPlugin } from "@syncfusion/ej2-vue-calendars";
+import {
+  DatePickerPlugin,
+  DateRangePickerPlugin,
+} from "@syncfusion/ej2-vue-calendars";
 Vue.use(DatePickerPlugin);
 import { TextBoxPlugin } from "@syncfusion/ej2-vue-inputs";
 Vue.use(TextBoxPlugin);
+/*
+import { SplitButtonPlugin } from "@syncfusion/ej2-vue-splitbuttons";
+import { enableRipple } from "@syncfusion/ej2-base";
+enableRipple(true);
+Vue.use(SplitButtonPlugin);*/
+import { ComboBoxPlugin } from "@syncfusion/ej2-vue-dropdowns";
+Vue.use(ComboBoxPlugin);
+Vue.use(DateRangePickerPlugin);
 
 export default {
   data() {
@@ -140,6 +184,18 @@ export default {
       showSelectAll: true,
       waterMark: "Select a date",
       dateFormat: "dd-MM-yyyy",
+      searchDates: null,
+      fechas: [],
+      /*
+      dateType: "",
+      dateTypes: [
+        { name: "range", text: "Search between dates" },
+        { name: "simple", text: "Search from a date" },
+      ],
+      fieldsDate: { text: "text", value: "name" },
+      hideS: false, //
+      hideR: false,*/
+      placeholder: "Search between dates",
     };
   },
   created() {
@@ -159,9 +215,23 @@ export default {
           ) &&
           this.filterByDate(
             moment(musicalexchange.date).format("DD/MM/YYYY, HH:mm")
-          )
+          ) &&
+          this.inRange(moment(musicalexchange.date).format("DD/MM/YYYY, HH:mm"))
         );
       });
+    },
+    showDate() {
+      if (
+        this.dateType === undefined ||
+        this.dateType === null ||
+        this.dateType === "simple"
+      ) {
+        //Seleccionar fecha simple
+        return this.showSimple;
+      } else {
+        //Seleccionar rango de fechas
+        return this.showRange;
+      }
     },
   },
   methods: {
@@ -203,6 +273,38 @@ export default {
         return true;
       }
       return false;
+    } /*
+    showSimple() {
+      this.hideS = true;
+      this.hideR = false;
+    },
+    showRange() {
+      this.hideR = true;
+      this.hideS = false;
+    },*/,
+    inRange(date) {
+      if (this.searchDates) {
+        //alert(" : " + this.searchDates);
+        this.fechas = this.searchDates.split(",");
+        alert(this.searchDates.split(","));
+        //alert("fechas[0]: " + moment(this.fechas[0], "DD/MM/YYYY"));
+        if (
+          moment(date, "DD/MM/YYYY").diff(
+            moment(this.fechas[0], "DD/MM/YYYY")
+          ) >= 0 &&
+          moment(date, "DD/MM/YYYY").diff(
+            moment(this.fechas[1], "DD/MM/YYYY")
+          ) <= 0
+        ) {
+          return true;
+        }
+        return false;
+      } else {
+        return true;
+      }
+    },
+    prueba: function() {
+      alert("searchDates " + this.searchDates + " length: ");
     },
   },
   filters: {
@@ -214,7 +316,6 @@ export default {
 </script>
 
 <style>
-@import url(http://cdn.syncfusion.com/ej2/material.css);
 @import "../../node_modules/@syncfusion/ej2-base/styles/material.css";
 @import "../../node_modules/@syncfusion/ej2-inputs/styles/material.css";
 @import "../../node_modules/@syncfusion/ej2-vue-dropdowns/styles/material.css";
@@ -222,7 +323,9 @@ export default {
 @import "../../node_modules/@syncfusion/ej2-popups/styles/material.css";
 @import "../../node_modules/@syncfusion/ej2-vue-calendars/styles/material.css";
 @import "../../node_modules/@syncfusion/ej2-vue-inputs/styles/material.css";
-
+@import "../../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
+@import "../../node_modules/@syncfusion/ej2-vue-dropdowns/styles/material.css";
+@import "../../node_modules/@syncfusion/ej2-lists/styles/material.css";
 .wrap {
   box-sizing: border-box;
   margin: 0 auto;
