@@ -151,7 +151,7 @@ export default {
         .then((data) => (this.mgroups = data.data));
     },
     deleteMGroup(id) {
-      axios.delete(`${server.baseURL}/musicalgroup/${id}`).then((data) => {
+      axios.delete(`${server.baseURL}/musicalgroup/${id}`, {headers: {token: localStorage.token}}).then((data) => {
         if (data.data) {
           window.location.reload();
         } else {

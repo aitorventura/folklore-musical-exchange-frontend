@@ -79,11 +79,11 @@ export default {
   methods: {
     fetchPeople() {
       axios
-        .get(`${server.baseURL}/person`)
+        .get(`${server.baseURL}/person`, {headers: {token: localStorage.token}})
         .then(data => (this.people = data.data));
     },
     deletePerson(id) {
-      axios.delete(`${server.baseURL}/person/${id}`).then(data => {
+      axios.delete(`${server.baseURL}/person/${id}`, {headers: {token: localStorage.token}}).then(data => {
         console.log(data);
         window.location.reload();
       });

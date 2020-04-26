@@ -107,7 +107,7 @@ export default {
         email: this.person.email
       };
       axios
-        .put(`${server.baseURL}/person/${this.id}`, personData)
+        .put(`${server.baseURL}/person/${this.id}`, personData, {headers: {token: localStorage.token}})
         .then(data => {
           if (data.data === 0) {
             router.push({ name: "PeopleList" });
@@ -136,7 +136,7 @@ export default {
     },
     getPerson() {
       axios
-        .get(`${server.baseURL}/person/${this.id}`)
+        .get(`${server.baseURL}/person/${this.id}`, {headers: {token: localStorage.token}})
         .then(data => (this.person = data.data));
     },
     navigate() {

@@ -171,7 +171,7 @@ export default {
         .then((data) => (this.musicalexchanges = data.data));
     },
     deleteMGroup(id) {
-      axios.delete(`${server.baseURL}/musicalexchange/${id}`).then((data) => {
+      axios.delete(`${server.baseURL}/musicalexchange/${id}`, {headers: {token: localStorage.token}}).then((data) => {
         window.location.reload();
       });
     },
