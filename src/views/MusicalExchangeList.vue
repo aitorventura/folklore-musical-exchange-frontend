@@ -12,7 +12,6 @@
       </div>
     </div>
 
-    <!-- Solo queda cambiar los valores de aquí y ya -->
     <div class>
       <div>
         <ejs-textbox
@@ -23,8 +22,6 @@
           placeholder="Search by place"
           width="150px"
         ></ejs-textbox>
-
-        <!--<button v-on:click="prueba">Prueba</button>-->
 
         <ejs-datepicker
           v-model="searchDateS"
@@ -48,6 +45,81 @@
           width="300px"
         ></ejs-multiselect>
       </div>
+
+      <!-- VERSIÓN NUEVA
+        <div id="app">
+          <ejs-grid
+            :dataSource="filterName"
+            :allowPaging="true"
+            :allowSorting="true"
+            :allowFiltering="true"
+            :pageSettings="pageSettings"
+            :toolbar="toolbarOptions"
+            :editSettings="editSettings"
+          >
+            <e-columns>
+              <e-column
+                field="nombreMA"
+                headerText="Agrupation name"
+                textAlign="Center"
+                width="100"
+              ></e-column>
+              <e-column
+                field="nombreMA"
+                headerText="Agrupation name"
+                textAlign="Center"
+                width="100"
+              ></e-column>
+              <e-column
+                field="date"
+                headerText="Date"
+                textAlign="Center"
+                width="80"
+              ></e-column>
+              <e-column
+                field="place"
+                headerText="Place"
+                textAlign="Center"
+                width="80"
+              ></e-column>
+              <e-column
+                field="description"
+                headerText="Description"
+                textAlign="Center"
+                width="150"
+              ></e-column>
+              <e-column
+                field="repertoire"
+                headerText="Repertoire"
+                textAlign="Center"
+                width="150"
+              ></e-column>
+              <e-column
+                field="neededMoney"
+                headerText="Needed money"
+                textAlign="Center"
+                width="90"
+              ></e-column>
+              <e-column
+                field="crowdfundingLink"
+                headerText="Crowdfunding link"
+                textAlign="Center"
+                width="90"
+              ></e-column>
+            </e-columns>
+          </ejs-grid>
+        </div>
+      </div>
+      -->
+
+      <!--
+        <ejs-dropdownlist
+          v-model="sortBy"
+          :dataSource="sort"
+          :showClearButton="true"
+          placeholder="Sort by"
+        ></ejs-dropdownlist>
+      -->
 
       <!--<ejs-multiselect
           v-model="dateType"
@@ -97,7 +169,6 @@
             <td>
               <span>{{ musicalexchange.date | moment }}</span>
             </td>
-            <!--<td>{{ musicalexchange.date }}</td>-->
             <td>{{ musicalexchange.place }}</td>
             <td>{{ musicalexchange.description }}</td>
             <td>{{ musicalexchange.repertoire }}</td>
@@ -108,17 +179,17 @@
                 <div class="btn-group" style="margin-bottom: 20px;">
                   <router-link
                     :to="{
-                        name: 'EditME',
-                        params: { id: musicalexchange.id },
-                      }"
+                      name: 'EditME',
+                      params: { id: musicalexchange.id },
+                    }"
                     class="btn btn-sm btn-outline-secondary"
                   >Edit Exchange</router-link>
 
                   <router-link
                     :to="{
-                        name: 'GetME',
-                        params: { id: musicalexchange.id },
-                      }"
+                      name: 'GetME',
+                      params: { id: musicalexchange.id },
+                    }"
                     class="btn btn-sm btn-outline-primary"
                   >Show Exchange</router-link>
 
@@ -141,33 +212,38 @@
 <script>
 import { server } from "../helper";
 import axios from "axios";
-import moment from "moment";
-//import moment from "moment-timezone";
-//Vue.prototype.moment = moment;
-// Load Locales ('en' comes loaded by default)
-require("moment/locale/es");
-// Choose Locale
-moment.locale("es");
 import Vue from "vue";
+/*MOMENT PARA LA FECHA*/
+import moment from "moment";
+require("moment/locale/es");
+moment.locale("es");
+/*DESPLEGABLES*/
 import { MultiSelectPlugin } from "@syncfusion/ej2-vue-dropdowns";
 import { MultiSelect, CheckBoxSelection } from "@syncfusion/ej2-dropdowns";
 MultiSelect.Inject(CheckBoxSelection);
 Vue.use(MultiSelectPlugin);
+/*FECHA*/
 import {
   DatePickerPlugin,
   DateRangePickerPlugin
 } from "@syncfusion/ej2-vue-calendars";
 Vue.use(DatePickerPlugin);
+Vue.use(DateRangePickerPlugin);
+/*ÁREA DE TEXTO*/
 import { TextBoxPlugin } from "@syncfusion/ej2-vue-inputs";
 Vue.use(TextBoxPlugin);
-/*
-import { SplitButtonPlugin } from "@syncfusion/ej2-vue-splitbuttons";
-import { enableRipple } from "@syncfusion/ej2-base";
-enableRipple(true);
-Vue.use(SplitButtonPlugin);*/
+/*DESPLEGABLE SIMPLE*/
+import { DropDownListPlugin } from "@syncfusion/ej2-vue-dropdowns";
+Vue.use(DropDownListPlugin);
+/*DESPLEGABLE SIMPLE + TEXTO*/
 import { ComboBoxPlugin } from "@syncfusion/ej2-vue-dropdowns";
 Vue.use(ComboBoxPlugin);
-Vue.use(DateRangePickerPlugin);
+/*FILTRO supuestamente para el orderBy (no funciona)*/
+import Vue2Filters from "vue2-filters";
+Vue.use(Vue2Filters);
+/*GRID donde se ven los datos, permite ordenar*/
+import { GridPlugin, Page, Sort } from "@syncfusion/ej2-vue-grids";
+Vue.use(GridPlugin);
 
 export default {
   data() {
@@ -182,8 +258,10 @@ export default {
       end: "Search before a date",
       fields: { text: "name", value: "name" },
       showSelectAll: true,
-      dateFormat: "dd-MM-yyyy",
-      fechas: []
+      dateFormat: "dd-MM-yyyy"
+      /*sort: ["nombreMA", "nombreMB", "date", "place", "neededMoney"],
+      sortBy: "nombreMA",*/
+      //pageSettings: { pageSize: 20 } (Para la versión nueva)
     };
   },
   created() {
@@ -204,19 +282,6 @@ export default {
           this.inRange(moment(musicalexchange.date).format("DD/MM/YYYY, HH:mm"))
         );
       });
-    },
-    showDate() {
-      if (
-        this.dateType === undefined ||
-        this.dateType === null ||
-        this.dateType === "simple"
-      ) {
-        //Seleccionar fecha simple
-        return this.showSimple;
-      } else {
-        //Seleccionar rango de fechas
-        return this.showRange;
-      }
     }
   },
   methods: {
@@ -313,19 +378,26 @@ export default {
         }
       }
       return true;
-    },
+    }
+    /*LO HE USADO PARA HACER PRUEBAS
     prueba: function() {
       alert("searchDates " + this.searchDates + " length: ");
-    }
+    }*/
   },
   filters: {
     moment: function(date) {
       return moment(date).format("DD/MM/YYYY, HH:mm");
     }
   }
+  /*SE USA PARA EL GRID PARA PODER ORDENAR Y MOSTRAR LA CANTIDAD DE PÁGINAS
+  provide: {
+    grid: [Page, Sort]
+  }*/
 };
 </script>
 
+
+<!--Imports para los componentes-->
 <style>
 @import "../../node_modules/@syncfusion/ej2-base/styles/material.css";
 @import "../../node_modules/@syncfusion/ej2-inputs/styles/material.css";
