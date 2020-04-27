@@ -143,7 +143,7 @@ export default {
       };
 
       axios
-        .put(`${server.baseURL}/person/${this.id}`, personAndSubscriptionsData)
+        .put(`${server.baseURL}/person/${this.id}`, personAndSubscriptionsData, {headers: {token: localStorage.token})
         .then(data => {
           if (data.data === 0) {
             router.push({ name: "PeopleList" });
@@ -172,7 +172,7 @@ export default {
     },
     getPerson() {
       axios
-        .get(`${server.baseURL}/person/${this.id}`)
+        .get(`${server.baseURL}/person/${this.id}`, {headers: {token: localStorage.token}})
         .then(data => (this.person = data.data));
     },
     getNameTypes() {

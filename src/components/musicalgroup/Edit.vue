@@ -147,7 +147,7 @@ export default {
         image: this.mgroup.image
       };
       axios
-        .put(`${server.baseURL}/musicalgroup/${this.id}`, mgroupData)
+        .put(`${server.baseURL}/musicalgroup/${this.id}`, mgroupData, {headers: {token: localStorage.token}})
         .then(data => {
           if (data.data === 0) {
             router.push({ name: "MusicalExchangeList" });

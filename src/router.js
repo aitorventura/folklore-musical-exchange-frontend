@@ -193,11 +193,11 @@ const router = new Router({
       name: "GetP",
       component: GetPersonComponent,
       meta: {
-        authenticated: false,
+        authenticated: true,
         isLogin: false,
-        hasToBePerson: false,
+        hasToBePerson: true,
         hasToBeGroup: false,
-        needId: false,
+        needId: true,
         isMusicalExchange: false
       }
     },

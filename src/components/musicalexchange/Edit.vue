@@ -139,7 +139,7 @@ export default {
       axios
         .put(
           `${server.baseURL}/musicalexchange/${this.id}`,
-          musicalexchangeData
+          musicalexchangeData, {headers: {token: localStorage.token}}
         )
         .then(data => {
           router.push({ name: "MusicalExchangeList" });

@@ -150,7 +150,7 @@
 import axios from "axios";
 import { server } from "../../helper";
 import router from "../../router";
-import { locale } from "moment";
+//import { locale } from "moment";
 
 export default {
   data() {
@@ -188,9 +188,32 @@ export default {
         alert("No puedes realizar un intercambio contigo mismo");
       } else {
         axios
-          .post(`${server.baseURL}/musicalexchange/create`, data)
+          .post(`${server.baseURL}/musicalexchange/create`, data , {headers: {token: localStorage.token}})
           .then(data => {
             if (data.data) {
+
+              axios.get(`${server.baseURL}/login/update`, {headers: {token: localStorage.token}})
+              .then(data => {
+                  localStorage.clear();
+                  localStorage.setItem("token", data.data.token);
+                  localStorage.setItem("role", data.data.role);
+                  localStorage.setItem("id", data.data.id);
+                  localStorage.setItem("username", data.data.username); //
+                  localStorage.setItem(
+                    "listMusicalExchanges",
+                    data.data.listMusicalExchanges
+                  );
+              })
+
+
+
+
+
+
+
+
+
+
               router.push({ name: "MusicalExchangeList" });
             } else {
               alert(

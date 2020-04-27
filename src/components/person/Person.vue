@@ -78,7 +78,7 @@ export default {
     },
     getPerson() {
       axios
-        .get(`${server.baseURL}/person/${this.id}`)
+        .get(`${server.baseURL}/person/${this.id}` , {headers: {token: localStorage.token}})
         .then(data => (this.person = data.data));
     },
     getSubscriptions() {
