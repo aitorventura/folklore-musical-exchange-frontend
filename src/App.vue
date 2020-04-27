@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div>
+    <div v-if="logged">
       <nav id="nav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -16,7 +16,69 @@
             </button>
             <a class="navbar-brand" href="/">
               <a>
-                <img src="./assets/logoBlanco.png" alt="logo" style="width:40px;" />
+                <img
+                  src="./assets/logoBlanco.png"
+                  alt="logo"
+                  style="width:40px;"
+                />
+              </a>
+            </a>
+            <ul class="nav navbar-nav navbar-left">
+              <li class="nav-item">
+                <a class="nav-link" href="/contacto">Contáctanos</a>
+              </li>
+            </ul>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/listPeople">ListPeople</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/listMGroups">List Musical Groups</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/listMusicalExchanges"
+                  >List Musical Exchanges</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/musicalexchange/create"
+                  >Create Musical Exchanges</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" @click="logout">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div v-if="!logged">
+      <nav id="nav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button
+              type="button"
+              class="navbar-toggle"
+              data-toggle="collapse"
+              data-target="#myNavbar"
+            >
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+              <a>
+                <img
+                  src="./assets/logoBlanco.png"
+                  alt="logo"
+                  style="width:40px;"
+                />
               </a>
             </a>
             <ul class="nav navbar-nav navbar-left">
@@ -34,25 +96,20 @@
                 <a class="nav-link" href="/login">Login</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/listPeople">ListPeople</a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link" href="/person/create">Create A Person</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/musicalgroup/create">Create A Musical Group</a>
+                <a class="nav-link" href="/musicalgroup/create"
+                  >Create A Musical Group</a
+                >
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/listMGroups">List Musical Groups</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/listMusicalExchanges">List Musical Exchanges</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/musicalexchange/create">Create Musical Exchanges</a>
-              </li>
-               <li class="nav-item">
-                <a class="nav-link" href ="#" @click="logout">Logout</a>
+                <a class="nav-link" href="/listMusicalExchanges"
+                  >List Musical Exchanges</a
+                >
               </li>
             </ul>
           </div>
@@ -63,19 +120,31 @@
   </div>
 </template>
 
-
-
 <script>
-import router from './router'
+import router from "./router";
 export default {
+  data() {
+    return {
+      logged: false
+    };
+  },
+  created() {
+    this.samePerson();
+  },
   methods: {
-    logout(){
-      localStorage.clear()
+    samePerson() {
+      if (localStorage.getItem("id") != null) {
+        this.logged = true;
+      } else {
+        this.logged = false;
+      }
+    },
+    logout() {
+      localStorage.clear();
       router.push({ name: "Home" });
-
     }
   }
-}
+};
 </script>
 <style scoped>
 .jumbotron {
@@ -233,4 +302,3 @@ img.imgcenter {
   color: red;
 }
 </style>
-

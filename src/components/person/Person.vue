@@ -3,44 +3,52 @@
     <br />
     <br />
     <br />
-    <div class="container-fluid">
-      <div class="text-center">
-        <h1>Person</h1>
-      </div>
-      <div v-if="person.id === null">
-        <h2>No user found at the moment</h2>
-      </div>
-      <!-- <div class="row"> -->
-      <div class>
-        <table class="table table-bordered">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Surname</th>
-              <th scope="col">Username</th>
-              <th scope="col">Email</th>
-              <th scope="col">City</th>
-              <th scope="col">Image</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{ person.name }}</td>
-              <td>{{ person.surname }}</td>
-              <td>{{ person.username }}</td>
-              <td>{{ person.email }}</td>
-              <td>{{ person.city }}</td>
-              <td>{{ person.image }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <!-- </div> -->
-      <div></div>
+    <br />
+    <div class="container">
+      <table class="table table-bordered">
+        <tr>
+          <td scope="col p-3" style="padding-right: 40px;">
+            <div class="bordered">
+              FOTOOOOO
+            </div>
+          </td>
+          <td scope="col" style="padding-left: 20px;">
+            <div class="text-left">
+              <h2>{{ person.name }} {{ person.surname }}</h2>
+              <h4>username: {{ person.username }}</h4>
+            </div>
+            <div class="text-left">
+              <br />
+              <p>Email: {{ person.email }}</p>
+              <p>City: {{ person.city }}</p>
+            </div>
+            <div class="text-left">
+              <br />
+              Suscriptions:
+              <p v-for="subscription in subscriptions" :key="subscription.id">
+                {{ subscription.nameType }}
+              </p>
+            </div>
+
+            <div class="text-right" v-if="logged">
+              <router-link
+                :to="{ name: 'Edit', params: { id: person.id } }"
+                class="btn btn-sm btn-outline-secondary"
+                >Edit person</router-link
+              >
+              <button
+                class="btn btn-sm btn-outline-danger"
+                v-on:click="deletePerson(person.id)"
+              >
+                Delete Person
+              </button>
+            </div>
+          </td>
+        </tr>
+      </table>
     </div>
   </body>
 </template>
-
 <script>
 import { server } from "../../helper";
 import axios from "axios";
@@ -49,27 +57,40 @@ export default {
   data() {
     return {
       id: 0,
-      person: {}
+      person: {},
+      subscriptions: [],
+      logged: false
     };
   },
   created() {
     this.id = this.$route.params.id;
     this.getPerson();
+    this.getSubscriptions();
+    this.samePerson();
   },
   methods: {
+    samePerson() {
+      if (this.id == localStorage.getItem("id")) {
+        this.logged = true;
+      } else {
+        this.logged = false;
+      }
+    },
     getPerson() {
       axios
         .get(`${server.baseURL}/person/${this.id}`)
         .then(data => (this.person = data.data));
     },
-    /* getSubscription() {
+    getSubscriptions() {
       axios
-        .get(`${server.baseURL}/person/${this.id}`)
+        .get(`${server.baseURL}/subscription/${this.id}`)
         .then(data => (this.subscriptions = data.data));
-    },*/
+    },
 
-    navigate() {
-      router.go(-1);
+    deletePerson(id) {
+      axios.delete(`${server.baseURL}/person/${id}`).then(data => {
+        window.push("Home");
+      });
     }
   }
 };
