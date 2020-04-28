@@ -31,17 +31,28 @@
             </div>
 
             <div class="text-right" v-if="logged">
-              <router-link
-                :to="{ name: 'Edit', params: { id: person.id } }"
-                class="btn btn-sm btn-outline-secondary"
-                >Edit person</router-link
-              >
+              <div>
+              <router-link 
+                      :to="{ name: 'Edit', params: { id: person.id } }"
+                      class="btn btn-sm btn-outline-secondary"
+                      >
+                      <span v-on:click="reload">Edit person
+                      </span>
+                      
+                      </router-link
+                    > 
+                     <router-link 
+                      :to="{ name: 'GetP', params: { id: person.id } }"
+                      class="btn btn-sm btn-outline-primary"
+                      >Show Person</router-link
+                    >
               <button
                 class="btn btn-sm btn-outline-danger"
                 v-on:click="deletePerson(person.id)"
               >
                 Delete Person
               </button>
+              </div>
             </div>
           </td>
         </tr>
@@ -52,7 +63,6 @@
 <script>
 import { server } from "../../helper";
 import axios from "axios";
-import router from "../../router";
 export default {
   data() {
     return {
@@ -91,7 +101,11 @@ export default {
       axios.delete(`${server.baseURL}/person/${id}`).then(data => {
         window.push("Home");
       });
+    },
+    reload(){
+        window.location.reload();
     }
+   
   }
 };
 </script>

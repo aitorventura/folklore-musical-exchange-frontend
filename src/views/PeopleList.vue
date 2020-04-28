@@ -34,7 +34,7 @@
               <td>{{ person.city }}</td>
               <td>{{ person.image }}</td>
               <td>
-                <div class="d-flex justify-content-between align-items-center">
+                <div  class="d-flex justify-content-between align-items-center">
                   <div class="btn-group" style="margin-bottom: 20px;">
                     <router-link
                       :to="{ name: 'Edit', params: { id: person.id } }"

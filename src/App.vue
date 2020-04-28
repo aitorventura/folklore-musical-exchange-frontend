@@ -135,13 +135,19 @@ export default {
     samePerson() {
       if (localStorage.getItem("id") != null) {
         this.logged = true;
+                console.log(this.logged)
+
       } else {
         this.logged = false;
+                console.log(this.logged)
+
       }
     },
     logout() {
       localStorage.clear();
       router.push({ name: "Home" });
+      window.location.reload()
+
     }
   }
 };
