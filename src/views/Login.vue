@@ -43,6 +43,7 @@
 </template>
 
 <script>
+
 import { server } from "../helper";
 import axios from "axios";
 import router from "../router";
@@ -74,6 +75,7 @@ export default {
             "listMusicalExchanges",
             data.data.listMusicalExchanges
           );
+          window.location.reload()
           console.log(data.data.listMusicalExchanges);
           router.push({ name: "Home" });
         }
