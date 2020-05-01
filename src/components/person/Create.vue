@@ -84,9 +84,18 @@
           />
         </div>
 
-        <div class="form-group col-md-12">
+         <div class="form-group col-md-12">
           <label for="title">Image</label>
-          <input type="file" id="image" name="title" class="form-control" placeholder="Enter image" />
+          <input
+            type="file"
+            id="image"
+            @change="onFileChange"
+            name="title"
+            class="form-control"
+            placeholder="Enter image"
+            accept="image/*"
+            multiple="false"
+          />
         </div>
 
         <div class="form-group col-md-4 pull-right">
@@ -127,10 +136,28 @@ export default {
       };
       this.__submitToServer(personData);
     },
+     onFileChange(e) {
+      //this.image = e.target.files[0];
+      //console.log("Nombre imagen: ", this.image.name);
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(files[0]);
+    },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = e => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      this.image = image;
+    },
     __submitToServer(data) {
       axios.post(`${server.baseURL}/person/create`, data).then(data => {
         if (data.data === 0) {
-          router.push({ name: "PeopleList" });
+          router.push({ name: "Home" });
         } else {
           if (data.data === 1) {
             alert(

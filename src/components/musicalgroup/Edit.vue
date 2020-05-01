@@ -105,7 +105,20 @@
 
         <div class="form-group col-md-12">
           <label for="title">Image</label>
-          <input type="file" id="image" name="title" class="form-control" placeholder="Enter image" />
+          <input
+            type="file"
+            id="image"
+            @change="onFileChange"
+            name="title"
+            class="form-control"
+            placeholder="Enter image"
+            accept="image/*"
+            multiple="false"
+          />
+
+          <br>
+            <h2> Current profile picture: </h2>
+             <img v-bind:src="mgroup.image" height="400" width="400"/>
         </div>
 
         <div class="form-group col-md-4 pull-right">
@@ -144,7 +157,8 @@ export default {
         members: this.mgroup.members,
         nameType: this.mgroup.nameType,
         city: this.mgroup.city,
-        image: this.mgroup.image
+        image: this.image,
+
       };
       axios
         .put(`${server.baseURL}/musicalgroup/${this.id}`, mgroupData, {headers: {token: localStorage.token}})
@@ -188,6 +202,25 @@ export default {
       axios
         .get(`${server.baseURL}/type`)
         .then(data => (this.nameTypes = data.data));
+    }, onFileChange(e) {
+
+      //this.image = e.target.files[0];
+      //console.log("Nombre imagen: ", this.image.name);
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(files[0]);
+    },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = e => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      console.log(image)
+      this.image = image;
     },
 
     navigate() {

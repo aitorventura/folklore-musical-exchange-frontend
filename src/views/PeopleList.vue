@@ -32,7 +32,10 @@
               <td>{{ person.username }}</td>
               <td>{{ person.email }}</td>
               <td>{{ person.city }}</td>
-              <td>{{ person.image }}</td>
+              <td>
+                  <img v-bind:src="person.image" height="400" width="400"/>
+
+                </td>
               <td>
                 <div  class="d-flex justify-content-between align-items-center">
                   <div class="btn-group" style="margin-bottom: 20px;">
