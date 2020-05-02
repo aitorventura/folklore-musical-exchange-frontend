@@ -39,6 +39,9 @@
         </tbody>
       </table>
     </div>
+    <div v-if="loggedAndPerson"> 
+    
+    </div>
     <!-- </div> -->
   </div>
 </body>
@@ -52,20 +55,33 @@ export default {
   data() {
     return {
       id: 0,
-      mgroup: {}
+      mgroup: {}, 
+      loggedAndPerson: false,
     };
   },
   created() {
     this.id = this.$route.params.id;
     this.getMGroup();
+    this.samePerson();
   },
   methods: {
+    samePerson() {
+      if (this.id != localStorage.getItem("id") && localStorage.getItem("id") != null) {
+        this.isPerson();
+      } else {
+        this.loggedAndPerson = false;
+      }
+    },
     getMGroup() {
       axios
         .get(`${server.baseURL}/musicalgroup/${this.id}`)
         .then(data => (this.mgroup = data.data));
     },
-
+    isPerson() {
+      axios
+        .get(`${server.baseURL}/user/${localStorage.getItem("id")}`)
+        .then(data => (this.loggedAndPerson));
+    },
     navigate() {
       router.go(-1);
     }

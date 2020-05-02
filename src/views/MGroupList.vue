@@ -12,81 +12,6 @@
       </div>
     </div>
 
-<<<<<<< HEAD
-    <!-- <div class="row"> -->
-    <div class>
-      <div>
-        <ejs-textbox
-          id="textbox"
-          v-model="searchName"
-          floatLabelType="Never"
-          showClearButton="true"
-          placeholder="Search by name"
-          width="200px"
-        ></ejs-textbox>
-
-        <ejs-textbox
-          id="textbox"
-          v-model="searchCity"
-          floatLabelType="Never"
-          showClearButton="true"
-          placeholder="Search by city"
-          width="200px"
-        ></ejs-textbox>
-
-        <ejs-multiselect
-          :id="searchType"
-          v-model="searchType"
-          :dataSource="nameTypes"
-          placeholder="Select a type"
-          mode="CheckBox"
-          :fields="fields"
-          :showSelectAll="showSelectAll"
-          selectAllText="Seleccionar todos"
-          unSelectAllText="Deseleccionar todos"
-          width="200px"
-        ></ejs-multiselect>
-      </div>
-
-      <table class="table table-bordered">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Username</th>
-            <th scope="col">City</th>
-            <th scope="col">NameType</th>
-            <th scope="col">Description</th>
-            <th scope="col">Members</th>
-            <th scope="col">Image</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="mgroup in filterName" :key="mgroup.id">
-            <td>{{ mgroup.name }}</td>
-            <td>{{ mgroup.email }}</td>
-            <td>{{ mgroup.username }}</td>
-            <td>{{ mgroup.city }}</td>
-            <td>{{ mgroup.nameType }}</td>
-            <td>{{ mgroup.description }}</td>
-            <td>{{ mgroup.members }}</td>
-            <td>
-              <img v-bind:src="mgroup.image" />
-              <!--<img v-bind: charset="UTF-8" src="mgroup.image" />-->
-            </td>
-            <td>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group" style="margin-bottom: 20px;">
-                  <router-link
-                    :to="{ name: 'EditMG', params: { id: mgroup.id } }"
-                    class="btn btn-sm btn-outline-secondary"
-                  >Edit MGroup</router-link>
-                  <router-link
-                    :to="{ name: 'GetMG', params: { id: mgroup.id } }"
-                    class="btn btn-sm btn-outline-primary"
-                  >Show MGroup</router-link>
-
-=======
     <!--
   <div id="app">
         <ejs-grid :dataSource="mgroups" :allowPaging="true" :allowSorting='true' :allowFiltering='true'  :pageSettings='pageSettings'>
@@ -178,7 +103,6 @@
                     class="btn btn-sm btn-outline-primary"
                   >Show MGroup</router-link>
 
->>>>>>> 70c64b35ae1134e5ed0f580d66944310818a6cb1
                   <button
                     class="btn btn-sm btn-outline-secondary"
                     v-on:click="deleteMGroup(mgroup.id)"
@@ -243,17 +167,6 @@ export default {
         .then(data => (this.mgroups = data.data));
     },
     deleteMGroup(id) {
-<<<<<<< HEAD
-      axios.delete(`${server.baseURL}/musicalgroup/${id}`).then(data => {
-        if (data.data) {
-          window.location.reload();
-        } else {
-          alert(
-            "No puede darse de baja mientras tenga intercambios pendientes."
-          );
-        }
-      });
-=======
       axios
         .delete(`${server.baseURL}/musicalgroup/${id}`, {
           headers: { token: localStorage.token }
@@ -267,7 +180,6 @@ export default {
             );
           }
         });
->>>>>>> 70c64b35ae1134e5ed0f580d66944310818a6cb1
     },
     getNameTypes() {
       axios
@@ -295,11 +207,7 @@ export default {
 };
 </script>
 
-<<<<<<< HEAD
-
-=======
 <!--Imports para los componentes-->
->>>>>>> 70c64b35ae1134e5ed0f580d66944310818a6cb1
 <style>
 @import "../../node_modules/@syncfusion/ej2-base/styles/material.css";
 @import "../../node_modules/@syncfusion/ej2-inputs/styles/material.css";
