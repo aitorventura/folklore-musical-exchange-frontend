@@ -102,7 +102,7 @@
           <label for="title">NameType</label>
           <br />
           <tr>
-            <select v-model="nameType" id="nameType">
+            <select v-model="nameType" id="nameType" required>
               <option v-for="type in nameTypes" :key="type.name">{{type.name}}</option>
             </select>
           </tr>

@@ -12,24 +12,6 @@
       </div>
     </div>
 
-    <!--
-  <div id="app">
-        <ejs-grid :dataSource="mgroups" :allowPaging="true" :allowSorting='true' :allowFiltering='true'  :pageSettings='pageSettings'>
-          <e-columns>
-            <e-column field='name' headerText='Name' textAlign='Right' width=90></e-column>
-            <e-column field='email' headerText='Email' width=120></e-column>
-            <e-column field='username' headerText='Username' textAlign='Right' width=90></e-column>
-            <e-column field='city' headerText='City' textAlign='Right' width=90></e-column>
-            <e-column field='nameType' headerText='Name Type' textAlign='Right' width=90></e-column>
-            <e-column field='description' headerText='Description' textAlign='Right' width=90></e-column>
-            <e-column field='members' headerText='members' textAlign='Right' width=90></e-column>
-            <e-column field='ia' headerText='Description' textAlign='Right' width=90></e-column>
-          </e-columns>
-        </ejs-grid>
-    </div>
-
-    -->
-
     <!-- <div class="row"> -->
     <div class>
       <div>
@@ -88,8 +70,7 @@
             <td>{{ mgroup.description }}</td>
             <td>{{ mgroup.members }}</td>
             <td>
-              <img v-bind:src="mgroup.image" />
-              <!--<img v-bind: charset="UTF-8" src="mgroup.image" />-->
+              <img v-bind:src="mgroup.image" height="400" width="400"/>
             </td>
             <td>
               <div class="d-flex justify-content-between align-items-center">

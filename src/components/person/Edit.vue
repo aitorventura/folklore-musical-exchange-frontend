@@ -70,18 +70,12 @@
               value="person.city"
             />
           </div>
-          <div class="form-group col-md-12">
-            <label for="title">Image</label>
-            <input
-              type="file"
-              id="image"
-              name="title"
-              class="form-control"
-              placeholder="Enter image"
-            />
-          </div>
-
           <div>
+            <label for="title">Select your interests</label> <br>
+             </div>
+           <div>
+            
+
             <ejs-multiselect
               :id="currentSubscriptions"
               v-model="currentSubscriptions"
@@ -95,6 +89,28 @@
               width="200px"
             ></ejs-multiselect>
           </div>
+
+          <div class="form-group col-md-12">
+          <label for="title">Image</label>
+          <input
+            type="file"
+            id="image"
+            @change="onFileChange"
+            name="title"
+            class="form-control"
+            placeholder="Enter image"
+            accept="image/*"
+            multiple="false"
+          />
+
+          <br>
+            <h2> Current profile picture: </h2>
+             <img v-bind:src="person.image" height="400" width="400"/>
+        </div>
+            
+   
+
+         
 
           <div class="form-group col-md-4 pull-right">
             <button class="btn btn-success" type="submit">Edit person</button>
@@ -124,6 +140,7 @@ export default {
     this.id = this.$route.params.id;
     this.getPerson();
     this.getNameTypes();
+    
     //this.getSubscriptions();
   },
   methods: {
@@ -132,7 +149,7 @@ export default {
         person: {
           username: this.person.username,
           city: this.person.city,
-          image: this.person.image,
+          image: this.image,
           name: this.person.name,
           surname: this.person.surname,
           email: this.person.email
@@ -174,12 +191,34 @@ export default {
           }
         });
     },
+    onFileChange(e) {
+
+      //this.image = e.target.files[0];
+      //console.log("Nombre imagen: ", this.image.name);
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(files[0]);
+    },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = e => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      console.log(image)
+      this.image = image;
+    },
     getPerson() {
       axios
         .get(`${server.baseURL}/person/${this.id}`, {
           headers: { token: localStorage.token }
         })
-        .then(data => (this.person = data.data));
+        .then(data => (this.person = data.data)
+        );
+       
     },
     getNameTypes() {
       axios
