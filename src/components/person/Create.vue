@@ -1,110 +1,149 @@
 <template>
-<body>
-  <br />
-  <br />
-  <br />
-  <div>
-    <div class="col-md-12 form-wrapper">
-      <h2>Create Person</h2>
-      <form id="create-post-form" @submit.prevent="createPerson">
-        <div class="form-group col-md-12">
-          <label for="title">Name</label>
-          <input
-            type="text"
-            id="name"
-            v-model="name"
-            name="title"
-            class="form-control"
-            placeholder="Enter name"
-            required
-          />
-        </div>
-        <div class="form-group col-md-12">
-          <label for="title">Surname</label>
-          <input
-            type="text"
-            id="surname"
-            v-model="surname"
-            name="title"
-            class="form-control"
-            placeholder="Enter surname"
-            required
-          />
-        </div>
+  <body>
+    <br />
+    <br />
+    <br />
+    <div class="thumbnail" id="margin">
+      <div class="col-md-12 form-wrapper" id="centro">
+        <h2>Create Person</h2>
+        <form id="create-post-form" @submit.prevent="createPerson">
+          <table border="0">
+            <th>
+              <tr>
+                <td>
+                  <label for="title">Name</label>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    id="name"
+                    v-model="name"
+                    name="title"
+                    class="form-control"
+                    placeholder="Enter name"
+                    required
+                  />
+                </td>
+              </tr>
 
-        <div class="form-group col-md-12">
-          <label for="title">Userame</label>
-          <input
-            type="text"
-            id="username"
-            v-model="username"
-            name="title"
-            class="form-control"
-            placeholder="Enter username"
-            required
-          />
-        </div>
+              <tr>
+                <td>
+                  <label for="title">Surname</label>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    id="surname"
+                    v-model="surname"
+                    name="title"
+                    class="form-control"
+                    placeholder="Enter surname"
+                    required
+                  />
+                </td>
+              </tr>
 
-        <div class="form-group col-md-12">
-          <label for="title">Password</label>
-          <input
-            type="password"
-            id="password"
-            v-model="password"
-            name="title"
-            class="form-control"
-            placeholder="Enter password"
-            required
-          />
-        </div>
+              <tr>
+                <td>
+                  <label for="title">Userame</label>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    id="username"
+                    v-model="username"
+                    name="title"
+                    class="form-control"
+                    placeholder="Enter username"
+                    required
+                  />
+                </td>
+              </tr>
 
-        <div class="form-group col-md-12">
-          <label for="title">Email</label>
-          <input
-            type="text"
-            id="email"
-            v-model="email"
-            name="title"
-            class="form-control"
-            placeholder="Enter email"
-            required
-          />
-        </div>
+              <tr>
+                <td>
+                  <label for="title">Password</label>
+                </td>
+                <td>
+                  <input
+                    type="password"
+                    id="password"
+                    v-model="password"
+                    name="title"
+                    class="form-control"
+                    placeholder="Enter password"
+                    required
+                  />
+                </td>
+              </tr>
 
-        <div class="form-group col-md-12">
-          <label for="title">City</label>
-          <input
-            type="text"
-            id="city"
-            v-model="city"
-            name="title"
-            class="form-control"
-            placeholder="Enter city"
-            required
-          />
-        </div>
+              <tr>
+                <td>
+                  <label for="title">Email</label>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    id="email"
+                    v-model="email"
+                    name="title"
+                    class="form-control"
+                    placeholder="Enter email"
+                    required
+                  />
+                </td>
+              </tr>
 
-         <div class="form-group col-md-12">
-          <label for="title">Image</label>
-          <input
-            type="file"
-            id="image"
-            @change="onFileChange"
-            name="title"
-            class="form-control"
-            placeholder="Enter image"
-            accept="image/*"
-            multiple="false"
-          />
-        </div>
+              <tr>
+                <td>
+                  <label for="title">City</label>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    id="city"
+                    v-model="city"
+                    name="title"
+                    class="form-control"
+                    placeholder="Enter city"
+                    required
+                  />
+                </td>
+              </tr>
 
-        <div class="form-group col-md-4 pull-right">
-          <button class="btn btn-success" type="submit">Create Username</button>
-        </div>
-      </form>
+              <tr>
+                <td>
+                  <label for="title">Image</label>
+                </td>
+                <td>
+                  <input
+                    type="file"
+                    id="image"
+                    @change="onFileChange"
+                    name="title"
+                    class="form-control"
+                    placeholder="Enter image"
+                    accept="image/*"
+                    multiple="false"
+                  />
+                </td>
+              </tr>
+
+              <tr>
+                <td></td>
+                <td align="right">
+                  <button class="btn" type="submit">
+                    Create User
+                  </button>
+                </td>
+              </tr>
+              <br />
+            </th>
+          </table>
+        </form>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 </template>
 
 <script>
@@ -120,7 +159,7 @@ export default {
       password: "",
       email: "",
       city: "",
-      image: ""
+      image: "",
     };
   },
   methods: {
@@ -132,11 +171,11 @@ export default {
         password: this.password,
         email: this.email,
         city: this.city,
-        image: this.image
+        image: this.image,
       };
       this.__submitToServer(personData);
     },
-     onFileChange(e) {
+    onFileChange(e) {
       //this.image = e.target.files[0];
       //console.log("Nombre imagen: ", this.image.name);
       var files = e.target.files || e.dataTransfer.files;
@@ -148,14 +187,14 @@ export default {
       var reader = new FileReader();
       var vm = this;
 
-      reader.onload = e => {
+      reader.onload = (e) => {
         vm.image = e.target.result;
       };
       reader.readAsDataURL(file);
       this.image = image;
     },
     __submitToServer(data) {
-      axios.post(`${server.baseURL}/person/create`, data).then(data => {
+      axios.post(`${server.baseURL}/person/create`, data).then((data) => {
         if (data.data === 0) {
           router.push({ name: "Home" });
         } else {
@@ -180,7 +219,57 @@ export default {
           }
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
+
+<style scoped>
+td {
+  padding: 3px;
+}
+.thumbnail {
+  line-height: 100%;
+  border-color: #fff;
+  border-left-width: 1cm;
+  border-right-width: 1cm;
+}
+#margin {
+  margin-left: 2cm;
+  margin-right: 2cm;
+}
+#centro {
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+body {
+  font: 400 15px/1.8 Lato, sans-serif;
+  color: #777;
+  background-color: #2d2d30;
+  height: 100vh;
+  /*height: 100%;
+  width: 100%;
+  padding: 0;
+  */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+}
+.btn {
+  padding: 6px 15px;
+  background-color: #333;
+  color: #f1f1f1;
+  border-radius: 0;
+  transition: 0.2s;
+
+  align-items: center;
+}
+.btn:hover,
+.btn:focus {
+  border: 1px solid #333;
+  background-color: #fff;
+  color: #000;
+}
+</style>
