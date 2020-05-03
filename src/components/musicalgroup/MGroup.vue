@@ -39,8 +39,21 @@
         </tbody>
       </table>
     </div>
-    <div v-if="loggedAndPerson"> 
-    
+    <div v-if="loggedAndPerson && !subscribed"> 
+      <button
+                class="btn btn-sm btn-outline-primary"
+                v-on:click="createSubscriptionMG()"
+              >
+                Subscribe
+              </button>
+    </div>
+    <div v-if="loggedAndPerson && subscribed"> 
+      <button
+                class="btn btn-sm btn-outline-danger"
+                v-on:click="deleteSubscriptionMG()"
+              >
+                Unsubscribe
+              </button>
     </div>
     <!-- </div> -->
   </div>
@@ -56,16 +69,18 @@ export default {
     return {
       id: 0,
       mgroup: {}, 
+      person: {},
       loggedAndPerson: false,
+      subscribed: null,
     };
   },
   created() {
     this.id = this.$route.params.id;
     this.getMGroup();
-    this.samePerson();
+    this.isSameUser();
   },
   methods: {
-    samePerson() {
+    isSameUser() {
       if (this.id != localStorage.getItem("id") && localStorage.getItem("id") != null) {
         this.isPerson();
       } else {
@@ -79,8 +94,50 @@ export default {
     },
     isPerson() {
       axios
-        .get(`${server.baseURL}/user/${localStorage.getItem("id")}`)
-        .then(data => (this.loggedAndPerson));
+        .get(`${server.baseURL}/user/${localStorage.getItem("id")}/check`)
+        .then(data => {
+          if (data.data === true) {
+            this.loggedAndPerson = true;
+            this.isSubscribed();
+          }
+        });
+    },
+    isSubscribed() {
+      axios
+        .get(`${server.baseURL}/subscriptionMG/${localStorage.getItem("id")}/${this.mgroup.id}/check`)
+        .then(data => {
+          if (data.data === true) {
+            this.subscribed = true;
+          }else {
+            this.subscribed = false;
+          }
+        });
+    },
+    createSubscriptionMG() {
+        let subscriptionMG = {
+        idPerson: localStorage.getItem("id"),
+        idMGroup: this.mgroup.id,
+      };
+      this.__submitToServer(subscriptionMG);
+    },
+    deleteSubscriptionMG() {
+      axios.delete(`${server.baseURL}/subscriptionMG/${localStorage.getItem("id")}/${this.mgroup.id}`).then(data => {
+        if(data.data === true) {
+          console.log("me he des-suscrito!");
+          this.subscribed = false;
+        }
+        //router.push({ name: "GetMG" }); 
+      });
+    },
+    __submitToServer(data) {
+      axios.post(`${server.baseURL}/subscriptionMG/create`, data)
+      .then(data => {
+        if(data.data === true) {
+          console.log("me he suscrito!");
+          this.subscribed = true;
+        }
+        //router.push({ name: "GetMG" }); 
+      });
     },
     navigate() {
       router.go(-1);
