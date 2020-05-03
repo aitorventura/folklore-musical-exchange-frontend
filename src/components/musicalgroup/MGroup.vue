@@ -1,44 +1,59 @@
 <template>
-<body>
-   <br>
-  <br>
-  <br>
-  <div class="container-fluid">
-    <div class="text-center">
-      <h1>Musical Group</h1>
-    </div>
-    <div v-if="mgroup.id === null">
-      <h2>No user found at the moment</h2>
-    </div>
-    <!-- <div class="row"> -->
-    <div class>
+  <body>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="container">
       <table class="table table-bordered">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Username</th>
-            <th scope="col">City</th>
-            <th scope="col">NameType</th>
-            <th scope="col">Description</th>
-            <th scope="col">Members</th>
-            <th scope="col">Image</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{ mgroup.name }}</td>
-            <td>{{ mgroup.email }}</td>
-            <td>{{ mgroup.username }}</td>
-            <td>{{ mgroup.city }}</td>
-            <td>{{ mgroup.nameType }}</td>
-            <td>{{ mgroup.description }}</td>
-            <td>{{ mgroup.members }}</td>
-            <td>{{ mgroup.image }}</td>
-          </tr>
-        </tbody>
+        <tr>
+          <td scope="col p-3" style="padding-right: 40px;">
+            <div class="bordered">
+               <img v-bind:src="mgroup.image" height="400" width="400"/>
+            </div>
+          </td>
+          <td scope="col" style="padding-left: 20px;">
+            <div class="text-left">
+              <h2>{{ mgroup.name }}</h2>
+              <h4>username: {{ mgroup.username }}</h4>
+            </div>
+            <div class="text-left">
+              <br />
+              <p>Email: {{ mgroup.email }}</p>
+              <p>City: {{ mgroup.city }}</p>
+              <p>Number of members: {{ mgroup.members }}</p>
+              <p>Type of agrupation: {{ mgroup.nameType }}</p>
+              <p>Description: {{ mgroup.description }}</p>
+             
+            </div>
+           
+            <div class="text-right" v-if="sameUser">
+              <div>
+              <router-link 
+                      :to="{ name: 'Edit', params: { id: mgroup.id } }"
+                      class="btn btn-sm btn-outline-secondary"
+                      >
+                      <span v-on:click="reload">Edit Profile
+                      </span>
+                      
+                      </router-link
+                    > 
+                     
+              <button
+                class="btn btn-sm btn-outline-danger"
+                v-on:click="deletePerson(person.id)"
+              >
+                Delete Account
+              </button>
+              </div>
+            </div>
+          </td>
+           
+        </tr>
       </table>
-    </div>
+
+
+
     <div v-if="loggedAndPerson && !subscribed"> 
       <button
                 class="btn btn-sm btn-outline-primary"
@@ -72,6 +87,7 @@ export default {
       person: {},
       loggedAndPerson: false,
       subscribed: null,
+      sameUser: false
     };
   },
   created() {
@@ -81,7 +97,10 @@ export default {
   },
   methods: {
     isSameUser() {
-      if (this.id != localStorage.getItem("id") && localStorage.getItem("id") != null) {
+      if(this.id == localStorage.getItem("id")){
+        this.sameUser = true
+      }   if (this.id != localStorage.getItem("id") && localStorage.getItem("id") != null) {
+       
         this.isPerson();
       } else {
         this.loggedAndPerson = false;
@@ -128,6 +147,9 @@ export default {
         }
         //router.push({ name: "GetMG" }); 
       });
+    },
+     reload(){
+        window.location.reload();
     },
     __submitToServer(data) {
       axios.post(`${server.baseURL}/subscriptionMG/create`, data)

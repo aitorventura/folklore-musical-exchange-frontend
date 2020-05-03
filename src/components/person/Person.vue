@@ -9,7 +9,7 @@
         <tr>
           <td scope="col p-3" style="padding-right: 40px;">
             <div class="bordered">
-              FOTOOOOO
+               <img v-bind:src="person.image" height="400" width="400"/>
             </div>
           </td>
           <td scope="col" style="padding-left: 20px;">
@@ -36,21 +36,17 @@
                       :to="{ name: 'Edit', params: { id: person.id } }"
                       class="btn btn-sm btn-outline-secondary"
                       >
-                      <span v-on:click="reload">Edit person
+                      <span v-on:click="reload">Edit profile
                       </span>
                       
                       </router-link
                     > 
-                     <router-link 
-                      :to="{ name: 'GetP', params: { id: person.id } }"
-                      class="btn btn-sm btn-outline-primary"
-                      >Show Person</router-link
-                    >
+                     
               <button
                 class="btn btn-sm btn-outline-danger"
                 v-on:click="deletePerson(person.id)"
               >
-                Delete Person
+                Delete Account
               </button>
               </div>
             </div>

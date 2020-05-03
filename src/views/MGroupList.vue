@@ -75,19 +75,13 @@
             <td>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group" style="margin-bottom: 20px;">
-                  <router-link
-                    :to="{ name: 'EditMG', params: { id: mgroup.id } }"
-                    class="btn btn-sm btn-outline-secondary"
-                  >Edit MGroup</router-link>
+             
                   <router-link
                     :to="{ name: 'GetMG', params: { id: mgroup.id } }"
                     class="btn btn-sm btn-outline-primary"
-                  >Show MGroup</router-link>
+                  >Show More Details</router-link>
 
-                  <button
-                    class="btn btn-sm btn-outline-secondary"
-                    v-on:click="deleteMGroup(mgroup.id)"
-                  >Delete MGroup</button>
+                 
                 </div>
               </div>
             </td>

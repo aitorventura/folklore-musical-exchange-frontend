@@ -34,9 +34,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
               </li>
-              <li class="nav-item">
+              <!-- <li v-if="person" class="nav-item">
                 <a class="nav-link" href="/listPeople">ListPeople</a>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <a class="nav-link" href="/listMGroups">List Musical Groups</a>
               </li>
@@ -45,10 +45,25 @@
                   >List Musical Exchanges</a
                 >
               </li>
-              <li class="nav-item">
+              <li v-if="!person" class="nav-item">
                 <a class="nav-link" href="/musicalexchange/create"
                   >Create Musical Exchanges</a
                 >
+              </li>
+              <li v-if="person" class="nav-item">
+                 <router-link
+                      :to="{ name: 'GetP', params: { id: id } }"
+                      class="nav-link"
+                      >Profile</router-link
+                    >
+              </li>
+
+               <li v-if="!person" class="nav-item">
+                 <router-link
+                      :to="{ name: 'GetMG', params: { id: id } }"
+                      class="nav-link"
+                      >Profile</router-link
+                    >
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#" @click="logout">Logout</a>
@@ -125,22 +140,33 @@ import router from "./router";
 export default {
   data() {
     return {
-      logged: false
+      logged: false,
+      person: false,
+      id : -1
     };
   },
   created() {
     this.samePerson();
+    this.getRole();
   },
   methods: {
     samePerson() {
       if (localStorage.getItem("id") != null) {
         this.logged = true;
+        this.id = localStorage.getItem("id")
                 console.log(this.logged)
 
       } else {
         this.logged = false;
                 console.log(this.logged)
 
+      }
+    },
+    getRole(){
+      if(localStorage.getItem("role") == "PERSON"){
+        this.person = true;
+      } else {
+        this.person = false;
       }
     },
     logout() {
