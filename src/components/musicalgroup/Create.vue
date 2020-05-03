@@ -4,12 +4,7 @@
   <br />
   <br />
   <div>
-    <h4 class="text-center mt-20">
-      <small>
-        <button class="btn btn-success" v-on:click="navigate()">View All Musicals Groups</button>
-      </small>
-    </h4>
-
+    
     <div class="col-md-12 form-wrapper">
       <h2>Create Musical Group</h2>
       <form

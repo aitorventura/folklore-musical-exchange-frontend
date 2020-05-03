@@ -70,18 +70,18 @@
             <td>{{ mgroup.description }}</td>
             <td>{{ mgroup.members }}</td>
             <td>
-              <img v-bind:src="mgroup.image" height="400" width="400"/>
+              <img v-bind:src="mgroup.image" height="200" width="200"/>
             </td>
             <td>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group" style="margin-bottom: 20px;">
-             
+                 
                   <router-link
                     :to="{ name: 'GetMG', params: { id: mgroup.id } }"
                     class="btn btn-sm btn-outline-primary"
-                  >Show More Details</router-link>
+                  >Show MGroup</router-link>
 
-                 
+                  
                 </div>
               </div>
             </td>

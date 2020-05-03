@@ -1,5 +1,14 @@
 <template>
+
   <div id="app">
+    <head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+  </head>
+    
     <div v-if="logged">
       <nav id="nav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
@@ -23,11 +32,7 @@
                 />
               </a>
             </a>
-            <ul class="nav navbar-nav navbar-left">
-              <li class="nav-item">
-                <a class="nav-link" href="/contacto">Contáctanos</a>
-              </li>
-            </ul>
+           
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -38,7 +43,7 @@
                 <a class="nav-link" href="/listPeople">ListPeople</a>
               </li> -->
               <li class="nav-item">
-                <a class="nav-link" href="/listMGroups">List Musical Groups</a>
+                <a class="nav-link" href="/listMGroups">Musical Groups</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/listMusicalExchanges"
@@ -47,7 +52,7 @@
               </li>
               <li v-if="!person" class="nav-item">
                 <a class="nav-link" href="/musicalexchange/create"
-                  >Create Musical Exchanges</a
+                  >New Musical Exchanges</a
                 >
               </li>
               <li v-if="person" class="nav-item">
@@ -96,11 +101,6 @@
                 />
               </a>
             </a>
-            <ul class="nav navbar-nav navbar-left">
-              <li class="nav-item">
-                <a class="nav-link" href="/contacto">Contáctanos</a>
-              </li>
-            </ul>
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -119,11 +119,11 @@
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/listMGroups">List Musical Groups</a>
+                <a class="nav-link" href="/listMGroups">Musical Groups</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/listMusicalExchanges"
-                  >List Musical Exchanges</a
+                  >Musical Exchanges</a
                 >
               </li>
             </ul>
@@ -185,7 +185,7 @@ export default {
   padding: 100px 25px;
 }
 .container {
-  margin-top: 80px;
+  margin-top: 180px;
 }
 .person {
   border: 10px solid transparent;

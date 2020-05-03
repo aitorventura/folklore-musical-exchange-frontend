@@ -85,31 +85,36 @@ export default {
       id: 0,
       mgroup: {}, 
       person: {},
-      loggedAndPerson: false,
+      loggedAndPerson: null,
       subscribed: null,
-      sameUser: false
+      sameUser: null
     };
   },
   created() {
     this.id = this.$route.params.id;
     this.getMGroup();
-    this.isSameUser();
+    
   },
   methods: {
     isSameUser() {
       if(this.id == localStorage.getItem("id")){
         this.sameUser = true
-      }   if (this.id != localStorage.getItem("id") && localStorage.getItem("id") != null) {
-       
+      }   
+      
+      if (this.id != localStorage.getItem("id") && localStorage.getItem("id") != null) {
         this.isPerson();
       } else {
         this.loggedAndPerson = false;
       }
+
     },
     getMGroup() {
       axios
         .get(`${server.baseURL}/musicalgroup/${this.id}`)
-        .then(data => (this.mgroup = data.data));
+        .then(data => {
+          this.mgroup = data.data
+          this.isSameUser();          
+        });
     },
     isPerson() {
       axios
@@ -118,7 +123,9 @@ export default {
           if (data.data === true) {
             this.loggedAndPerson = true;
             this.isSubscribed();
+
           }
+          
         });
     },
     isSubscribed() {

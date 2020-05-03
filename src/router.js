@@ -160,33 +160,7 @@ const router = new Router({
       }
     },
 
-    {
-      path: "/musicalgroup/:id",
-      name: "EditMG",
-      component: EditMGComponent,
-      meta: {
-        authenticated: true,
-        isLogin: false,
-        hasToBePerson: false,
-        hasToBeGroup: true,
-        needId: true,
-        isMusicalExchange: false
-      }
-    },
-
-    {
-      path: "/musicalexchange/:id",
-      name: "EditME",
-      component: EditMEComponent,
-      meta: {
-        authenticated: true,
-        isLogin: false,
-        hasToBePerson: false,
-        hasToBeGroup: true,
-        needId: true,
-        isMusicalExchange: true
-      }
-    },
+   
 
     {
       path: "/person/:id",
@@ -227,6 +201,32 @@ const router = new Router({
         hasToBeGroup: false,
         needId: false,
         isMusicalExchange: false
+      }
+    }, {
+      path: "/musicalgroup/:id",
+      name: "EditMG",
+      component: EditMGComponent,
+      meta: {
+        authenticated: true,
+        isLogin: false,
+        hasToBePerson: false,
+        hasToBeGroup: true,
+        needId: true,
+        isMusicalExchange: false
+      }
+    },
+
+    {
+      path: "/musicalexchange/:id",
+      name: "EditME",
+      component: EditMEComponent,
+      meta: {
+        authenticated: true,
+        isLogin: false,
+        hasToBePerson: false,
+        hasToBeGroup: true,
+        needId: true,
+        isMusicalExchange: true
       }
     }
   ]
