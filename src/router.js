@@ -51,13 +51,14 @@ const router = new Router({
         isMusicalExchange: false
       }
     },
+    
     {
       path: "/user/create",
       name: "Register",
       component: CreateUserComponent,
       meta: {
         authenticated: false,
-        isLogin: false,
+        isLogin: true,
         hasToBePerson: false,
         hasToBeGroup: false,
         needId: false,
@@ -161,7 +162,7 @@ const router = new Router({
     },
 
     {
-      path: "/person/:id",
+      path: "/person/edit/:id",
       name: "Edit",
       component: EditComponent,
       meta: {
@@ -217,7 +218,7 @@ const router = new Router({
         isMusicalExchange: false
       }
     }, {
-      path: "/musicalgroup/:id",
+      path: "/musicalgroup/edit/:id",
       name: "EditMG",
       component: EditMGComponent,
       meta: {
@@ -231,7 +232,7 @@ const router = new Router({
     },
 
     {
-      path: "/musicalexchange/:id",
+      path: "/musicalexchange/edit/:id",
       name: "EditME",
       component: EditMEComponent,
       meta: {
@@ -260,7 +261,10 @@ router.beforeEach((to, from, next) => {
 
   let idPath = array[array.length - 1];
 
+  console.log("Voy a redirigir")
+
   if (isLogin && localStorage.getItem("token")) {
+    console.log("Primer if")
     router.push({ name: "Home" });
   } else {
     if (authentication) {
@@ -273,6 +277,7 @@ router.beforeEach((to, from, next) => {
           if (idPath === localStorage.getItem("id") && !isMusicalExchange) {
             next();
           } else if (isMusicalExchange) {
+            console.log("entro aqui")
             const array = localStorage
               .getItem("listMusicalExchanges")
               .split("#");
@@ -305,6 +310,8 @@ router.beforeEach((to, from, next) => {
         router.push({ name: "Error" });
       }
     } else {
+      console.log("SIGUIENTE")
+      console.log(to.path)
       next();
     }
   }

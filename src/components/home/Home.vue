@@ -1,5 +1,5 @@
 <template>
-<div >
+<div>
         <div  id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
@@ -101,6 +101,7 @@
 </script>
 
 <style scoped>
+
 .jumbotron {
             background-color: #465bff;
             color: #fff;
@@ -123,9 +124,8 @@
 }
 .carousel-inner img {
   -webkit-filter: grayscale(90%);
-  filter: grayscale(90%); /* make all photos black and white */
+  filter: grayscale(75%); /* make all photos black and white */
   width: 100%; /* Set width to 100% */
-  margin: auto;
 }
 .carousel-caption h3 {
   color: #fff !important;

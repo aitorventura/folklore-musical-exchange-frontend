@@ -5,13 +5,15 @@
     <br />
     <div class="thumbnail" id="margin">
       <div class="col-md-12 form-wrapper" id="centro">
-        <h2>Create Person</h2>
+        <h2>Registro como persona interesada</h2>
+        <br>
+        <br>
         <form id="create-post-form" @submit.prevent="createPerson">
           <table border="0">
             <th>
               <tr>
                 <td>
-                  <label for="title">Name</label>
+                  <label for="title">Nombre</label>
                 </td>
                 <td>
                   <input
@@ -20,7 +22,6 @@
                     v-model="name"
                     name="title"
                     class="form-control"
-                    placeholder="Enter name"
                     required
                   />
                 </td>
@@ -28,7 +29,7 @@
 
               <tr>
                 <td>
-                  <label for="title">Surname</label>
+                  <label for="title">Apellidos</label>
                 </td>
                 <td>
                   <input
@@ -37,7 +38,6 @@
                     v-model="surname"
                     name="title"
                     class="form-control"
-                    placeholder="Enter surname"
                     required
                   />
                 </td>
@@ -45,7 +45,7 @@
 
               <tr>
                 <td>
-                  <label for="title">Userame</label>
+                  <label for="title">Nombre de usuario</label>
                 </td>
                 <td>
                   <input
@@ -54,7 +54,6 @@
                     v-model="username"
                     name="title"
                     class="form-control"
-                    placeholder="Enter username"
                     required
                   />
                 </td>
@@ -62,7 +61,7 @@
 
               <tr>
                 <td>
-                  <label for="title">Password</label>
+                  <label for="title">Contraseña</label>
                 </td>
                 <td>
                   <input
@@ -71,7 +70,6 @@
                     v-model="password"
                     name="title"
                     class="form-control"
-                    placeholder="Enter password"
                     required
                   />
                 </td>
@@ -79,7 +77,7 @@
 
               <tr>
                 <td>
-                  <label for="title">Email</label>
+                  <label for="title">Correo electrónico</label>
                 </td>
                 <td>
                   <input
@@ -88,7 +86,6 @@
                     v-model="email"
                     name="title"
                     class="form-control"
-                    placeholder="Enter email"
                     required
                   />
                 </td>
@@ -96,7 +93,7 @@
 
               <tr>
                 <td>
-                  <label for="title">City</label>
+                  <label for="title">Ciudad</label>
                 </td>
                 <td>
                   <input
@@ -105,7 +102,6 @@
                     v-model="city"
                     name="title"
                     class="form-control"
-                    placeholder="Enter city"
                     required
                   />
                 </td>
@@ -113,7 +109,7 @@
 
               <tr>
                 <td>
-                  <label for="title">Image</label>
+                  <label for="title">Imagen</label>
                 </td>
                 <td>
                   <input
@@ -122,7 +118,6 @@
                     @change="onFileChange"
                     name="title"
                     class="form-control"
-                    placeholder="Enter image"
                     accept="image/*"
                     multiple="false"
                   />
@@ -133,7 +128,7 @@
                 <td></td>
                 <td align="right">
                   <button class="btn" type="submit">
-                    Create User
+                    Registrarse
                   </button>
                 </td>
               </tr>

@@ -30,6 +30,7 @@
         </div>
       </div>
 
+    <div class="thumbnail">
       <!-- <div class="row"> -->
       <div class v-if="mgroups.length !== 0">
         <div>
@@ -38,7 +39,7 @@
             v-model="searchName"
             floatLabelType="Never"
             showClearButton="true"
-            placeholder="Search by name"
+            placeholder="Filtra por nombre"
             width="200px"
           ></ejs-textbox>
 
@@ -47,7 +48,7 @@
             v-model="searchCity"
             floatLabelType="Never"
             showClearButton="true"
-            placeholder="Search by city"
+            placeholder="Filtra por ciudad"
             width="200px"
           ></ejs-textbox>
 
@@ -55,7 +56,7 @@
             :id="searchType"
             v-model="searchType"
             :dataSource="nameTypes"
-            placeholder="Select a type"
+            placeholder="Filtra por tipo"
             mode="CheckBox"
             :fields="fields"
             :showSelectAll="showSelectAll"
@@ -68,25 +69,17 @@
         <table class="table table-bordered">
           <thead class="thead-dark">
             <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Username</th>
-              <th scope="col">City</th>
-              <th scope="col">NameType</th>
-              <th scope="col">Description</th>
-              <th scope="col">Members</th>
-              <th scope="col">Image</th>
+              <th class="centro" scope="col">Nombre</th>
+              <th class="centro" scope="col">Ciudad</th>
+              <th class="centro" scope="col">Tipo de agrupación</th>
+              <th class="centro" scope="col">Imagen</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="mgroup in filterName" :key="mgroup.id">
               <td>{{ mgroup.name }}</td>
-              <td>{{ mgroup.email }}</td>
-              <td>{{ mgroup.username }}</td>
               <td>{{ mgroup.city }}</td>
               <td>{{ mgroup.nameType }}</td>
-              <td>{{ mgroup.description }}</td>
-              <td>{{ mgroup.members }}</td>
               <td>
                 <img v-bind:src="mgroup.image" height="200" width="200" />
               </td>
@@ -106,6 +99,7 @@
         </table>
       </div>
       <!-- </div> -->
+    </div>
     </div>
   </body>
 </template>
@@ -220,17 +214,19 @@ export default {
   border-color: #fff;
   border-left-width: 0.5cm;
   border-right-width: 0.5cm;
-} /*
-#centro {
+  color: #2d2d30;
+} 
+.centro {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-}*/
+  text-align: center;
+}
 body {
   font: 400 15px/1.8 Lato, sans-serif;
   color: whitesmoke;
   background-color: #2d2d30;
-  height: 100vh;
+  height: 100%;
   /*height: 100%;
   width: 100%;
   padding: 0;

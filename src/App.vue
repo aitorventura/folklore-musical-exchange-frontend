@@ -43,23 +43,23 @@
                 <a class="nav-link" href="/listPeople">ListPeople</a>
               </li> -->
               <li class="nav-item">
-                <a class="nav-link" href="/listMGroups">Musical Groups</a>
+                <a class="nav-link" href="/listMGroups">Agrupaciones Musicales</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/listMusicalExchanges"
-                  >List Musical Exchanges</a
+                  >Intercambios Musicales</a
                 >
               </li>
               <li v-if="!person" class="nav-item">
                 <a class="nav-link" href="/musicalexchange/create"
-                  >New Musical Exchanges</a
+                  >Crear Intercambio Musical</a
                 >
               </li>
               <li v-if="person" class="nav-item">
                  <router-link
                       :to="{ name: 'GetP', params: { id: id } }"
                       class="nav-link"
-                      >Profile</router-link
+                      >Perfil</router-link
                     >
               </li>
 
@@ -67,11 +67,11 @@
                  <router-link
                       :to="{ name: 'GetMG', params: { id: id } }"
                       class="nav-link"
-                      >Profile</router-link
+                      >Perfil</router-link
                     >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" @click="logout">Logout</a>
+                <a class="nav-link" href="#" @click="logout">Cerrar Sesión</a>
               </li>
             </ul>
           </div>
@@ -111,14 +111,14 @@
                 <a class="nav-link" href="/login">Login</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/user/create">Register</a>
+                <a class="nav-link" href="/user/create">Registro</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/listMGroups">Musical Groups</a>
+                <a class="nav-link" href="/listMGroups">Agrupaciones Musicales</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/listMusicalExchanges"
-                  >Musical Exchanges</a
+                  >Intercambios Musicales</a
                 >
               </li>
             </ul>

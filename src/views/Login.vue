@@ -6,36 +6,36 @@
 
   <div class="thumbnail">
     <h3>
-      <strong>LOG IN</strong>
+      <strong>Iniciar sesión</strong>
     </h3>
     <br />
     <form @submit.prevent="login">
       <div id="centro" class="form-group col-md-12">
-        <label for="title">Userame</label>
+        <label for="title">Nombre de usuario</label>
         <input
           type="text"
           id="username"
           v-model="username"
           name="title"
           class="form-control"
-          placeholder="Enter username"
+          placeholder="Introduzca nombre de usuario"
           required
         />
       </div>
 
       <div class="form-group col-md-12">
-        <label for="title">Password</label>
+        <label for="title">Contraseña</label>
         <input
           type="password"
           id="password"
           v-model="password"
           name="title"
           class="form-control"
-          placeholder="Enter password"
+          placeholder="Introduzca contraseña"
           required
         />
       </div>
-      <button class="btn" type="submit">Log in</button>
+      <button class="btn" type="submit">Iniciar sesión</button>
     </form>
     <br />
   </div>

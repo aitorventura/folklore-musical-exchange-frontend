@@ -5,7 +5,8 @@
     <br />
     <div class="thumbnail" id="margin">
       <div class="col-md-12 form-wrapper" id="centro">
-        <h2>Create Musical Group</h2>
+        <h2>Registro como agrupación musical</h2>
+        <br>
         <form
           id="create-post-form"
           @submit.prevent="createMusicalGroup"
@@ -15,7 +16,7 @@
             <th>
               <tr>
                 <td>
-                  <label for="title">Name</label>
+                  <label for="title">Nombre</label>
                 </td>
                 <td>
                   <input
@@ -24,7 +25,6 @@
                     v-model="name"
                     name="title"
                     class="form-control"
-                    placeholder="Enter name"
                     required
                   />
                 </td>
@@ -32,7 +32,7 @@
 
               <tr>
                 <td>
-                  <label for="title">Username</label>
+                  <label for="title">Nombre de usuario</label>
                 </td>
                 <td>
                   <input
@@ -41,7 +41,6 @@
                     v-model="username"
                     name="title"
                     class="form-control"
-                    placeholder="Enter username"
                     required
                   />
                 </td>
@@ -49,7 +48,7 @@
 
               <tr>
                 <td>
-                  <label for="title">Password</label>
+                  <label for="title">Contraseña</label>
                 </td>
                 <td>
                   <input
@@ -58,7 +57,6 @@
                     v-model="password"
                     name="title"
                     class="form-control"
-                    placeholder="Enter password"
                     required
                   />
                 </td>
@@ -66,7 +64,7 @@
 
               <tr>
                 <td>
-                  <label for="title">Email</label>
+                  <label for="title">Correo electrónico</label>
                 </td>
                 <td>
                   <input
@@ -75,7 +73,6 @@
                     v-model="email"
                     name="title"
                     class="form-control"
-                    placeholder="Enter email"
                     required
                   />
                 </td>
@@ -83,7 +80,7 @@
 
               <tr>
                 <td>
-                  <label for="title">Description</label>
+                  <label for="title">Descripción</label>
                 </td>
                 <td>
                   <textarea
@@ -94,7 +91,6 @@
                     v-model="description"
                     name="title"
                     class="form-control"
-                    placeholder="Description"
                     required
                   ></textarea>
                 </td>
@@ -102,7 +98,7 @@
 
               <tr>
                 <td>
-                  <label for="title">Members</label>
+                  <label for="title">Número de miembros</label>
                 </td>
                 <td>
                   <input
@@ -112,7 +108,6 @@
                     name="title"
                     min="1"
                     class="form-control"
-                    placeholder="Members"
                     required
                   />
                 </td>
@@ -120,7 +115,7 @@
 
               <tr>
                 <td>
-                  <label for="title">NameType</label>
+                  <label for="title">Tipo de agrupación</label>
                 </td>
                 <td>
                   <tr>
@@ -135,7 +130,7 @@
 
               <tr>
                 <td>
-                  <label for="title">City</label>
+                  <label for="title">Ciudad</label>
                 </td>
                 <td>
                   <input
@@ -144,7 +139,6 @@
                     v-model="city"
                     name="title"
                     class="form-control"
-                    placeholder="Enter city"
                     value="mgroup.city"
                   />
                 </td>
@@ -152,7 +146,7 @@
 
               <tr>
                 <td>
-                  <label for="title">Image</label>
+                  <label for="title">Imagen</label>
                 </td>
                 <td>
                   <input
@@ -161,7 +155,6 @@
                     @change="onFileChange"
                     name="title"
                     class="form-control"
-                    placeholder="Enter image"
                     accept="image/*"
                     multiple="false"
                   />
@@ -172,7 +165,7 @@
                 <td></td>
                 <td align="right">
                   <button class="btn" type="submit">
-                    Create
+                    Registrarse
                   </button>
                 </td>
               </tr>

@@ -36,8 +36,8 @@
                       :to="{ name: 'Edit', params: { id: person.id } }"
                       class="btn btn-sm btn-outline-secondary"
                       >
-                      <span v-on:click="reload">Edit profile
-                      </span>
+                      Edit profile
+                    
                       
                       </router-link
                     > 
@@ -98,9 +98,7 @@ export default {
         window.push("Home");
       });
     },
-    reload(){
-        window.location.reload();
-    }
+   
    
   }
 };

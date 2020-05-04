@@ -29,16 +29,19 @@
 
             <div class="text-right" v-if="sameUser">
               <div>
-                <router-link
-                  :to="{ name: 'Edit', params: { id: mgroup.id } }"
-                  class="btn btn-sm btn-outline-secondary"
-                >
-                  <span v-on:click="reload">Edit Profile </span>
-                </router-link>
+                <router-link 
+                      :to="{ name: 'EditMG', params: { id: mgroup.id } }"
+                      class="btn btn-sm btn-outline-secondary"
+                      >
+                     Edit profile
+                    
+                      
+                      </router-link
+                    > 
 
                 <button
                   class="btn btn-sm btn-outline-danger"
-                  v-on:click="deletePerson(person.id)"
+                  v-on:click="deletePerson(mgroup.id)"
                 >
                   Delete Account
                 </button>
@@ -156,9 +159,7 @@ export default {
           //router.push({ name: "GetMG" });
         });
     },
-    reload() {
-      window.location.reload();
-    },
+    
     __submitToServer(data) {
       axios
         .post(`${server.baseURL}/subscriptionMG/create`, data)
