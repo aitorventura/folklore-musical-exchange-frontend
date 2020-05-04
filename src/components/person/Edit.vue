@@ -3,119 +3,112 @@
     <br />
     <br />
     <br />
-    <div>
-      <h4 class="text-center mt-20">
-        <small>
-          <button class="btn btn-success" v-on:click="navigate()">
-            View All People
-          </button>
-        </small>
-      </h4>
-      <div class="col-md-12 form-wrapper">
-        <h2>Edit Person</h2>
-        <form id="create-post-form" @submit.prevent="editPerson">
-          <div class="form-group col-md-12">
-            <label for="title">Name</label>
-            <input
-              type="text"
-              id="name"
-              v-model="person.name"
-              name="title"
-              class="form-control"
-              placeholder="Enter name"
-            />
-          </div>
-          <div class="form-group col-md-12">
-            <label for="title">Surname</label>
-            <input
-              type="text"
-              id="surname"
-              v-model="person.surname"
-              name="title"
-              class="form-control"
-              placeholder="Enter surname"
-            />
-          </div>
-          <div class="form-group col-md-12">
-            <label for="title">Username</label>
-            <input
-              type="text"
-              id="username"
-              v-model="person.username"
-              name="title"
-              class="form-control"
-              placeholder="Enter username"
-            />
-          </div>
-          <div class="form-group col-md-12">
-            <label for="title">Email</label>
-            <input
-              type="text"
-              id="email"
-              v-model="person.email"
-              name="title"
-              class="form-control"
-              placeholder="Enter email"
-            />
-          </div>
-          <div class="form-group col-md-12">
-            <label for="title">City</label>
-            <input
-              type="text"
-              id="city"
-              v-model="person.city"
-              name="title"
-              class="form-control"
-              placeholder="Enter city"
-              value="person.city"
-            />
-          </div>
-          <div>
-            <label for="title">Select your interests</label> <br>
-             </div>
-           <div>
-            
+    <div class="container" id="margin">
+      <div class="thumbnail col-md-12 form-wrapper" id="centro">
+        <h4 class="text-center mt-20">
+        <!--  <small>
+            <button class="btn btn-success" v-on:click="navigate()">
+              View All People
+            </button>
+          </small> -->
+        </h4>
+        <div class="col-md-12 form-wrapper">
+          <h2>Editar perfil</h2>
+          <form id="create-post-form" @submit.prevent="editPerson">
+            <div class="form-group col-md-6">
+              <label for="title">Nombre</label>
+              <input
+                type="text"
+                id="name"
+                v-model="person.name"
+                name="title"
+                class="form-control"
+                placeholder="Enter name"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="title">Apellidos</label>
+              <input
+                type="text"
+                id="surname"
+                v-model="person.surname"
+                name="title"
+                class="form-control"
+                placeholder="Enter surname"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="title">Usuario</label>
+              <input
+                type="text"
+                id="username"
+                v-model="person.username"
+                name="title"
+                class="form-control"
+                placeholder="Enter username"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="title">Email</label>
+              <input
+                type="text"
+                id="email"
+                v-model="person.email"
+                name="title"
+                class="form-control"
+                placeholder="Enter email"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="title">Ciudad</label>
+              <input
+                type="text"
+                id="city"
+                v-model="person.city"
+                name="title"
+                class="form-control"
+                placeholder="Enter city"
+                value="person.city"
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="title">Selecciona tus intereses:</label> <br />
+              <ejs-multiselect
+                :id="currentSubscriptions"
+                v-model="currentSubscriptions"
+                :dataSource="nameTypes"
+                placeholder="Select your interests"
+                mode="CheckBox"
+                :fields="fields"
+                :showSelectAll="showSelectAll"
+                selectAllText="Seleccionar todos"
+                unSelectAllText="Deseleccionar todos"
+                width="200px"
+              ></ejs-multiselect>
+            </div>
 
-            <ejs-multiselect
-              :id="currentSubscriptions"
-              v-model="currentSubscriptions"
-              :dataSource="nameTypes"
-              placeholder="Select your interests"
-              mode="CheckBox"
-              :fields="fields"
-              :showSelectAll="showSelectAll"
-              selectAllText="Seleccionar todos"
-              unSelectAllText="Deseleccionar todos"
-              width="200px"
-            ></ejs-multiselect>
+            <div class="form-group col-md-12">
+              <label for="title">Imagen</label>
+              <input
+                type="file"
+                id="image"
+                @change="onFileChange"
+                name="title"
+                class="form-control"
+                placeholder="Enter image"
+                accept="image/*"
+                multiple="false"
+              />
           </div>
-
           <div class="form-group col-md-12">
-          <label for="title">Image</label>
-          <input
-            type="file"
-            id="image"
-            @change="onFileChange"
-            name="title"
-            class="form-control"
-            placeholder="Enter image"
-            accept="image/*"
-            multiple="false"
-          />
-
-          <br>
-            <h2> Current profile picture: </h2>
-             <img v-bind:src="person.image" height="400" width="400"/>
+           <h2> Imagen actual de perfil: </h2>
+                <img v-bind:src="person.image" height="400" width="400"/>
+          </div>
+            <div class="form-group col-md-12 pull-right">
+              <button class="btn" type="submit">Guardar cambios</button>
+            </div>
+          </form>
         </div>
-            
-   
-
-         
-
-          <div class="form-group col-md-4 pull-right">
-            <button class="btn btn-success" type="submit">Edit person</button>
-          </div>
-        </form>
       </div>
     </div>
   </body>
@@ -236,3 +229,52 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+td {
+  padding: 3px;
+}
+.thumbnail {
+  line-height: 100%;
+  border-color: #fff;
+  border-left-width: 1cm;
+  border-right-width: 1cm;
+}
+#margin {
+  margin-left: 2cm;
+  margin-right: 2cm;
+}
+#centro {
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+body {
+  font: 400 15px/1.8 Lato, sans-serif;
+  color: #777;
+  background-color: #2d2d30;
+  height: 100vh;
+  /*height: 100%;
+  width: 100%;
+  padding: 0;
+  */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+}
+.btn {
+  padding: 6px 15px;
+  background-color: #333;
+  color: #f1f1f1;
+  border-radius: 0;
+  transition: 0.2s;
+}
+.btn:hover,
+.btn:focus {
+  border: 1px solid #333;
+  background-color: #fff;
+  color: #000;
+}
+</style>
+

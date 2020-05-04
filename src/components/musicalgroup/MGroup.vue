@@ -16,15 +16,15 @@
           <td scope="col" style="padding-left: 20px;">
             <div class="text-left">
               <h2>{{ mgroup.name }}</h2>
-              <h4>username: {{ mgroup.username }}</h4>
+              <h4>Usuario: {{ mgroup.username }}</h4>
             </div>
             <div class="text-left">
               <br />
               <p>Email: {{ mgroup.email }}</p>
-              <p>City: {{ mgroup.city }}</p>
-              <p>Number of members: {{ mgroup.members }}</p>
-              <p>Type of agrupation: {{ mgroup.nameType }}</p>
-              <p>Description: {{ mgroup.description }}</p>
+              <p>Ciudad: {{ mgroup.city }}</p>
+              <p>Número de miembros: {{ mgroup.members }}</p>
+              <p>Tipo de agrupación: {{ mgroup.nameType }}</p>
+              <p>Descripción: {{ mgroup.description }}</p>
             </div>
 
             <div class="text-right" v-if="sameUser">
@@ -33,9 +33,7 @@
                       :to="{ name: 'EditMG', params: { id: mgroup.id } }"
                       class="btn btn-sm btn-outline-secondary"
                       >
-                     Edit profile
-                    
-                      
+                     Editar perfil
                       </router-link
                     > 
 
@@ -43,7 +41,7 @@
                   class="btn btn-sm btn-outline-danger"
                   v-on:click="deletePerson(mgroup.id)"
                 >
-                  Delete Account
+                  Borrar cuenta
                 </button>
               </div>
             </div>
@@ -56,7 +54,7 @@
           class="btn btn-sm btn-outline-primary"
           v-on:click="createSubscriptionMG()"
         >
-          Subscribe
+          Seguir
         </button>
       </div>
       <div v-if="loggedAndPerson && subscribed">
@@ -64,7 +62,7 @@
           class="btn btn-sm btn-outline-danger"
           v-on:click="deleteSubscriptionMG()"
         >
-          Unsubscribe
+          Dejar de seguir
         </button>
       </div>
       <!-- </div> -->

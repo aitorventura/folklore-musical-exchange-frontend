@@ -15,16 +15,16 @@
           <td scope="col" style="padding-left: 20px;">
             <div class="text-left">
               <h2>{{ person.name }} {{ person.surname }}</h2>
-              <h4>username: {{ person.username }}</h4>
+              <h4>Usuario: {{ person.username }}</h4>
             </div>
             <div class="text-left">
               <br />
               <p>Email: {{ person.email }}</p>
-              <p>City: {{ person.city }}</p>
+              <p>Ciudad: {{ person.city }}</p>
             </div>
             <div class="text-left">
               <br />
-              Suscriptions:
+              <p>Suscripciones:</p>
               <p v-for="subscription in subscriptions" :key="subscription.id">
                 {{ subscription.nameType }}
               </p>
@@ -36,9 +36,7 @@
                       :to="{ name: 'Edit', params: { id: person.id } }"
                       class="btn btn-sm btn-outline-secondary"
                       >
-                      Edit profile
-                    
-                      
+                      Editar perfil
                       </router-link
                     > 
                      
@@ -46,7 +44,7 @@
                 class="btn btn-sm btn-outline-danger"
                 v-on:click="deletePerson(person.id)"
               >
-                Delete Account
+                Borrar cuenta
               </button>
               </div>
             </div>

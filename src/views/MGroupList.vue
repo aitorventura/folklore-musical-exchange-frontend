@@ -5,7 +5,7 @@
   <br />
   <div class="container-fluid" border="0.5cm">
     <div class="text-center" heigth="100vh">
-      <h1>Musical Group List</h1>
+      <h1>Agrupaciones musicales</h1>
 
       <div v-if="mgroups.length === 0">
         <div class="container">
@@ -14,7 +14,7 @@
 
             <br />
             <!--<h2>No user found at the moment</h2>-->
-            <h3>No user found at the moment</h3>
+            <h3>No se ha encontrado ninguna agrupación</h3>
             <br />
             <p>
               Pulsa el botón de inicio para volver a la página principal o
@@ -91,7 +91,7 @@
             <router-link
               :to="{ name: 'GetMG', params: { id: mgroup.id } }"
               class="btn btn-sm btn-outline-primary"
-            >Show MGroup</router-link>
+            >Más información</router-link>
           </div>
         </tr>
       </table>
