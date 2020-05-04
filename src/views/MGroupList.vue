@@ -1,107 +1,103 @@
 <template>
-  <body>
-    <br />
-    <br />
-    <br />
-    <div class="container-fluid">
-      <div class="text-center">
-        <h1>Musical Group List</h1>
+<body>
+  <br />
+  <br />
+  <br />
+  <div class="container-fluid" border="0.5cm">
+    <div class="text-center" heigth="100vh">
+      <h1>Musical Group List</h1>
 
-        <div v-if="mgroups.length === 0">
-          <div class="container">
-            <div class="alert" classappend="alert-dark">
-              <img src="../assets/logoBlanco.png" style="width:300px;" />
+      <div v-if="mgroups.length === 0">
+        <div class="container">
+          <div class="alert" classappend="alert-dark">
+            <img src="../assets/logoBlanco.png" style="width:300px;" />
 
-              <br />
-              <!--<h2>No user found at the moment</h2>-->
-              <h3>No user found at the moment</h3>
-              <br />
-              <p>
-                Pulsa el botón de inicio para volver a la página principal o
-                utiliza el navegador para volver atrás
-              </p>
-            </div>
-            <div th:align="center">
-              <a href="/" class="btn btn-primary" th:align="left"
-                >Página principal</a
-              >
-            </div>
+            <br />
+            <!--<h2>No user found at the moment</h2>-->
+            <h3>No user found at the moment</h3>
+            <br />
+            <p>
+              Pulsa el botón de inicio para volver a la página principal o
+              utiliza el navegador para volver atrás
+            </p>
+          </div>
+          <div th:align="center">
+            <a href="/" class="btn btn-primary" th:align="left">Página principal</a>
           </div>
         </div>
       </div>
-
-    <div class="thumbnail">
-      <!-- <div class="row"> -->
-      <div class v-if="mgroups.length !== 0">
-        <div>
-          <ejs-textbox
-            id="textbox"
-            v-model="searchName"
-            floatLabelType="Never"
-            showClearButton="true"
-            placeholder="Filtra por nombre"
-            width="200px"
-          ></ejs-textbox>
-
-          <ejs-textbox
-            id="textbox"
-            v-model="searchCity"
-            floatLabelType="Never"
-            showClearButton="true"
-            placeholder="Filtra por ciudad"
-            width="200px"
-          ></ejs-textbox>
-
-          <ejs-multiselect
-            :id="searchType"
-            v-model="searchType"
-            :dataSource="nameTypes"
-            placeholder="Filtra por tipo"
-            mode="CheckBox"
-            :fields="fields"
-            :showSelectAll="showSelectAll"
-            selectAllText="Seleccionar todos"
-            unSelectAllText="Deseleccionar todos"
-            width="200px"
-          ></ejs-multiselect>
-        </div>
-
-        <table class="table table-bordered">
-          <thead class="thead-dark">
-            <tr>
-              <th class="centro" scope="col">Nombre</th>
-              <th class="centro" scope="col">Ciudad</th>
-              <th class="centro" scope="col">Tipo de agrupación</th>
-              <th class="centro" scope="col">Imagen</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="mgroup in filterName" :key="mgroup.id">
-              <td>{{ mgroup.name }}</td>
-              <td>{{ mgroup.city }}</td>
-              <td>{{ mgroup.nameType }}</td>
-              <td>
-                <img v-bind:src="mgroup.image" height="200" width="200" />
-              </td>
-              <td>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group" style="margin-bottom: 20px;">
-                    <router-link
-                      :to="{ name: 'GetMG', params: { id: mgroup.id } }"
-                      class="btn btn-sm btn-outline-primary"
-                      >Show MGroup</router-link
-                    >
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <!-- </div> -->
     </div>
+
+    <!-- <div class="row"> -->
+
+    <div class="thumbnail" v-if="mgroups.length !== 0">
+      <ejs-textbox
+        id="textbox"
+        v-model="searchName"
+        floatLabelType="Never"
+        showClearButton="true"
+        placeholder="Filtra por nombre"
+        width="200px"
+      ></ejs-textbox>
+
+      <ejs-textbox
+        id="textbox"
+        v-model="searchCity"
+        floatLabelType="Never"
+        showClearButton="true"
+        placeholder="Filtra por ciudad"
+        width="200px"
+      ></ejs-textbox>
+
+      <ejs-multiselect
+        :id="searchType"
+        v-model="searchType"
+        :dataSource="nameTypes"
+        placeholder="Filtra por tipo"
+        mode="CheckBox"
+        :fields="fields"
+        :showSelectAll="showSelectAll"
+        selectAllText="Seleccionar todos"
+        unSelectAllText="Deseleccionar todos"
+        width="200px"
+      ></ejs-multiselect>
+
+      <table border="0" id="centro" margin="0px 0px 0px">
+        <tr v-for="mgroup in filterName" :key="mgroup.id">
+          <td scope="col p-3" style="padding-right: 40px;">
+            <div class="bordered">
+              <img v-bind:src="mgroup.image" height="160" width="160" />
+            </div>
+          </td>
+          <td scope="col" style="padding-left: 20px;">
+            <div class="text-left">
+              <h2>{{ mgroup.name }}</h2>
+            </div>
+            <div class="text-left">
+              <br />
+              <p>
+                <strong>Ciudad:</strong>
+                {{ mgroup.city }}
+              </p>
+              <br />
+              <p>{{ mgroup.nameType }}</p>
+            </div>
+          </td>
+          <br />
+          <br />
+          <br />
+          <br />
+          <div class="btn-group" style="margin-bottom: 20px;">
+            <router-link
+              :to="{ name: 'GetMG', params: { id: mgroup.id } }"
+              class="btn btn-sm btn-outline-primary"
+            >Show MGroup</router-link>
+          </div>
+        </tr>
+      </table>
     </div>
-  </body>
+  </div>
+</body>
 </template>
 
 <script>
@@ -127,7 +123,7 @@ export default {
       nameTypes: [],
       fields: { text: "name", value: "name" },
       /*maximumSelectionLength: "",*/
-      showSelectAll: true,
+      showSelectAll: true
     };
   },
   created() {
@@ -136,27 +132,27 @@ export default {
   },
   computed: {
     filterName() {
-      return this.mgroups.filter((mgroup) => {
+      return this.mgroups.filter(mgroup => {
         return (
           mgroup.name.toLowerCase().match(this.searchName.toLowerCase()) &&
           mgroup.city.toLowerCase().match(this.searchCity.toLowerCase()) &&
           this.isType(mgroup.nameType)
         );
       });
-    },
+    }
   },
   methods: {
     fetchMGroups() {
       axios
         .get(`${server.baseURL}/musicalgroup`)
-        .then((data) => (this.mgroups = data.data));
+        .then(data => (this.mgroups = data.data));
     },
     deleteMGroup(id) {
       axios
         .delete(`${server.baseURL}/musicalgroup/${id}`, {
-          headers: { token: localStorage.token },
+          headers: { token: localStorage.token }
         })
-        .then((data) => {
+        .then(data => {
           if (data.data) {
             window.location.reload();
           } else {
@@ -170,7 +166,7 @@ export default {
       axios
         .get(`${server.baseURL}/type`)
         .then(
-          (data) => (
+          data => (
             (this.nameTypes = data.data),
             (this.maximumSelectionLength = data.data.length)
           )
@@ -187,8 +183,8 @@ export default {
       } else {
         return true;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -209,19 +205,29 @@ export default {
 </style>
 
 <style scoped>
+td {
+  padding: 5px;
+}
+tr,
+th,
+table {
+  border: 0cm;
+  align-items: center;
+}
 .thumbnail {
   line-height: 100%;
   border-color: #fff;
-  border-left-width: 0.5cm;
-  border-right-width: 0.5cm;
+  border-left-width: 1cm;
+  border-right-width: 1cm;
   color: #2d2d30;
-} 
-.centro {
+} /*
+table {
+  border: 0cm;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   text-align: center;
-}
+}*/
 body {
   font: 400 15px/1.8 Lato, sans-serif;
   color: whitesmoke;
