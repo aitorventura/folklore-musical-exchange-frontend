@@ -62,7 +62,7 @@
         width="200px"
       ></ejs-multiselect>
 
-      <table border="0" id="centro" margin="0px 0px 0px">
+      <table>
         <tr v-for="mgroup in filterName" :key="mgroup.id">
           <td scope="col p-3" style="padding-right: 40px;">
             <div class="bordered">
@@ -215,6 +215,9 @@ table {
   align-items: center;
 }
 .thumbnail {
+  align-content: center;
+  align-items: center;
+  text-align: center;
   line-height: 100%;
   border-color: #fff;
   border-left-width: 1cm;

@@ -5,7 +5,7 @@
     <br />
     <div class="container-fluid">
       <div class="text-center">
-        <h1>Musical Exchange List</h1>
+        <h1>Listado de intercambios musicales</h1>
 
         <div v-if="musicalexchanges.length === 0">
           <div class="container">
@@ -38,7 +38,7 @@
             v-model="searchPlace"
             floatLabelType="Never"
             showClearButton="true"
-            placeholder="Search by place"
+            placeholder="Filtra por lugar"
             width="150px"
           ></ejs-textbox>
 
@@ -60,7 +60,7 @@
             :id="searchMGroup"
             v-model="searchMGroup"
             :dataSource="mgroups"
-            placeholder="Select an agrupation"
+            placeholder="Selecciona una agrupación"
             mode="CheckBox"
             :fields="fields"
             :showSelectAll="showSelectAll"
@@ -177,12 +177,12 @@
               <tr>
                 <th scope="col">Primera Agrupación</th>
                 <th scope="col">Segunda Agrupación</th>
-                <th scope="col">Date</th>
-                <th scope="col">Place</th>
-                <th scope="col">Description</th>
-                <th scope="col">Repertoire</th>
-                <th scope="col">Needed Money</th>
-                <th scope="col">Crowdfunding Link</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Lugar</th>
+                <th scope="col">Descripcióin</th>
+                <th scope="col">Repertorio</th>
+                <th scope="col">Dinero que se necesita</th>
+                <th scope="col">Link de Crowdfunding</th>
               </tr>
             </thead>
             <tbody>
@@ -287,8 +287,8 @@ export default {
       searchMGroup: [],
       searchDateS: null,
       searchDateE: null,
-      start: "Search from a date",
-      end: "Search before a date",
+      start: "Desde",
+      end: "Hasta",
       fields: { text: "name", value: "name" },
       showSelectAll: true,
       dateFormat: "dd-MM-yyyy",
@@ -469,7 +469,7 @@ body {
   font: 400 15px/1.8 Lato, sans-serif;
   color: whitesmoke;
   background-color: #2d2d30;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   /*height: 100%;
   width: 100%;

@@ -4,8 +4,10 @@
     <br />
     <br />
     <br />
-    <div class="container">
-      <table class="table table-bordered">
+    
+    <div class="container thumbnail">
+
+      <table class="table table-borderless">
         <tr>
           <td scope="col p-3" style="padding-right: 40px;">
             <div class="bordered">
@@ -101,3 +103,62 @@ export default {
   }
 };
 </script>
+
+
+
+<style scoped>
+
+.thumbnail {
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 100%;
+  border-color: #fff;
+  border-left-width: 1cm;
+  border-right-width: 1cm;
+  color: #2d2d30;
+} /*
+table {
+  border: 0cm;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}*/
+body {
+  font: 400 15px/1.8 Lato, sans-serif;
+  color: whitesmoke;
+  background-color: #2d2d30;
+  height: 100vh;
+  /*height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: flex;*/
+}
+.blanco {
+  background-color: white;
+}
+/*
+.oscuro {
+  height: 100vh;
+  background-color: #2d2d30;
+}*/
+
+.btn {
+  padding: 6px 15px;
+  background-color: #333;
+  color: #f1f1f1;
+  border-radius: 0;
+  transition: 0.2s;
+}
+.btn:hover,
+.btn:focus {
+  border: 1px solid #333;
+  background-color: #fff;
+  color: #000;
+}
+</style>
