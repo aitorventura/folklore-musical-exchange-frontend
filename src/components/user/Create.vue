@@ -1,5 +1,5 @@
 <template>
-  <div>
+ <!-- <div>
     <div class="col-md-12 form-wrapper">
       <h2>Create User</h2>
       <form id="create-post-form" @submit.prevent="createUser">
@@ -65,11 +65,70 @@
         </div>
       </form>
     </div>
+  </div>-->
+
+  <body>
+  <br />
+  <br />
+  <br />
+
+  <div class="thumbnail">
+    <h3>
+      <strong>REGISTER</strong>
+    </h3>
+    <br />
+      <div class="col-md-6 p-3">
+         <p>Are you an interested person in musical exchanges?</p>
+          <a href="/person/create">Click here to register as a person</a>
+      </div>
+
+      <div class="col-md-6 p-3">
+        <p>Are you a musical group interested in musical exchanges?</p>
+        <a href="/musicalgroup/create">Click here to register as a person</a>
+      </div>
+     <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+  
   </div>
+</body>
+          
 </template>
 
+
+<style scoped>
+.thumbnail {
+  line-height: 100%;
+  border-color: #fff;
+  border-left-width: 0.5cm;
+  border-right-width: 0.5cm;
+}
+#centro {
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+body {
+  font: 400 15px/1.8 Lato, sans-serif;
+  color: #777;
+  background-color: #2d2d30;
+  height: 100vh;
+  /*height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;*/
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+}
+</style>
+
 <script>
-import axios from "axios";
+/*import axios from "axios";
 import { server } from "../../helper";
 import router from "../../router";
 export default {
@@ -99,5 +158,5 @@ export default {
       });
     }
   }
-};
+};*/
 </script>

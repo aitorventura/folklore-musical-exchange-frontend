@@ -12,6 +12,7 @@ import EditMEComponent from "@/components/musicalexchange/Edit";
 import GetMGroupComponent from "@/components/musicalgroup/MGroup";
 import GetMusicalExchangeComponent from "@/components/musicalexchange/MusicalExchange";
 import GetPersonComponent from "@/components/person/Person";
+import CreateUserComponent from "@/components/user/Create";
 import HomeComponent from "@/components/home/Home";
 import LoginComponent from "@/views/Login";
 import ErrorComponent from "@/views/Error";
@@ -44,6 +45,19 @@ const router = new Router({
       meta: {
         authenticated: false,
         isLogin: true,
+        hasToBePerson: false,
+        hasToBeGroup: false,
+        needId: false,
+        isMusicalExchange: false
+      }
+    },
+    {
+      path: "/user/create",
+      name: "Register",
+      component: CreateUserComponent,
+      meta: {
+        authenticated: false,
+        isLogin: false,
         hasToBePerson: false,
         hasToBeGroup: false,
         needId: false,
@@ -160,7 +174,7 @@ const router = new Router({
       }
     },
 
-   
+
 
     {
       path: "/person/:id",

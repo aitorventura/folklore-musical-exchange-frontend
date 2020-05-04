@@ -111,12 +111,7 @@
                 <a class="nav-link" href="/login">Login</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/person/create">Create A Person</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/musicalgroup/create"
-                  >Create A Musical Group</a
-                >
+                <a class="nav-link" href="/user/create">Register</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/listMGroups">Musical Groups</a>
