@@ -16,6 +16,7 @@ import CreateUserComponent from "@/components/user/Create";
 import HomeComponent from "@/components/home/Home";
 import LoginComponent from "@/views/Login";
 import ErrorComponent from "@/views/Error";
+import ChatComponent from "@/views/Chat";
 
 Vue.use(Router);
 
@@ -34,8 +35,8 @@ const router = new Router({
         hasToBePerson: false,
         hasToBeGroup: false,
         needId: false,
-        isMusicalExchange: false
-      }
+        isMusicalExchange: false,
+      },
     },
 
     {
@@ -48,10 +49,10 @@ const router = new Router({
         hasToBePerson: false,
         hasToBeGroup: false,
         needId: false,
-        isMusicalExchange: false
-      }
+        isMusicalExchange: false,
+      },
     },
-    
+
     {
       path: "/user/create",
       name: "Register",
@@ -62,8 +63,8 @@ const router = new Router({
         hasToBePerson: false,
         hasToBeGroup: false,
         needId: false,
-        isMusicalExchange: false
-      }
+        isMusicalExchange: false,
+      },
     },
 
     {
@@ -76,8 +77,8 @@ const router = new Router({
         hasToBePerson: false,
         hasToBeGroup: false,
         needId: false,
-        isMusicalExchange: false
-      }
+        isMusicalExchange: false,
+      },
     },
 
     {
@@ -90,8 +91,8 @@ const router = new Router({
         hasToBePerson: true,
         hasToBeGroup: false,
         needId: false,
-        isMusicalExchange: false
-      }
+        isMusicalExchange: false,
+      },
     },
 
     {
@@ -104,8 +105,8 @@ const router = new Router({
         hasToBePerson: false,
         hasToBeGroup: false,
         needId: false,
-        isMusicalExchange: false
-      }
+        isMusicalExchange: false,
+      },
     },
 
     {
@@ -118,8 +119,8 @@ const router = new Router({
         hasToBePerson: false,
         hasToBeGroup: false,
         needId: false,
-        isMusicalExchange: false
-      }
+        isMusicalExchange: false,
+      },
     },
     {
       path: "/person/create",
@@ -131,8 +132,8 @@ const router = new Router({
         hasToBePerson: false,
         hasToBeGroup: false,
         needId: false,
-        isMusicalExchange: false
-      }
+        isMusicalExchange: false,
+      },
     },
     {
       path: "/musicalgroup/create",
@@ -144,8 +145,8 @@ const router = new Router({
         hasToBePerson: false,
         hasToBeGroup: false,
         needId: false,
-        isMusicalExchange: false
-      }
+        isMusicalExchange: false,
+      },
     },
     {
       path: "/musicalexchange/create",
@@ -157,8 +158,8 @@ const router = new Router({
         hasToBePerson: false,
         hasToBeGroup: true,
         needId: false,
-        isMusicalExchange: false
-      }
+        isMusicalExchange: false,
+      },
     },
 
     {
@@ -171,11 +172,9 @@ const router = new Router({
         hasToBePerson: true,
         hasToBeGroup: false,
         needId: true,
-        isMusicalExchange: false
-      }
+        isMusicalExchange: false,
+      },
     },
-
-
 
     {
       path: "/person/:id",
@@ -187,8 +186,8 @@ const router = new Router({
         hasToBePerson: true,
         hasToBeGroup: false,
         needId: true,
-        isMusicalExchange: false
-      }
+        isMusicalExchange: false,
+      },
     },
 
     {
@@ -201,8 +200,8 @@ const router = new Router({
         hasToBePerson: false,
         hasToBeGroup: false,
         needId: false,
-        isMusicalExchange: false
-      }
+        isMusicalExchange: false,
+      },
     },
 
     {
@@ -215,9 +214,10 @@ const router = new Router({
         hasToBePerson: false,
         hasToBeGroup: false,
         needId: false,
-        isMusicalExchange: false
-      }
-    }, {
+        isMusicalExchange: false,
+      },
+    },
+    {
       path: "/musicalgroup/edit/:id",
       name: "EditMG",
       component: EditMGComponent,
@@ -227,8 +227,8 @@ const router = new Router({
         hasToBePerson: false,
         hasToBeGroup: true,
         needId: true,
-        isMusicalExchange: false
-      }
+        isMusicalExchange: false,
+      },
     },
 
     {
@@ -241,30 +241,43 @@ const router = new Router({
         hasToBePerson: false,
         hasToBeGroup: true,
         needId: true,
-        isMusicalExchange: true
-      }
-    }
-  ]
+        isMusicalExchange: true,
+      },
+    },
+    {
+      path: "/chat",
+      name: "Chat",
+      component: ChatComponent,
+      meta: {
+        authenticated: true,
+        isLogin: false,
+        hasToBePerson: false,
+        hasToBeGroup: false,
+        needId: true,
+        isMusicalExchange: false,
+      },
+    },
+  ],
 });
 
 router.beforeEach((to, from, next) => {
-  let authentication = to.matched.some(record => record.meta.authenticated);
-  let isLogin = to.matched.some(record => record.meta.isLogin);
-  let hasToBeGroup = to.matched.some(record => record.meta.hasToBeGroup);
-  let hasToBePerson = to.matched.some(record => record.meta.hasToBePerson);
+  let authentication = to.matched.some((record) => record.meta.authenticated);
+  let isLogin = to.matched.some((record) => record.meta.isLogin);
+  let hasToBeGroup = to.matched.some((record) => record.meta.hasToBeGroup);
+  let hasToBePerson = to.matched.some((record) => record.meta.hasToBePerson);
   let isMusicalExchange = to.matched.some(
-    record => record.meta.isMusicalExchange
+    (record) => record.meta.isMusicalExchange
   );
 
-  let needId = to.matched.some(record => record.meta.needId);
+  let needId = to.matched.some((record) => record.meta.needId);
   let array = to.path.split("/");
 
   let idPath = array[array.length - 1];
 
-  console.log("Voy a redirigir")
+  console.log("Voy a redirigir");
 
   if (isLogin && localStorage.getItem("token")) {
-    console.log("Primer if")
+    console.log("Primer if");
     router.push({ name: "Home" });
   } else {
     if (authentication) {
@@ -277,7 +290,7 @@ router.beforeEach((to, from, next) => {
           if (idPath === localStorage.getItem("id") && !isMusicalExchange) {
             next();
           } else if (isMusicalExchange) {
-            console.log("entro aqui")
+            console.log("entro aqui");
             const array = localStorage
               .getItem("listMusicalExchanges")
               .split("#");
@@ -310,8 +323,8 @@ router.beforeEach((to, from, next) => {
         router.push({ name: "Error" });
       }
     } else {
-      console.log("SIGUIENTE")
-      console.log(to.path)
+      console.log("SIGUIENTE");
+      console.log(to.path);
       next();
     }
   }
