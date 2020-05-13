@@ -4,8 +4,17 @@
     <br />
     <br />
     <div class="container-fluid">
-      <div class="text-center">
-        <h1>Listado de intercambios musicales</h1>
+      <div class="text-center"> 
+        
+        <b-container class="bv-example-row">
+          <b-row>
+            <b-col>1 of 3</b-col>
+            <b-col>2 of 3</b-col>
+            <b-col>3 of 3</b-col>
+          </b-row>
+        </b-container>
+
+      <h1>Listado de intercambios musicales</h1>
 
         <div v-if="musicalexchanges.length === 0">
           <div class="container">
@@ -13,7 +22,6 @@
               <img src="../assets/logoBlanco.png" style="width:300px;" />
 
               <br />
-              <!--<h2>No user found at the moment</h2>-->
               <h3>No user found at the moment</h3>
               <br />
               <p>
@@ -28,8 +36,7 @@
             </div>
           </div>
         </div>
-      </div>
-
+      <!--</div>
       <div class v-if="musicalexchanges.length !== 0">
         <div class="blanco">
           <br />
@@ -69,7 +76,7 @@
             width="300px"
           ></ejs-multiselect>
 
-          <!-- VERSIÓN NUEVA
+        
         <div id="app">
           <ejs-grid
             :dataSource="filterName"
@@ -132,8 +139,8 @@
             </e-columns>
           </ejs-grid>
         </div>
-      </div>
-      -->
+      </div> -->
+      
 
           <!--
         <ejs-dropdownlist
@@ -171,7 +178,7 @@
           format="dd/MM/yyyy"
         ></ejs-daterangepicker>
       -->
-
+        
           <table class="table table-bordered">
             <thead class="thead-dark">
               <tr>
@@ -234,15 +241,17 @@
                 </td>
               </tr>
             </tbody>
-          </table>
-        </div>
+          </table> 
+       <!-- </div> -->
       </div>
-    </div>
+    </div> 
   </body>
 </template>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
 <script>
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap-vue/dist/bootstrap-vue.css"
 import { server } from "../helper";
 import axios from "axios";
 import Vue from "vue";
