@@ -1,9 +1,6 @@
 <template>
   <body>
-    <br />
-    <br />
-    <br />
-    <br />
+ 
     <!--Si se quiere en blanco se quita el thumbnail-->
     <div class="thumbnail" id="margin">
       <table>

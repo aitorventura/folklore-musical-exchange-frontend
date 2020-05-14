@@ -1,10 +1,5 @@
 <template>
   <body>
-    <br />
-    <br />
-    <br />
-    <br />
-    
     <div class="container thumbnail">
 
       <table class="table table-borderless">

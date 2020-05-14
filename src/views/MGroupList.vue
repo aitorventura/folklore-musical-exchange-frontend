@@ -1,8 +1,5 @@
 <template>
 <body>
-  <br />
-  <br />
-  <br />
   <div class="container-fluid" border="0.5cm">
     <div class="text-center" heigth="100vh">
       <h1>Agrupaciones musicales</h1>

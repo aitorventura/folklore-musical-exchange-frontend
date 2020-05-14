@@ -1,9 +1,5 @@
 <template>
 <body>
-  <br />
-  <br />
-  <br />
-
   <div class="thumbnail">
     <h3>
       <strong>Iniciar sesión</strong>

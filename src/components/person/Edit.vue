@@ -1,8 +1,5 @@
 <template>
   <body>
-    <br />
-    <br />
-    <br />
     <div class="container" id="margin">
       <div class="thumbnail col-md-12 form-wrapper" id="centro">
         <h4 class="text-center mt-20">

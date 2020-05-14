@@ -1,8 +1,6 @@
 <template>
   <body>
-    <br />
-    <br />
-    <br />
+
     <div class="container-fluid">
       <div class="text-center">
         <h1>People List</h1>

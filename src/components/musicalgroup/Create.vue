@@ -1,8 +1,6 @@
 <template>
   <body>
-    <br />
-    <br />
-    <br />
+
     <div class="thumbnail" id="margin">
       <div class="col-md-12 form-wrapper" id="centro">
         <h2>Registro como agrupación musical</h2>

@@ -1,8 +1,5 @@
 <template>
      <body>
-        <br/>
-        <br/>
-        <br/>
 
         <div class="container">
         <div class="alert" classappend= "alert-dark">

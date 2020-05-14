@@ -1,8 +1,5 @@
 <template>
 <body>
-  <br />
-  <br />
-  <br />
   <div>
     <h4 class="text-center mt-20">
       <small>
