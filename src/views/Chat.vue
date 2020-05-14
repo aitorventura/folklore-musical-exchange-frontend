@@ -21,179 +21,125 @@
       @onImageClicked="onImageClicked"
       @onImageSelected="onImageSelected"
       @onMessageSubmit="onMessageSubmit"
-      @onType="onType"
       @onClose="onClose"
     >
+      <!--@onType="onType"-->
+      <!--
       <template v-slot:header>
         <div>
           <p
             v-for="(participant, index) in participants"
             :key="index"
             class="custom-title"
-          >{{participant.name}}</p>
+          >
+            {{ participant.name }}
+          </p>
         </div>
       </template>
+      -->
     </Chat>
   </div>
 </template>
 
-
-
-
-
-
-
-
 <script>
+import { server } from "../helper";
+import axios from "axios";
 import { Chat } from "vue-quick-chat";
 import "vue-quick-chat/dist/vue-quick-chat.css";
 
 export default {
   components: {
-    Chat
+    Chat,
   },
   data() {
     return {
       visible: true,
-      participants: [
-        {
-          name: "Arnaldo",
-          id: 1,
-          profilePicture:
-            "https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/NafSadh_Profile.jpg/768px-NafSadh_Profile.jpg"
-        },
-        {
-          name: "José",
-          id: 2,
-          profilePicture:
-            "https://lh3.googleusercontent.com/-G1d4-a7d_TY/AAAAAAAAAAI/AAAAAAAAAAA/AAKWJJPez_wX5UCJztzEUeCxOd7HBK7-jA.CMID/s83-c/photo.jpg"
-        }
-      ],
-      myself: {
-        name: "Matheus S.",
-        id: 3,
-        profilePicture:
-          "https://lh3.googleusercontent.com/-G1d4-a7d_TY/AAAAAAAAAAI/AAAAAAAAAAA/AAKWJJPez_wX5UCJztzEUeCxOd7HBK7-jA.CMID/s83-c/photo.jpg"
-      },
-      messages: [
-        {
-          content: "received messages",
-          myself: false,
-          participantId: 1,
-          timestamp: {
-            year: 2019,
-            month: 3,
-            day: 5,
-            hour: 20,
-            minute: 10,
-            second: 3,
-            millisecond: 123
-          },
-          type: "text"
-        },
-        {
-          content: "sent messages",
-          myself: true,
-          participantId: 3,
-          timestamp: {
-            year: 2019,
-            month: 4,
-            day: 5,
-            hour: 19,
-            minute: 10,
-            second: 3,
-            millisecond: 123
-          },
-          type: "text"
-        },
-        {
-          content: "other received messages",
-          myself: false,
-          participantId: 2,
-          timestamp: {
-            year: 2019,
-            month: 5,
-            day: 5,
-            hour: 10,
-            minute: 10,
-            second: 3,
-            millisecond: 123
-          },
-          type: "text"
-        }
-      ],
-      chatTitle: "My chat title",
-      placeholder: "send your message",
+      participants: [],
+      myself: {},
+      messages: [],
+      chatTitle: "Chat privado",
+      placeholder: "Enviar mensaje",
       colors: {
         header: {
           bg: "#d30303",
-          text: "#fff"
+          text: "#fff",
         },
         message: {
           myself: {
             bg: "#fff",
-            text: "#bdb8b8"
+            text: "#bdb8b8",
           },
           others: {
             bg: "#fb4141",
-            text: "#fff"
+            text: "#fff",
           },
           messagesDisplay: {
-            bg: "#f7f3f3"
-          }
+            bg: "#f7f3f3",
+          },
         },
         submitIcon: "#b91010",
-        submitImageIcon: "#b91010"
+        submitImageIcon: "#b91010",
       },
       borderStyle: {
         topLeft: "10px",
         topRight: "10px",
         bottomLeft: "10px",
-        bottomRight: "10px"
+        bottomRight: "10px",
       },
       hideCloseButton: false,
       submitIconSize: 25,
       closeButtonIconSize: "20px",
       asyncMode: false,
+      //Aquí se tienen que cargar los mensajes
+      //PROBLEMA: participantId en lugar de ser 2, es "2", y no lo detecta como un número
       toLoad: [
         {
-          content: "Hey, John Doe! How are you today?",
-          myself: false,
+          content: "Hola!",
+          participantId: 7,
+          timestamp: "2020-03-19T16:38:43.000Z",
+          type: "text",
+        },
+        {
+          content: "Hola! Qué tal??",
           participantId: 2,
-          timestamp: {
-            year: 2011,
-            month: 3,
-            day: 5,
-            hour: 10,
-            minute: 10,
-            second: 3,
-            millisecond: 123
-          },
-          uploaded: true,
-          viewed: true,
-          type: "text"
+          timestamp: "2020-03-19T16:38:43.000Z",
+          type: "text",
+        },
+        {
+          content: "Bien y tú?",
+          participantId: 7,
+          timestamp: "2020-03-19T16:38:43.000Z",
+          type: "text",
+        },
+        {
+          content: "Bieeeen",
+          participantId: 2,
+          timestamp: "2020-03-19T16:38:44.000Z",
+          type: "text",
+        },
+        {
+          content: "Te gustaría que hicieramos un intercambio?",
+          participantId: 2,
+          timestamp: "2020-03-19T16:38:44.000Z",
+          type: "text",
+        },
+      ],
+      /*{
+          content: "Hey, John Doe! How are you today?",
+          participantId: 2,
+          timestamp: "2020-03-19T16:38:43.000Z",
+          type: "text",
         },
         {
           content: "Hey, Adam! I'm feeling really fine this evening.",
-          myself: true,
-          participantId: 3,
-          timestamp: {
-            year: 2010,
-            month: 0,
-            day: 5,
-            hour: 19,
-            minute: 10,
-            second: 3,
-            millisecond: 123
-          },
-          uploaded: true,
-          viewed: true,
-          type: "text"
-        }
-      ],
+          participantId: 7,
+          timestamp: "2020-03-19T16:38:43.000Z",
+          type: "text",
+        },
+      ],*/
       scrollBottom: {
         messageSent: true,
-        messageReceived: false
+        messageReceived: false,
       },
       displayHeader: true,
       profilePictureConfig: {
@@ -202,10 +148,15 @@ export default {
         styles: {
           width: "30px",
           height: "30px",
-          borderRadius: "50%"
-        }
-      }
+          borderRadius: "50%",
+        },
+      },
     };
+  },
+  created() {
+    this.getMessages();
+    this.getParticipant();
+    this.getMyself();
   },
   methods: {
     /*onType: function(event) {
@@ -225,7 +176,9 @@ export default {
        * It's important to notice that even when your message wasn't send
        * yet to the server you have to add the message into the array
        */
-      this.messages.push(message);
+      console.log("Mensaje: " + Object.values(message));
+      this.messages.push(this.message);
+      console.log("Mensajes: " + Object.values(this.messages));
 
       /*
        * you can update message state after the server response
@@ -248,7 +201,7 @@ export default {
        * update the message status and the message URL
        */
       setTimeout(
-        res => {
+        (res) => {
           message.uploaded = true;
           message.src = res.src;
         },
@@ -262,7 +215,28 @@ export default {
        * You can add your code here to do whatever you need with the image clicked. A common situation is to display the image clicked in full screen.
        */
       console.log("Image clicked", message.src);
-    }
-  }
+    },
+    getMessages() {
+      axios
+        .get(`${server.baseURL}/chat/1`, {
+          headers: { token: localStorage.token },
+        })
+        .then((data) => (this.messages = data.data));
+    },
+    getParticipant() {
+      axios
+        .get(`${server.baseURL}/chat/participant/1/7`, {
+          headers: { token: localStorage.token },
+        })
+        .then((data) => (this.participants = data.data));
+    },
+    getMyself() {
+      axios
+        .get(`${server.baseURL}/chat/myself/7`, {
+          headers: { token: localStorage.token },
+        })
+        .then((data) => (this.myself = data.data));
+    },
+  },
 };
 </script>
