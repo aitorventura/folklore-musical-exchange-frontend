@@ -87,12 +87,13 @@ export default {
         bottomRight: "10px"
       },
       hideCloseButton: false,
-      submitIconSize: 25,
+      submitIconSize: 30,
       closeButtonIconSize: "20px",
       asyncMode: false,
       //Aquí se tienen que cargar los mensajes
       //PROBLEMA: participantId en lugar de ser 2, es "2", y no lo detecta como un número
       toLoad: [
+        {}
         /*
         {
           content: "Hola!",
@@ -123,7 +124,8 @@ export default {
           participantId: 2,
           timestamp: "2020-03-19T16:38:44.000Z",
           type: "text"
-        }*/
+        }
+        */
       ],
       scrollBottom: {
         messageSent: true,
@@ -151,13 +153,17 @@ export default {
       //here you can set any behavior
     },*/
     loadMoreMessages(resolve) {
-      this.tratarToLoad();
+      console.log("loadMoreMessages");
+      this.getMessages();
+      //this.tratarToLoad();
       setTimeout(() => {
         resolve(this.toLoad); //We end the loading state and add the messages
         //Make sure the loaded messages are also added to our local messages copy or they will be lost
         this.messages.unshift(...this.toLoad);
         this.toLoad = [];
       }, 1000);
+      console.log("Voy a cargar mensajes: ");
+      console.log(Object.values(this.toLoad));
     },
     onMessageSubmit: function(message) {
       /*
@@ -165,9 +171,9 @@ export default {
        * It's important to notice that even when your message wasn't send
        * yet to the server you have to add the message into the array
        */
-      console.log("Mensaje: " + Object.values(message));
+      //console.log("Mensaje: " + Object.values(message));
       this.messages.push(this.message);
-      console.log("Mensajes: " + Object.values(this.messages));
+      //console.log("Mensajes: " + Object.values(this.messages));
 
       /*
        * you can update message state after the server response
@@ -205,40 +211,45 @@ export default {
        */
       console.log("Image clicked", message.src);
     },
-    getMessages() {
-      axios
-        .get(`${server.baseURL}/chat/1`, {
+    async getMessages() {
+      console.log("getMessages");
+      await axios
+        .get(`${server.baseURL}/chat/2`, {
           headers: { token: localStorage.token }
         })
-        .then(data => this.tratarToLoad(data.data));
+        .then(data => (this.toLoad = data.data));
+      console.log(Object.values(this.toLoad));
+      this.tratarToLoad();
+      //console.log(Object.values(this.toLoad));
       //this.tratarToLoad();
     },
-    getParticipant() {
-      axios
-        .get(`${server.baseURL}/chat/participant/1/7`, {
+    async getParticipant() {
+      await axios
+        .get(`${server.baseURL}/chat/participant/2/13`, {
           headers: { token: localStorage.token }
         })
         .then(data => (this.participants = data.data));
     },
-    getMyself() {
-      axios
-        .get(`${server.baseURL}/chat/myself/7`, {
+    async getMyself() {
+      await axios
+        .get(`${server.baseURL}/chat/myself/13`, {
           headers: { token: localStorage.token }
         })
         .then(data => (this.myself = data.data));
     },
-    tratarToLoad(toLoadMsg) {
-      console.log("Voy a entrar");
-      console.log(Object.values(toLoadMsg));
-      for (var i in toLoadMsg) {
-        console.log("Prueba: ");
-        console.log(toLoadMsg[i].participantId);
-        console.log(Object.values(toLoadMsg));
-        toLoadMsg[i].participantId = parseInt(toLoadMsg[i].participantId);
-        console.log(toLoadMsg[i].participantId);
-        console.log(Object.values(toLoadMsg));
+    tratarToLoad() {
+      //console.log("Voy a entrar");
+      //console.log(Object.values(this.toLoad));
+      for (var i in this.toLoad) {
+        //console.log("Prueba: ");
+        //console.log(this.toLoad[i].participantId);
+        //console.log(Object.values(this.toLoad));
+        this.toLoad[i].participantId = parseInt(this.toLoad[i].participantId);
+        //console.log(this.toLoad[i].participantId);
+        //console.log(Object.values(this.toLoad));
       }
-      console.log(Object.values(toLoadMsg));
+      console.log("Tras tratarToLoad()");
+      console.log(Object.values(this.toLoad));
     }
   }
 };
