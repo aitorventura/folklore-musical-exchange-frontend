@@ -49,7 +49,7 @@ import "vue-quick-chat/dist/vue-quick-chat.css";
 
 export default {
   components: {
-    Chat,
+    Chat
   },
   data() {
     return {
@@ -62,29 +62,29 @@ export default {
       colors: {
         header: {
           bg: "#d30303",
-          text: "#fff",
+          text: "#fff"
         },
         message: {
           myself: {
             bg: "#fff",
-            text: "#bdb8b8",
+            text: "#bdb8b8"
           },
           others: {
             bg: "#fb4141",
-            text: "#fff",
+            text: "#fff"
           },
           messagesDisplay: {
-            bg: "#f7f3f3",
-          },
+            bg: "#f7f3f3"
+          }
         },
         submitIcon: "#b91010",
-        submitImageIcon: "#b91010",
+        submitImageIcon: "#b91010"
       },
       borderStyle: {
         topLeft: "10px",
         topRight: "10px",
         bottomLeft: "10px",
-        bottomRight: "10px",
+        bottomRight: "10px"
       },
       hideCloseButton: false,
       submitIconSize: 25,
@@ -93,53 +93,41 @@ export default {
       //Aquí se tienen que cargar los mensajes
       //PROBLEMA: participantId en lugar de ser 2, es "2", y no lo detecta como un número
       toLoad: [
+        /*
         {
           content: "Hola!",
           participantId: 7,
           timestamp: "2020-03-19T16:38:43.000Z",
-          type: "text",
+          type: "text"
         },
         {
           content: "Hola! Qué tal??",
           participantId: 2,
           timestamp: "2020-03-19T16:38:43.000Z",
-          type: "text",
+          type: "text"
         },
         {
           content: "Bien y tú?",
           participantId: 7,
           timestamp: "2020-03-19T16:38:43.000Z",
-          type: "text",
+          type: "text"
         },
         {
           content: "Bieeeen",
           participantId: 2,
           timestamp: "2020-03-19T16:38:44.000Z",
-          type: "text",
+          type: "text"
         },
         {
           content: "Te gustaría que hicieramos un intercambio?",
           participantId: 2,
           timestamp: "2020-03-19T16:38:44.000Z",
-          type: "text",
-        },
+          type: "text"
+        }*/
       ],
-      /*{
-          content: "Hey, John Doe! How are you today?",
-          participantId: 2,
-          timestamp: "2020-03-19T16:38:43.000Z",
-          type: "text",
-        },
-        {
-          content: "Hey, Adam! I'm feeling really fine this evening.",
-          participantId: 7,
-          timestamp: "2020-03-19T16:38:43.000Z",
-          type: "text",
-        },
-      ],*/
       scrollBottom: {
         messageSent: true,
-        messageReceived: false,
+        messageReceived: false
       },
       displayHeader: true,
       profilePictureConfig: {
@@ -148,9 +136,9 @@ export default {
         styles: {
           width: "30px",
           height: "30px",
-          borderRadius: "50%",
-        },
-      },
+          borderRadius: "50%"
+        }
+      }
     };
   },
   created() {
@@ -163,6 +151,7 @@ export default {
       //here you can set any behavior
     },*/
     loadMoreMessages(resolve) {
+      this.tratarToLoad();
       setTimeout(() => {
         resolve(this.toLoad); //We end the loading state and add the messages
         //Make sure the loaded messages are also added to our local messages copy or they will be lost
@@ -201,7 +190,7 @@ export default {
        * update the message status and the message URL
        */
       setTimeout(
-        (res) => {
+        res => {
           message.uploaded = true;
           message.src = res.src;
         },
@@ -219,24 +208,38 @@ export default {
     getMessages() {
       axios
         .get(`${server.baseURL}/chat/1`, {
-          headers: { token: localStorage.token },
+          headers: { token: localStorage.token }
         })
-        .then((data) => (this.messages = data.data));
+        .then(data => this.tratarToLoad(data.data));
+      //this.tratarToLoad();
     },
     getParticipant() {
       axios
         .get(`${server.baseURL}/chat/participant/1/7`, {
-          headers: { token: localStorage.token },
+          headers: { token: localStorage.token }
         })
-        .then((data) => (this.participants = data.data));
+        .then(data => (this.participants = data.data));
     },
     getMyself() {
       axios
         .get(`${server.baseURL}/chat/myself/7`, {
-          headers: { token: localStorage.token },
+          headers: { token: localStorage.token }
         })
-        .then((data) => (this.myself = data.data));
+        .then(data => (this.myself = data.data));
     },
-  },
+    tratarToLoad(toLoadMsg) {
+      console.log("Voy a entrar");
+      console.log(Object.values(toLoadMsg));
+      for (var i in toLoadMsg) {
+        console.log("Prueba: ");
+        console.log(toLoadMsg[i].participantId);
+        console.log(Object.values(toLoadMsg));
+        toLoadMsg[i].participantId = parseInt(toLoadMsg[i].participantId);
+        console.log(toLoadMsg[i].participantId);
+        console.log(Object.values(toLoadMsg));
+      }
+      console.log(Object.values(toLoadMsg));
+    }
+  }
 };
 </script>
