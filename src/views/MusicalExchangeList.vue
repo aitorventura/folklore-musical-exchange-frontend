@@ -1,38 +1,35 @@
 <template>
-  <body>
-    <div class="container-fluid">
-      <div class="text-center"> 
-        
-        <b-container class="bv-example-row">
-          <b-row>
-            <b-col>1 of 3</b-col>
-            <b-col>2 of 3</b-col>
-            <b-col>3 of 3</b-col>
-          </b-row>
-        </b-container>
+<body>
+  <div class="container-fluid">
+    <div class="text-center">
+      <b-container class="bv-example-row">
+        <b-row>
+          <b-col>1 of 3</b-col>
+          <b-col>2 of 3</b-col>
+          <b-col>3 of 3</b-col>
+        </b-row>
+      </b-container>
 
       <h1>Listado de intercambios musicales</h1>
 
-        <div v-if="musicalexchanges.length === 0">
-          <div class="container">
-            <div class="alert" classappend="alert-dark">
-              <img src="../assets/logoBlanco.png" style="width:300px;" />
+      <div v-if="musicalexchanges.length === 0">
+        <div class="container">
+          <div class="alert" classappend="alert-dark">
+            <img src="../assets/logoBlanco.png" style="width:300px;" />
 
-              <br />
-              <h3>No user found at the moment</h3>
-              <br />
-              <p>
-                Pulsa el botón de inicio para volver a la página principal o
-                utiliza el navegador para volver atrás
-              </p>
-            </div>
-            <div th:align="center">
-              <a href="/" class="btn btn-primary" th:align="left"
-                >Página principal</a
-              >
-            </div>
+            <br />
+            <h3>No user found at the moment</h3>
+            <br />
+            <p>
+              Pulsa el botón de inicio para volver a la página principal o
+              utiliza el navegador para volver atrás
+            </p>
+          </div>
+          <div th:align="center">
+            <a href="/" class="btn btn-primary" th:align="left">Página principal</a>
           </div>
         </div>
+      </div>
       <!--</div>
       <div class v-if="musicalexchanges.length !== 0">
         <div class="blanco">
@@ -136,10 +133,9 @@
             </e-columns>
           </ejs-grid>
         </div>
-      </div> -->
-      
+      </div>-->
 
-          <!--
+      <!--
         <ejs-dropdownlist
           v-model="sortBy"
           :dataSource="sort"
@@ -148,7 +144,7 @@
         ></ejs-dropdownlist>
       -->
 
-          <!--<ejs-multiselect
+      <!--<ejs-multiselect
           v-model="dateType"
           :dataSource="dateTypes"
           placeholder="Select how to search a date"
@@ -158,8 +154,8 @@
           :maximumSelectionLength="1"
       ></ejs-multiselect>-->
 
-          <!--<ejs-splitbutton v-model="dateType" :items="dateTypes" :fields="fieldsDate" content="simple"></ejs-splitbutton>-->
-          <!--<ejs-combobox
+      <!--<ejs-splitbutton v-model="dateType" :items="dateTypes" :fields="fieldsDate" content="simple"></ejs-splitbutton>-->
+      <!--<ejs-combobox
           v-model="dateType"
           :fields="fieldsDate"
           :dataSource="dateTypes"
@@ -167,7 +163,7 @@
           width="300px"
       ></ejs-combobox>-->
 
-          <!--
+      <!--
         <ejs-daterangepicker
           v-model="searchDates"
           :placeholder="placeholder"
@@ -175,80 +171,71 @@
           format="dd/MM/yyyy"
         ></ejs-daterangepicker>
       -->
-        
-          <table class="table table-bordered">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">Primera Agrupación</th>
-                <th scope="col">Segunda Agrupación</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Lugar</th>
-                <th scope="col">Descripcióin</th>
-                <th scope="col">Repertorio</th>
-                <th scope="col">Dinero que se necesita</th>
-                <th scope="col">Link de Crowdfunding</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="musicalexchange in filterName"
-                :key="musicalexchange.id"
-              >
-                <td>{{ musicalexchange.nombreMA }}</td>
-                <td>{{ musicalexchange.nombreMB }}</td>
-                <td>
-                  <span>{{ musicalexchange.date | moment }}</span>
-                </td>
-                <td>{{ musicalexchange.place }}</td>
-                <td>{{ musicalexchange.description }}</td>
-                <td>{{ musicalexchange.repertoire }}</td>
-                <td>{{ musicalexchange.neededMoney }}</td>
-                <td>{{ musicalexchange.crowdfundingLink }}</td>
-                <td>
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <div class="btn-group" style="margin-bottom: 20px;">
-                      <router-link
-                        :to="{
+
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Primera Agrupación</th>
+            <th scope="col">Segunda Agrupación</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Lugar</th>
+            <th scope="col">Descripcióin</th>
+            <th scope="col">Repertorio</th>
+            <th scope="col">Dinero que se necesita</th>
+            <th scope="col">Link de Crowdfunding</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="musicalexchange in filterName" :key="musicalexchange.id">
+            <td>{{ musicalexchange.nombreMA }}</td>
+            <td>{{ musicalexchange.nombreMB }}</td>
+            <td>
+              <span>{{ musicalexchange.date | moment }}</span>
+            </td>
+            <td>{{ musicalexchange.place }}</td>
+            <td>{{ musicalexchange.description }}</td>
+            <td>{{ musicalexchange.repertoire }}</td>
+            <td>{{ musicalexchange.neededMoney }}</td>
+            <td>{{ musicalexchange.crowdfundingLink }}</td>
+            <td>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group" style="margin-bottom: 20px;">
+                  <router-link
+                    :to="{
                           name: 'EditME',
                           params: { id: musicalexchange.id },
                         }"
-                        class="btn btn-sm btn-outline-secondary"
-                        >Edit Exchange</router-link
-                      >
+                    class="btn btn-sm btn-outline-secondary"
+                  >Edit Exchange</router-link>
 
-                      <router-link
-                        :to="{
+                  <router-link
+                    :to="{
                           name: 'GetME',
                           params: { id: musicalexchange.id },
                         }"
-                        class="btn btn-sm btn-outline-primary"
-                        >Show Exchange</router-link
-                      >
+                    class="btn btn-sm btn-outline-primary"
+                  >Show Exchange</router-link>
 
-                      <button
-                        class="btn btn-sm btn-outline-secondary"
-                        v-on:click="deleteMGroup(musicalexchange.id)"
-                      >
-                        Delete Exchange
-                      </button>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table> 
-       <!-- </div> -->
-      </div>
-    </div> 
-  </body>
+                  <button
+                    class="btn btn-sm btn-outline-secondary"
+                    v-on:click="deleteMGroup(musicalexchange.id)"
+                  >Delete Exchange</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- </div> -->
+    </div>
+  </div>
+</body>
 </template>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
 <script>
-import "bootstrap/dist/css/bootstrap.min.css"
-import "bootstrap-vue/dist/bootstrap-vue.css"
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 import { server } from "../helper";
 import axios from "axios";
 import Vue from "vue";
@@ -264,7 +251,7 @@ Vue.use(MultiSelectPlugin);
 /*FECHA*/
 import {
   DatePickerPlugin,
-  DateRangePickerPlugin,
+  DateRangePickerPlugin
 } from "@syncfusion/ej2-vue-calendars";
 Vue.use(DatePickerPlugin);
 Vue.use(DateRangePickerPlugin);
@@ -297,7 +284,7 @@ export default {
       end: "Hasta",
       fields: { text: "name", value: "name" },
       showSelectAll: true,
-      dateFormat: "dd-MM-yyyy",
+      dateFormat: "dd-MM-yyyy"
       /*sort: ["nombreMA", "nombreMB", "date", "place", "neededMoney"],
       sortBy: "nombreMA",*/
       //pageSettings: { pageSize: 20 } (Para la versión nueva)
@@ -309,7 +296,7 @@ export default {
   },
   computed: {
     filterName() {
-      return this.musicalexchanges.filter((musicalexchange) => {
+      return this.musicalexchanges.filter(musicalexchange => {
         return (
           musicalexchange.place
             .toLowerCase()
@@ -321,27 +308,27 @@ export default {
           this.inRange(moment(musicalexchange.date).format("DD/MM/YYYY, HH:mm"))
         );
       });
-    },
+    }
   },
   methods: {
     fetchMExchanges() {
       axios
         .get(`${server.baseURL}/musicalexchange`)
-        .then((data) => (this.musicalexchanges = data.data));
+        .then(data => (this.musicalexchanges = data.data));
     },
     deleteMGroup(id) {
       axios
         .delete(`${server.baseURL}/musicalexchange/${id}`, {
-          headers: { token: localStorage.token },
+          headers: { token: localStorage.token }
         })
-        .then((data) => {
+        .then(data => {
           window.location.reload();
         });
     },
     getAgrupaciones() {
       axios
         .get(`${server.baseURL}/musicalgroup`)
-        .then((data) => (this.mgroups = data.data));
+        .then(data => (this.mgroups = data.data));
     },
     matchAgrupation(nombreMA, nombreMB) {
       if (this.searchMGroup.length != 0) {
@@ -417,7 +404,7 @@ export default {
         }
       }
       return true;
-    },
+    }
     /*LO HE USADO PARA HACER PRUEBAS
     prueba: function() {
       alert("searchDates " + this.searchDates + " length: ");
@@ -426,8 +413,8 @@ export default {
   filters: {
     moment: function(date) {
       return moment(date).format("DD/MM/YYYY, HH:mm");
-    },
-  },
+    }
+  }
   /*SE USA PARA EL GRID PARA PODER ORDENAR Y MOSTRAR LA CANTIDAD DE PÁGINAS
   provide: {
     grid: [Page, Sort]

@@ -17,6 +17,7 @@ import HomeComponent from "@/components/home/Home";
 import LoginComponent from "@/views/Login";
 import ErrorComponent from "@/views/Error";
 import ChatComponent from "@/views/Chat";
+import ChatListComponent from "@/views/ChatList";
 
 Vue.use(Router);
 
@@ -248,6 +249,19 @@ const router = new Router({
       path: "/chat",
       name: "Chat",
       component: ChatComponent,
+      meta: {
+        authenticated: true,
+        isLogin: false,
+        hasToBePerson: false,
+        hasToBeGroup: false,
+        needId: true,
+        isMusicalExchange: false,
+      },
+    },
+    {
+      path: "/chat/list",
+      name: "ChatList",
+      component: ChatListComponent,
       meta: {
         authenticated: true,
         isLogin: false,
