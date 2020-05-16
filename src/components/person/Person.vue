@@ -31,14 +31,21 @@
               <div>
               <router-link 
                       :to="{ name: 'Edit', params: { id: person.id } }"
-                      class="btn btn-sm btn-outline-secondary"
+                      class="btn btn-sm btn-outline-secondary p-3"
                       >
                       Editar perfil
                       </router-link
                     > 
+              <router-link 
+                      :to="{ name: 'FollowedMGroups', params: { id: person.id } }"
+                      class="btn btn-sm btn-outline-secondary p-3"
+                      >
+                      Mis suscripciones
+                      </router-link
+                    > 
                      
               <button
-                class="btn btn-sm btn-outline-danger"
+                class="btn btn-sm btn-outline-danger p-3"
                 v-on:click="deletePerson(person.id)"
               >
                 Borrar cuenta

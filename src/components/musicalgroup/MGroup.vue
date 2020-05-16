@@ -148,7 +148,6 @@ export default {
         )
         .then((data) => {
           if (data.data === true) {
-            console.log("me he des-suscrito!");
             this.subscribed = false;
           }
           //router.push({ name: "GetMG" });
@@ -160,7 +159,6 @@ export default {
         .post(`${server.baseURL}/subscriptionMG/create`, data)
         .then((data) => {
           if (data.data === true) {
-            console.log("me he suscrito!");
             this.subscribed = true;
           }
           //router.push({ name: "GetMG" });

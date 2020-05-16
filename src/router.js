@@ -12,6 +12,7 @@ import EditMEComponent from "@/components/musicalexchange/Edit";
 import GetMGroupComponent from "@/components/musicalgroup/MGroup";
 import GetMusicalExchangeComponent from "@/components/musicalexchange/MusicalExchange";
 import GetPersonComponent from "@/components/person/Person";
+import GetFollowedComponent from "@/views/FollowedMGroups";
 import CreateUserComponent from "@/components/user/Create";
 import HomeComponent from "@/components/home/Home";
 import LoginComponent from "@/views/Login";
@@ -38,6 +39,12 @@ const router = new Router({
         needId: false,
         isMusicalExchange: false,
       },
+    },
+    {
+      path: "/followed/:id",
+      name: "FollowedMGroups",
+      component: GetFollowedComponent,
+
     },
 
     {
@@ -136,6 +143,7 @@ const router = new Router({
         isMusicalExchange: false,
       },
     },
+
     {
       path: "/musicalgroup/create",
       name: "CreateMG",
