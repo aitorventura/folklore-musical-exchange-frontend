@@ -148,27 +148,31 @@ export default {
         }
       },
       //idChat lo cogeré de la ruta cuando esté la lista de chats
-      idChat: 0
+      idP: 0,
+      myId: 0
     };
   },
-  created() {
-    this.idChat = this.$route.params.id;
-    this.getMessages();
-    this.getParticipant();
-    this.getMyself();
+  async created() {
+    this.getMyId();
+    this.getIdP();
+    await this.getParticipant();
+    await this.getMyself();
+    await this.getMessages();
   },
   methods: {
     /*onType: function(event) {
       //here you can set any behavior
     },*/
-    loadMoreMessages(resolve) {
+    async loadMoreMessages(resolve) {
       console.log("loadMoreMessages");
-      this.getMessages();
+      await this.getMessages();
       //this.tratarToLoad();
       setTimeout(() => {
         resolve(this.toLoad); //We end the loading state and add the messages
         //Make sure the loaded messages are also added to our local messages copy or they will be lost
+
         this.messages.unshift(...this.toLoad);
+
         this.toLoad = [];
       }, 1000);
       //console.log("Voy a cargar mensajes: ");
@@ -178,7 +182,8 @@ export default {
       //console.log("message");
       //console.log(new Date(message.timestamp).toISOString());
       let fecha = new Date(message.timestamp).toISOString();
-      console.log(fecha.substring(0, fecha.length - 2));
+      //console.log(fecha.substring(0, fecha.length - 2));
+
       let messageData = {
         idChat: this.idChat,
         content: message.content,
@@ -251,30 +256,35 @@ export default {
       console.log("Image clicked", message.src);
     },
     async getMessages() {
-      console.log("getMessages - idChat: " + this.idChat);
       await axios
-        .get(`${server.baseURL}/chat/${this.idChat}`, {
+        .get(`${server.baseURL}/chat/${this.myId}/${this.idP}`, {
           headers: { token: localStorage.token }
         })
         .then(data => (this.toLoad = data.data));
+      console.log("toLoad");
       console.log(Object.values(this.toLoad));
       this.tratarToLoad();
-      //console.log(Object.values(this.toLoad));
+      console.log(Object.values(this.toLoad));
       //this.tratarToLoad();
     },
     async getParticipant() {
-      let myId = await localStorage.getItem("id");
+      console.log("participant: ");
+      console.log(this.idP);
       await axios
-        .get(`${server.baseURL}/chat/participant/${this.idChat}/${myId}`)
+        .get(`${server.baseURL}/chat/participant/${this.idP}`)
         .then(data => (this.participants = data.data));
+      console.log("participant");
+      console.log(Object.values(this.participants));
     },
     async getMyself() {
-      let myId = await localStorage.getItem("id");
+      console.log("myself");
+      console.log(this.myId);
       await axios
-        .get(`${server.baseURL}/chat/myself/${myId}`, {
+        .get(`${server.baseURL}/chat/myself/${this.myId}`, {
           headers: { token: localStorage.token }
         })
         .then(data => (this.myself = data.data));
+      console.log(Object.values(this.myself));
     },
     tratarToLoad() {
       for (var i in this.toLoad) {
@@ -283,12 +293,30 @@ export default {
     },
     __submitToServer(data) {
       axios
-        .post(`${server.baseURL}/chat/newmsg/${this.idChat}`, data)
+        .post(`${server.baseURL}/chat/newmsg/${this.myId}/${this.idP}`, data)
         .then(data => {
           if (data.data === 1) {
             alert("No se ha podido enviar el mensaje");
           }
         });
+    },
+    getMyId() {
+      this.myId = localStorage.getItem("id");
+      console.log("My id is: ");
+      console.log(parseInt(this.myId));
+      return localStorage.getItem("id");
+    },
+    getIdP() {
+      let myIdd = localStorage.getItem("id");
+      if (myIdd === this.$route.params.idA) {
+        this.idP = this.$route.params.idB;
+        console.log("The idP: " + this.idP);
+        return this.$route.params.idB;
+      } else {
+        this.idP = this.$route.params.idA;
+        console.log("The idP: " + this.idP);
+        return this.$route.params.idA;
+      }
     }
   }
 };

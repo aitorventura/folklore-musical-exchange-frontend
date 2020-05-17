@@ -56,9 +56,9 @@
           <br />
           <div class="btn-group" style="margin-bottom: 20px;">
             <router-link
-              :to="{ name: 'Chat', params: { id: chat.id } }"
+              :to="{ name: 'Chat', params: { idA: chat.idA , idB: chat.idB } }"
               class="btn btn-sm btn-outline-primary"
-            >Ver chat {{chat.id}}</router-link>
+            >Ver chat {{chat.idA }} {{chat.idB}}</router-link>
           </div>
         </tr>
       </table>
@@ -78,7 +78,8 @@ Vue.use(TextBoxPlugin);
 export default {
   data() {
     return {
-      chats: []
+      chats: [],
+      myId: 0
       //searchName: ""
       //searchType: [],
       //fields: { text: "name", value: "name" },
@@ -88,6 +89,7 @@ export default {
   },
   created() {
     this.fetchChats();
+    this.getMyId();
   },
   /*computed: {
     filterName() {
@@ -102,22 +104,10 @@ export default {
       axios
         .get(`${server.baseURL}/chat/all/${myId}`)
         .then(data => (this.chats = data.data));
+    },
+    async getMyId() {
+      this.myId = await localStorage.getItem("id");
     }
-    /*deleteMGroup(id) {
-      axios
-        .delete(`${server.baseURL}/musicalgroup/${id}`, {
-          headers: { token: localStorage.token }
-        })
-        .then(data => {
-          if (data.data) {
-            window.location.reload();
-          } else {
-            alert(
-              "No puede darse de baja mientras tenga intercambios pendientes."
-            );
-          }
-        });
-    },*/
   }
 };
 </script>

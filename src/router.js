@@ -44,7 +44,6 @@ const router = new Router({
       path: "/followed/:id",
       name: "FollowedMGroups",
       component: GetFollowedComponent,
-
     },
 
     {
@@ -254,6 +253,7 @@ const router = new Router({
       },
     },
     {
+      //FIXME: HE puesto /chat/:id
       path: "/chat",
       name: "Chat",
       component: ChatComponent,
