@@ -1,41 +1,31 @@
 <template>
-  <body>
-    <div class="container-fluid">
-      <div class="text-center"> 
-        
-        <b-container class="bv-example-row">
-          <b-row>
-            <b-col>1 of 3</b-col>
-            <b-col>2 of 3</b-col>
-            <b-col>3 of 3</b-col>
-          </b-row>
-        </b-container>
+<body>
+  <div class="container-fluid">
+    <div class="text-center">
 
       <h1>Listado de intercambios musicales</h1>
 
-        <div v-if="musicalexchanges.length === 0">
-          <div class="container">
-            <div class="alert" classappend="alert-dark">
-              <img src="../assets/logoBlanco.png" style="width:300px;" />
+      <div v-if="musicalexchanges.length === 0">
+        <div class="container">
+          <div class="alert" classappend="alert-dark">
+            <img src="../assets/logoBlanco.png" style="width:300px;" />
 
-              <br />
-              <h3>No user found at the moment</h3>
-              <br />
-              <p>
-                Pulsa el botón de inicio para volver a la página principal o
-                utiliza el navegador para volver atrás
-              </p>
-            </div>
-            <div th:align="center">
-              <a href="/" class="btn btn-primary" th:align="left"
-                >Página principal</a
-              >
-            </div>
+            <br />
+            <h3>No user found at the moment</h3>
+            <br />
+            <p>
+              Pulsa el botón de inicio para volver a la página principal o
+              utiliza el navegador para volver atrás
+            </p>
+          </div>
+          <div th:align="center">
+            <a href="/" class="btn btn-primary" th:align="left">Página principal</a>
           </div>
         </div>
-      <!--</div>
+      </div>
+      <!--</div> -->
       <div class v-if="musicalexchanges.length !== 0">
-        <div class="blanco">
+        <div class="thumbnail">
           <br />
           <ejs-textbox
             id="textbox"
@@ -72,183 +62,113 @@
             unSelectAllText="Deseleccionar todos"
             width="300px"
           ></ejs-multiselect>
-
-        
-        <div id="app">
-          <ejs-grid
-            :dataSource="filterName"
-            :allowPaging="true"
-            :allowSorting="true"
-            :allowFiltering="true"
-            :pageSettings="pageSettings"
-            :toolbar="toolbarOptions"
-            :editSettings="editSettings"
-          >
-            <e-columns>
-              <e-column
-                field="nombreMA"
-                headerText="Agrupation name"
-                textAlign="Center"
-                width="100"
-              ></e-column>
-              <e-column
-                field="nombreMA"
-                headerText="Agrupation name"
-                textAlign="Center"
-                width="100"
-              ></e-column>
-              <e-column
-                field="date"
-                headerText="Date"
-                textAlign="Center"
-                width="80"
-              ></e-column>
-              <e-column
-                field="place"
-                headerText="Place"
-                textAlign="Center"
-                width="80"
-              ></e-column>
-              <e-column
-                field="description"
-                headerText="Description"
-                textAlign="Center"
-                width="150"
-              ></e-column>
-              <e-column
-                field="repertoire"
-                headerText="Repertoire"
-                textAlign="Center"
-                width="150"
-              ></e-column>
-              <e-column
-                field="neededMoney"
-                headerText="Needed money"
-                textAlign="Center"
-                width="90"
-              ></e-column>
-              <e-column
-                field="crowdfundingLink"
-                headerText="Crowdfunding link"
-                textAlign="Center"
-                width="90"
-              ></e-column>
-            </e-columns>
-          </ejs-grid>
-        </div>
-      </div> -->
-      
-
-          <!--
-        <ejs-dropdownlist
-          v-model="sortBy"
-          :dataSource="sort"
-          :showClearButton="true"
-          placeholder="Sort by"
-        ></ejs-dropdownlist>
-      -->
-
-          <!--<ejs-multiselect
-          v-model="dateType"
-          :dataSource="dateTypes"
-          placeholder="Select how to search a date"
-          :fields="fieldsDate"
-          width="300px"
-          :value="simple"
-          :maximumSelectionLength="1"
-      ></ejs-multiselect>-->
-
-          <!--<ejs-splitbutton v-model="dateType" :items="dateTypes" :fields="fieldsDate" content="simple"></ejs-splitbutton>-->
-          <!--<ejs-combobox
-          v-model="dateType"
-          :fields="fieldsDate"
-          :dataSource="dateTypes"
-          placeholder="Select how to search a date"
-          width="300px"
-      ></ejs-combobox>-->
-
-          <!--
-        <ejs-daterangepicker
-          v-model="searchDates"
-          :placeholder="placeholder"
-          width="200px"
-          format="dd/MM/yyyy"
-        ></ejs-daterangepicker>
-      -->
-        
-          <table class="table table-bordered">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">Primera Agrupación</th>
-                <th scope="col">Segunda Agrupación</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Lugar</th>
-                <th scope="col">Descripcióin</th>
-                <th scope="col">Repertorio</th>
-                <th scope="col">Dinero que se necesita</th>
-                <th scope="col">Link de Crowdfunding</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="musicalexchange in filterName"
-                :key="musicalexchange.id"
+     
+          <div class="row justify-content-center p-4" align-v="center">
+            
+            <div v-for="musicalexchange in filterName" :key="musicalexchange.id" class="col-4 p-4 justify-content-center">
+              <b-card
+                img-src="https://picsum.photos/600/300/?image=25"
+                img-alt="Image"
+                img-top
+                style="max-width: 35rem;"
+                class="mb-2"
               >
-                <td>{{ musicalexchange.nombreMA }}</td>
-                <td>{{ musicalexchange.nombreMB }}</td>
-                <td>
-                  <span>{{ musicalexchange.date | moment }}</span>
-                </td>
-                <td>{{ musicalexchange.place }}</td>
-                <td>{{ musicalexchange.description }}</td>
-                <td>{{ musicalexchange.repertoire }}</td>
-                <td>{{ musicalexchange.neededMoney }}</td>
-                <td>{{ musicalexchange.crowdfundingLink }}</td>
-                <td>
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                  >
-                    <div class="btn-group" style="margin-bottom: 20px;">
-                      <router-link
-                        :to="{
-                          name: 'EditME',
-                          params: { id: musicalexchange.id },
-                        }"
-                        class="btn btn-sm btn-outline-secondary"
-                        >Edit Exchange</router-link
-                      >
+                <b-card-text>
+                <div class="row">
+                  <div class="col">Grupo anfitrión: <strong>{{ musicalexchange.nombreMA }}</strong></div>
+                  <div class="col">Grupo intivado: <strong>{{ musicalexchange.nombreMB }}</strong></div>
+                </div>
+                </b-card-text>
 
-                      <router-link
+                <b-card-text>
+                  <br />
+                  <div class="font-italic">Lugar del encuentro:  {{ musicalexchange.place }}</div>
+                </b-card-text>
+                <div class="pt-4">
+                  <router-link
                         :to="{
-                          name: 'GetME',
-                          params: { id: musicalexchange.id },
-                        }"
+                              name: 'GetME',
+                              params: { id: musicalexchange.id },
+                            }"
                         class="btn btn-sm btn-outline-primary"
-                        >Show Exchange</router-link
-                      >
+                      >Más información</router-link>
+                </div>
+              </b-card>
+            </div>
+            
+          </div>
+  
+         
+        
+        <!--<table class="table table-bordered">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Primera Agrupación</th>
+              <th scope="col">Segunda Agrupación</th>
+              <th scope="col">Fecha</th>
+              <th scope="col">Lugar</th>
+              <th scope="col">Descripcióin</th>
+              <th scope="col">Repertorio</th>
+              <th scope="col">Dinero que se necesita</th>
+              <th scope="col">Link de Crowdfunding</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="musicalexchange in filterName" :key="musicalexchange.id">
+              <td>{{ musicalexchange.nombreMA }}</td>
+              <td>{{ musicalexchange.nombreMB }}</td>
+              <td>
+                <span>{{ musicalexchange.date | moment }}</span>
+              </td>
+              <td>{{ musicalexchange.place }}</td>
+              <td>{{ musicalexchange.description }}</td>
+              <td>{{ musicalexchange.repertoire }}</td>
+              <td>{{ musicalexchange.neededMoney }}</td>
+              <td>{{ musicalexchange.crowdfundingLink }}</td>
+              <td>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group" style="margin-bottom: 20px;">
+                    <router-link
+                      :to="{
+                            name: 'EditME',
+                            params: { id: musicalexchange.id },
+                          }"
+                      class="btn btn-sm btn-outline-secondary"
+                    >Edit Exchange</router-link>
 
-                      <button
-                        class="btn btn-sm btn-outline-secondary"
-                        v-on:click="deleteMGroup(musicalexchange.id)"
-                      >
-                        Delete Exchange
-                      </button>
-                    </div>
+                    <router-link
+                      :to="{
+                            name: 'GetME',
+                            params: { id: musicalexchange.id },
+                          }"
+                      class="btn btn-sm btn-outline-primary"
+                    >Show Exchange</router-link>
+
+                    <button
+                      class="btn btn-sm btn-outline-secondary"
+                      v-on:click="deleteMGroup(musicalexchange.id)"
+                    >Delete Exchange</button>
                   </div>
-                </td>
-              </tr>
-            </tbody>
-          </table> 
-       <!-- </div> -->
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>-->
+
+     
       </div>
-    </div> 
-  </body>
+      </div> 
+    </div>
+  </div>
+</body>
 </template>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
 <script>
-import "bootstrap/dist/css/bootstrap.min.css"
-import "bootstrap-vue/dist/bootstrap-vue.css"
+/*STYLES*/
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
+
 import { server } from "../helper";
 import axios from "axios";
 import Vue from "vue";
@@ -264,7 +184,7 @@ Vue.use(MultiSelectPlugin);
 /*FECHA*/
 import {
   DatePickerPlugin,
-  DateRangePickerPlugin,
+  DateRangePickerPlugin
 } from "@syncfusion/ej2-vue-calendars";
 Vue.use(DatePickerPlugin);
 Vue.use(DateRangePickerPlugin);
@@ -297,7 +217,7 @@ export default {
       end: "Hasta",
       fields: { text: "name", value: "name" },
       showSelectAll: true,
-      dateFormat: "dd-MM-yyyy",
+      dateFormat: "dd-MM-yyyy"
       /*sort: ["nombreMA", "nombreMB", "date", "place", "neededMoney"],
       sortBy: "nombreMA",*/
       //pageSettings: { pageSize: 20 } (Para la versión nueva)
@@ -309,7 +229,7 @@ export default {
   },
   computed: {
     filterName() {
-      return this.musicalexchanges.filter((musicalexchange) => {
+      return this.musicalexchanges.filter(musicalexchange => {
         return (
           musicalexchange.place
             .toLowerCase()
@@ -321,27 +241,27 @@ export default {
           this.inRange(moment(musicalexchange.date).format("DD/MM/YYYY, HH:mm"))
         );
       });
-    },
+    }
   },
   methods: {
     fetchMExchanges() {
       axios
         .get(`${server.baseURL}/musicalexchange`)
-        .then((data) => (this.musicalexchanges = data.data));
+        .then(data => (this.musicalexchanges = data.data));
     },
     deleteMGroup(id) {
       axios
         .delete(`${server.baseURL}/musicalexchange/${id}`, {
-          headers: { token: localStorage.token },
+          headers: { token: localStorage.token }
         })
-        .then((data) => {
+        .then(data => {
           window.location.reload();
         });
     },
     getAgrupaciones() {
       axios
         .get(`${server.baseURL}/musicalgroup`)
-        .then((data) => (this.mgroups = data.data));
+        .then(data => (this.mgroups = data.data));
     },
     matchAgrupation(nombreMA, nombreMB) {
       if (this.searchMGroup.length != 0) {
@@ -417,7 +337,7 @@ export default {
         }
       }
       return true;
-    },
+    }
     /*LO HE USADO PARA HACER PRUEBAS
     prueba: function() {
       alert("searchDates " + this.searchDates + " length: ");
@@ -426,8 +346,8 @@ export default {
   filters: {
     moment: function(date) {
       return moment(date).format("DD/MM/YYYY, HH:mm");
-    },
-  },
+    }
+  }
   /*SE USA PARA EL GRID PARA PODER ORDENAR Y MOSTRAR LA CANTIDAD DE PÁGINAS
   provide: {
     grid: [Page, Sort]
@@ -444,15 +364,7 @@ export default {
 @import "../../node_modules/@syncfusion/ej2-popups/styles/material.css";
 @import "../../node_modules/@syncfusion/ej2-vue-calendars/styles/material.css";
 @import "../../node_modules/@syncfusion/ej2-vue-inputs/styles/material.css";
-@import "../../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
-@import "../../node_modules/@syncfusion/ej2-vue-dropdowns/styles/material.css";
-@import "../../node_modules/@syncfusion/ej2-lists/styles/material.css";
-.wrap {
-  box-sizing: border-box;
-  margin: 0 auto;
-  padding: 20px 10px;
-  width: 340px;
-}
+
 .wrapper {
   max-width: 250px;
   margin: 0 auto;
@@ -460,23 +372,37 @@ export default {
 </style>
 
 <style scoped>
+td {
+  padding: 5px;
+}
+tr,
+th,
+table {
+  border: 0cm;
+  align-items: center;
+}
 .thumbnail {
+  align-content: center;
+  align-items: center;
+  text-align: center;
   line-height: 100%;
   border-color: #fff;
-  border-left-width: 0.5cm;
-  border-right-width: 0.5cm;
+  border-left-width: 1cm;
+  border-right-width: 1cm;
+  color: #2d2d30;
 } /*
-#centro {
+table {
+  border: 0cm;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center;
 }*/
 body {
   font: 400 15px/1.8 Lato, sans-serif;
   color: whitesmoke;
   background-color: #2d2d30;
-  height: 100vh;
-  width: 100%;
+  height: 100%;
   /*height: 100%;
   width: 100%;
   padding: 0;
@@ -488,13 +414,16 @@ body {
 }
 .blanco {
   background-color: white;
-  color: #777;
 }
 /*
 .oscuro {
   height: 100vh;
   background-color: #2d2d30;
 }*/
+.centerBlock {
+  display: table;
+  margin: auto;
+}
 
 .btn {
   padding: 6px 15px;
@@ -508,5 +437,15 @@ body {
   border: 1px solid #333;
   background-color: #fff;
   color: #000;
+}
+
+.texto-centrado {
+  text-align: center;
+}
+
+.center-block {
+   margin-left:auto;
+   margin-right:auto;
+   display:block;
 }
 </style>
