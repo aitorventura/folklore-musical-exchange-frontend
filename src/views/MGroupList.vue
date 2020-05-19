@@ -23,7 +23,6 @@
           </div>
         </div>
       </div>
-
     </div>
 
     <!-- <div class="row"> -->
@@ -61,7 +60,7 @@
       ></ejs-multiselect>
 
       <br />
-<!--
+      <!--
       <div class="p-3" v-for="mgroup in filterName" :key="mgroup.id">
         <div class="row p-4 border" >
           <div class="col-2 ">
@@ -80,50 +79,81 @@
           </div>
         </div>
       </div>
--->
-     
-      <table class="table text-center" style="padding: 30px">
-        <tr v-for="mgroup in filterName" :key="mgroup.id" class="border" style="padding: 30px">
-          <td scope="col border justify-content-center" style="padding-right: 40px;">
-            <div class="p-3">
-              <img v-bind:src="mgroup.image" height="160" width="160" />
-            </div>
-          </td>
-          <td scope="col justify-content-center" style="padding-left: 20px;">
-            <div class="text-left">
-              <h2>{{ mgroup.name }}</h2>
-            </div>
-            <div class="text-left">
-              <br />
-              <p>
-                <strong>Ciudad:</strong>
-                {{ mgroup.city }}
-              </p>
-              <br />
-              <p>{{ mgroup.nameType }}</p>
-            </div>
-          </td>
-          <br />
-          <br />
-          <br />
-          <br />
-          <div class="btn-group justify-content-center" style="margin-bottom: 20px;">
-            <router-link
-              :to="{ name: 'GetMG', params: { id: mgroup.id } }"
-              class="btn btn-sm btn-outline-primary"
-            >Más información</router-link>
+      -->
+      <div class="row justify-content-center" align-v="center">
+        <div v-for="mgroup in filterName" :key="mgroup.id" class="col-3 justify-content-center">
+          <img class="card-img-top" v-bind:src="mgroup.image" alt="Card image" />
+          <b-card>
+            <b-card-text>
+              <div class="row">
+                <div class="col">
+                  <strong>{{ mgroup.name }}</strong>
+                </div>
+                <div class="col">
+                  Tipo de grupo:
+                  <strong>{{ mgroup.nameType }}</strong>
+                </div>
+              </div>
+            </b-card-text>
+            <br />
+            <div class="btn-group justify-content-center" style="margin-bottom: 20px;">
+              <router-link
+                :to="{ name: 'GetMG', params: { id: mgroup.id } }"
+                class="btn btn-sm btn-outline-primary"
+              >Más información</router-link>
 
-            <div v-if="isMGroup">
-               <!-- <router-link
+              <div v-if="isMGroup">
+                <!-- <router-link
                 :to="{ name: '----', params: { idMGroupA: mgroup.id, idMGroupB: localStorage.getItem("id")} }"
                 class="btn btn-sm btn-outline-primary"
-              >Enviar mensaje</router-link> -->
+                >Enviar mensaje</router-link>-->
+              </div>
             </div>
-          </div>
-        </tr>
-      </table>
-      
+          </b-card>
+        </div>
+      </div>
 
+      <!--table class="table text-center" style="padding: 30px">
+          <tr v-for="mgroup in filterName" :key="mgroup.id" class="border" style="padding: 30px">
+            <td scope="col border justify-content-center" style="padding-right: 40px;">
+              <div class="p-3">
+                <img v-bind:src="mgroup.image" height="160" width="160" />
+              </div>
+            </td>
+            <td scope="col justify-content-center" style="padding-left: 20px;">
+              <div class="text-left">
+                <h2>{{ mgroup.name }}</h2>
+              </div>
+              <div class="text-left">
+                <br />
+                <p>
+                  <strong>Ciudad:</strong>
+                  {{ mgroup.city }}
+                </p>
+                <br />
+                <p>{{ mgroup.nameType }}</p>
+              </div>
+            </td>
+            <br />
+            <br />
+            <br />
+            <br />
+            <div class="btn-group justify-content-center" style="margin-bottom: 20px;">
+              <router-link
+                :to="{ name: 'GetMG', params: { id: mgroup.id } }"
+                class="btn btn-sm btn-outline-primary"
+              >Más información</router-link>
+
+      <div v-if="isMGroup"-->
+      <!-- <router-link
+                :to="{ name: '----', params: { idMGroupA: mgroup.id, idMGroupB: localStorage.getItem("id")} }"
+                class="btn btn-sm btn-outline-primary"
+      >Enviar mensaje</router-link>-->
+      <!--/div>
+            </div>
+          </tr>
+        </table>
+      </div-->
     </div>
   </div>
 </body>
@@ -135,7 +165,7 @@ import axios from "axios";
 import Vue from "vue";
 /*STYLES*/
 import "bootstrap/dist/css/bootstrap.min.css";
-//import "bootstrap-vue/dist/bootstrap-vue.css";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 
 /*DESPLEGABLE MULTISELECT*/
 import { MultiSelectPlugin } from "@syncfusion/ej2-vue-dropdowns";
@@ -182,8 +212,8 @@ export default {
         .get(`${server.baseURL}/musicalgroup`)
         .then(data => (this.mgroups = data.data));
     },
-    getRole(){
-      if(localStorage.getItem("role") != "PERSON"){
+    getRole() {
+      if (localStorage.getItem("role") != "PERSON") {
         this.isMGroup = true;
       }
     },
@@ -317,8 +347,8 @@ body {
 }
 
 .center-block {
-   margin-left:auto;
-   margin-right:auto;
-   display:block;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 </style>

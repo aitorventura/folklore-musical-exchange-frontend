@@ -2,7 +2,6 @@
 <body>
   <div class="container-fluid">
     <div class="text-center">
-
       <h1>Listado de intercambios musicales</h1>
 
       <div v-if="musicalexchanges.length === 0">
@@ -62,10 +61,13 @@
             unSelectAllText="Deseleccionar todos"
             width="300px"
           ></ejs-multiselect>
-     
+
           <div class="row justify-content-center p-4" align-v="center">
-            
-            <div v-for="musicalexchange in filterName" :key="musicalexchange.id" class="col-4 p-4 justify-content-center">
+            <div
+              v-for="musicalexchange in filterName"
+              :key="musicalexchange.id"
+              class="col-4 p-4 justify-content-center"
+            >
               <b-card
                 img-src="https://picsum.photos/600/300/?image=25"
                 img-alt="Image"
@@ -74,33 +76,36 @@
                 class="mb-2"
               >
                 <b-card-text>
-                <div class="row">
-                  <div class="col">Grupo anfitrión: <strong>{{ musicalexchange.nombreMA }}</strong></div>
-                  <div class="col">Grupo intivado: <strong>{{ musicalexchange.nombreMB }}</strong></div>
-                </div>
+                  <div class="row">
+                    <div class="col">
+                      Grupo anfitrión:
+                      <strong>{{ musicalexchange.nombreMA }}</strong>
+                    </div>
+                    <div class="col">
+                      Grupo invitado:
+                      <strong>{{ musicalexchange.nombreMB }}</strong>
+                    </div>
+                  </div>
                 </b-card-text>
 
                 <b-card-text>
                   <br />
-                  <div class="font-italic">Lugar del encuentro:  {{ musicalexchange.place }}</div>
+                  <div class="font-italic">Lugar del encuentro: {{ musicalexchange.place }}</div>
                 </b-card-text>
                 <div class="pt-4">
                   <router-link
-                        :to="{
+                    :to="{
                               name: 'GetME',
                               params: { id: musicalexchange.id },
                             }"
-                        class="btn btn-sm btn-outline-primary"
-                      >Más información</router-link>
+                    class="btn btn-sm btn-outline-primary"
+                  >Más información</router-link>
                 </div>
               </b-card>
             </div>
-            
           </div>
-  
-         
-        
-        <!--<table class="table table-bordered">
+
+          <!--<table class="table table-bordered">
           <thead class="thead-dark">
             <tr>
               <th scope="col">Primera Agrupación</th>
@@ -153,11 +158,9 @@
               </td>
             </tr>
           </tbody>
-        </table>-->
-
-     
+          </table>-->
+        </div>
       </div>
-      </div> 
     </div>
   </div>
 </body>
@@ -444,8 +447,8 @@ body {
 }
 
 .center-block {
-   margin-left:auto;
-   margin-right:auto;
-   display:block;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 </style>
