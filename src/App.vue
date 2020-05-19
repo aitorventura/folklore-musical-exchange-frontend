@@ -12,7 +12,7 @@
 
     <!-- Falta que los elementos se alinean al centro de cada columna -->
       <div v-if="logged">
-        <b-navbar toggleable="lg" type="dark" variant="info">
+        <b-navbar toggleable="lg" type="dark">
           <b-navbar-brand href="/">
             <img
               src="./assets/logoBlanco.png"
@@ -30,17 +30,17 @@
 
             <!-- Right aligned nav items -->
             <b-navbar-nav class="ml-auto">
-              <b-nav-item href="/listMGroups" right>Agrupaciones Musicales</b-nav-item>
-              <b-nav-item href="/listMusicalExchanges">Intercambios Musicales</b-nav-item>
-              <b-nav-item v-if="!person" href="/musicalexchange/create">Crear Intercambio Musical</b-nav-item>
+              <b-nav-item href="/listMGroups" right>Agrupaciones Musicales</b-nav-item> 
+              <b-nav-item href="/listMusicalExchanges">Intercambios Musicales</b-nav-item> 
+              <b-nav-item v-if="!person" href="/musicalexchange/create">Crear Intercambio Musical</b-nav-item> 
               <b-nav-item v-if="!person">
                 <router-link :to="{ name: 'GetMG', params: { id: id } }"
-                            class="nav-link">Perfil
+                            class="b-nav-item href">Perfil
                 </router-link>
               </b-nav-item>
               <b-nav-item v-if="person">
                 <router-link :to="{ name: 'GetP', params: { id: id } }"
-                            class="nav-link">Perfil
+                            class="b-nav-item href">Perfil
                 </router-link>
               </b-nav-item>
               <b-nav-item href="#" @click="logout">Desconectarse</b-nav-item>
@@ -159,7 +159,7 @@
       </nav> -->
       </div> 
       <div v-if="!logged">
-        <b-navbar toggleable="lg" type="dark" variant="info">
+        <b-navbar toggleable="lg" type="dark">
           <b-navbar-brand href="/">
             <img
               src="./assets/logoBlanco.png"
@@ -369,9 +369,8 @@ body {
   opacity: 0.9;
 }
 /* Add a gray color to all navbar links - COLOR DE LETRA*/
-.navbar li a,
-.navbar .navbar-brand {
-  color: #d5d5d5 !important;
+.b-nav-item {
+  color: #ffffff !important;
   display: block;
 }
 /* On hover, the links will turn white */
@@ -409,7 +408,7 @@ body {
 .btn {
   padding: 10px 20px;
   background-color: #333;
-  color: #f1f1f1;
+  color: #ffffff;
   border-radius: 0;
   transition: 0.2s;
 }
@@ -430,7 +429,7 @@ table,
 th,
 td,
 tr {
-  background-color: #f8f8f8;
+  background-color: #ffffff;
   text-align: center;
 }
 
@@ -441,10 +440,10 @@ tr {
 }
 
 .modal-content {
-  background-color: #f1f1f1;
+  background-color: #ffffff;
   opacity: 0.75;
   padding: 0 5px;
-  box-shadow: 0px 0px 3px #f1f1f1;
+  box-shadow: 0px 0px 3px #ffffff;
 }
 
 .button {
