@@ -58,7 +58,7 @@
             <router-link
               :to="{ name: 'Chat', params: { idA: chat.idA , idB: chat.idB } }"
               class="btn btn-sm btn-outline-primary"
-            >Ver chat {{chat.idA }} {{chat.idB}}</router-link>
+            >Ver chat</router-link>
           </div>
         </tr>
       </table>

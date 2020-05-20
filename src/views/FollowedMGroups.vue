@@ -1,52 +1,47 @@
 <template>
 <body>
-  
-
-<table class="table text-center" style="padding: 30px">
-        <tr v-for="mgroup in filterName" :key="mgroup.id" class="border" style="padding: 30px">
-          <td scope="col border justify-content-center" style="padding-right: 40px;">
-            <div class="p-3">
-              <img v-bind:src="mgroup.image" height="160" width="160" />
-            </div>
-          </td>
-          <td scope="col justify-content-center" style="padding-left: 20px;">
-            <div class="text-left">
-              <h2>{{ mgroup.name }}</h2>
-            </div>
-            <div class="text-left">
-              <br />
-              <p>
-                <strong>Ciudad:</strong>
-                {{ mgroup.city }}
-              </p>
-              <br />
-              <p>{{ mgroup.nameType }}</p>
-            </div>
-          </td>
+  <table class="table text-center" style="padding: 30px">
+    <tr v-for="mgroup in filterName" :key="mgroup.id" class="border" style="padding: 30px">
+      <td scope="col border justify-content-center" style="padding-right: 40px;">
+        <div class="p-3">
+          <img v-bind:src="mgroup.image" height="160" width="160" />
+        </div>
+      </td>
+      <td scope="col justify-content-center" style="padding-left: 20px;">
+        <div class="text-left">
+          <h2>{{ mgroup.name }}</h2>
+        </div>
+        <div class="text-left">
           <br />
+          <p>
+            <strong>Ciudad:</strong>
+            {{ mgroup.city }}
+          </p>
           <br />
-          <br />
-          <br />
-          <div class="btn-group justify-content-center" style="margin-bottom: 20px;">
-            <router-link
-              :to="{ name: 'GetMG', params: { id: mgroup.id } }"
-              class="btn btn-sm btn-outline-primary p-3"
-            >Más información</router-link>
-             <br />
-            <button
-            class="btn btn-sm btn-outline-danger p-3"
-            v-on:click="deleteSubscriptionMG()"
-            >
-            Dejar de seguir
-            </button>
-            <!--<router-link
-              :to="{ name: '----', params: { idMGroupA: mgroup.id,  idPerson: this.id} }"
-              class="btn btn-sm btn-outline-primary p-3"
-            >Enviar mensaje</router-link>-->
-          </div>
-        </tr>
-      </table>
-
+          <p>{{ mgroup.nameType }}</p>
+        </div>
+      </td>
+      <br />
+      <br />
+      <br />
+      <br />
+      <div class="btn-group justify-content-center" style="margin-bottom: 20px;">
+        <router-link
+          :to="{ name: 'GetMG', params: { id: mgroup.id } }"
+          class="btn btn-sm btn-outline-primary p-3"
+        >Más información</router-link>
+        <br />
+        <button
+          class="btn btn-sm btn-outline-danger p-3"
+          v-on:click="deleteSubscriptionMG()"
+        >Dejar de seguir</button>
+        <router-link
+          :to="{ name: 'Chat', params: { idA: mgroup.id , idB: myId }}"
+          class="btn btn-sm btn-outline-primary"
+        >Enviar mensaje</router-link>
+      </div>
+    </tr>
+  </table>
 </body>
 </template>
 
@@ -71,10 +66,12 @@ export default {
   data() {
     return {
       id: 0,
-      mgroups: {},
+      myId: 0,
+      mgroups: {}
     };
   },
   created() {
+    this.myId = localStorage.getItem("id");
     this.id = this.$route.params.id;
     this.getFollowedMGroups();
   },
@@ -83,7 +80,7 @@ export default {
       axios
         .get(`${server.baseURL}/subscriptionMG/${this.id}`)
         //.then(data => (this.mgroups = data.data)
-        .then((data) => {
+        .then(data => {
           console.log(data);
         });
     },
@@ -92,9 +89,9 @@ export default {
         .delete(
           `${server.baseURL}/subscriptionMG/${localStorage.getItem("id")}/${id}`
         )
-        .then((data) => {
+        .then(data => {
           if (data.data === true) {
-              window.location.reload();
+            window.location.reload();
           }
         });
     }
@@ -191,8 +188,8 @@ body {
 }
 
 .center-block {
-   margin-left:auto;
-   margin-right:auto;
-   display:block;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 </style>

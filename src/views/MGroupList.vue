@@ -101,12 +101,14 @@
                 :to="{ name: 'GetMG', params: { id: mgroup.id } }"
                 class="btn btn-sm btn-outline-primary"
               >Más información</router-link>
-
-              <div v-if="isMGroup">
-                <!-- <router-link
-                :to="{ name: '----', params: { idMGroupA: mgroup.id, idMGroupB: localStorage.getItem("id")} }"
-                class="btn btn-sm btn-outline-primary"
-                >Enviar mensaje</router-link>-->
+              <br />
+              <div v-if="mgroup.id != myId">
+                <br />
+                <br />
+                <router-link
+                  :to="{ name: 'Chat', params: { idA: mgroup.id , idB: myId }}"
+                  class="btn btn-sm btn-outline-primary"
+                >Enviar mensaje</router-link>
               </div>
             </div>
           </b-card>
@@ -184,6 +186,7 @@ export default {
       searchCity: "",
       searchType: [],
       nameTypes: [],
+      myId: 0,
       fields: { text: "name", value: "name" },
       /*maximumSelectionLength: "",*/
       showSelectAll: true,
@@ -191,6 +194,7 @@ export default {
     };
   },
   created() {
+    this.myId = localStorage.getItem("id");
     this.fetchMGroups();
     this.getNameTypes();
     this.getRole();

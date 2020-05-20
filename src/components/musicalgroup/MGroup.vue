@@ -1,70 +1,66 @@
 <template>
-  <body>
- 
-    <!--Si se quiere en blanco se quita el thumbnail-->
-    <div class="thumbnail" id="margin">
-      <table>
-        <tr>
-          <td scope="col p-3" style="padding-right: 40px;">
-            <div class="bordered">
-              <img v-bind:src="mgroup.image" height="400" width="400" />
-            </div>
-          </td>
-          <td scope="col" style="padding-left: 20px;">
-            <div class="text-left">
-              <h2>{{ mgroup.name }}</h2>
-              <h4>Usuario: {{ mgroup.username }}</h4>
-            </div>
-            <div class="text-left">
+<body>
+  <!--Si se quiere en blanco se quita el thumbnail-->
+  <div class="thumbnail" id="margin">
+    <table>
+      <tr>
+        <td scope="col p-3" style="padding-right: 40px;">
+          <div class="bordered">
+            <img v-bind:src="mgroup.image" height="400" width="400" />
+          </div>
+        </td>
+        <td scope="col" style="padding-left: 20px;">
+          <div class="text-left">
+            <h2>{{ mgroup.name }}</h2>
+            <h4>Usuario: {{ mgroup.username }}</h4>
+          </div>
+          <div class="text-left">
+            <br />
+            <p>Email: {{ mgroup.email }}</p>
+            <p>Ciudad: {{ mgroup.city }}</p>
+            <p>Número de miembros: {{ mgroup.members }}</p>
+            <p>Tipo de agrupación: {{ mgroup.nameType }}</p>
+            <p>Descripción: {{ mgroup.description }}</p>
+          </div>
+          <br />
+          <div v-if="mgroup.id != myId">
+            <br />
+            <router-link
+              :to="{ name: 'Chat', params: { idA: mgroup.id , idB: myId }}"
+              class="btn btn-sm btn-outline-primary"
+            >Enviar mensaje</router-link>
+          </div>
+          <div class="text-right" v-if="sameUser">
+            <div>
+              <router-link
+                :to="{ name: 'EditMG', params: { id: mgroup.id } }"
+                class="btn btn-sm btn-outline-secondary"
+              >Editar perfil</router-link>
               <br />
-              <p>Email: {{ mgroup.email }}</p>
-              <p>Ciudad: {{ mgroup.city }}</p>
-              <p>Número de miembros: {{ mgroup.members }}</p>
-              <p>Tipo de agrupación: {{ mgroup.nameType }}</p>
-              <p>Descripción: {{ mgroup.description }}</p>
+
+              <br />
+              <button
+                class="btn btn-sm btn-outline-danger"
+                v-on:click="deletePerson(mgroup.id)"
+              >Borrar cuenta</button>
             </div>
+          </div>
+        </td>
+      </tr>
+    </table>
 
-            <div class="text-right" v-if="sameUser">
-              <div>
-                <router-link 
-                      :to="{ name: 'EditMG', params: { id: mgroup.id } }"
-                      class="btn btn-sm btn-outline-secondary"
-                      >
-                     Editar perfil
-                      </router-link
-                    > 
-
-                <button
-                  class="btn btn-sm btn-outline-danger"
-                  v-on:click="deletePerson(mgroup.id)"
-                >
-                  Borrar cuenta
-                </button>
-              </div>
-            </div>
-          </td>
-        </tr>
-      </table>
-
-      <div v-if="loggedAndPerson && !subscribed">
-        <button
-          class="btn btn-sm btn-outline-primary"
-          v-on:click="createSubscriptionMG()"
-        >
-          Seguir
-        </button>
-      </div>
-      <div v-if="loggedAndPerson && subscribed">
-        <button
-          class="btn btn-sm btn-outline-danger"
-          v-on:click="deleteSubscriptionMG()"
-        >
-          Dejar de seguir
-        </button>
-      </div>
-      <!-- </div> -->
+    <div v-if="loggedAndPerson && !subscribed">
+      <button class="btn btn-sm btn-outline-primary" v-on:click="createSubscriptionMG()">Seguir</button>
     </div>
-  </body>
+    <div v-if="loggedAndPerson && subscribed">
+      <button
+        class="btn btn-sm btn-outline-danger"
+        v-on:click="deleteSubscriptionMG()"
+      >Dejar de seguir</button>
+    </div>
+    <!-- </div> -->
+  </div>
+</body>
 </template>
 
 <script>
@@ -77,12 +73,14 @@ export default {
       id: 0,
       mgroup: {},
       person: {},
+      myId: 0,
       loggedAndPerson: null,
       subscribed: null,
-      sameUser: null,
+      sameUser: null
     };
   },
   created() {
+    this.myId = localStorage.getItem("id");
     this.id = this.$route.params.id;
     this.getMGroup();
   },
@@ -102,7 +100,7 @@ export default {
       }
     },
     getMGroup() {
-      axios.get(`${server.baseURL}/musicalgroup/${this.id}`).then((data) => {
+      axios.get(`${server.baseURL}/musicalgroup/${this.id}`).then(data => {
         this.mgroup = data.data;
         this.isSameUser();
       });
@@ -110,7 +108,7 @@ export default {
     isPerson() {
       axios
         .get(`${server.baseURL}/user/${localStorage.getItem("id")}/check`)
-        .then((data) => {
+        .then(data => {
           if (data.data === true) {
             this.loggedAndPerson = true;
             this.isSubscribed();
@@ -124,7 +122,7 @@ export default {
             this.mgroup.id
           }/check`
         )
-        .then((data) => {
+        .then(data => {
           if (data.data === true) {
             this.subscribed = true;
           } else {
@@ -135,7 +133,7 @@ export default {
     createSubscriptionMG() {
       let subscriptionMG = {
         idPerson: localStorage.getItem("id"),
-        idMGroup: this.mgroup.id,
+        idMGroup: this.mgroup.id
       };
       this.__submitToServer(subscriptionMG);
     },
@@ -146,28 +144,26 @@ export default {
             this.mgroup.id
           }`
         )
-        .then((data) => {
+        .then(data => {
           if (data.data === true) {
             this.subscribed = false;
           }
           //router.push({ name: "GetMG" });
         });
     },
-    
+
     __submitToServer(data) {
-      axios
-        .post(`${server.baseURL}/subscriptionMG/create`, data)
-        .then((data) => {
-          if (data.data === true) {
-            this.subscribed = true;
-          }
-          //router.push({ name: "GetMG" });
-        });
+      axios.post(`${server.baseURL}/subscriptionMG/create`, data).then(data => {
+        if (data.data === true) {
+          this.subscribed = true;
+        }
+        //router.push({ name: "GetMG" });
+      });
     },
     navigate() {
       router.go(-1);
-    },
-  },
+    }
+  }
 };
 </script>
 
