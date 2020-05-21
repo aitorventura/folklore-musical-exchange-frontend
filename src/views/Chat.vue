@@ -13,31 +13,13 @@
       :submit-icon-size="submitIconSize"
       :submit-image-icon-size="submitImageIconSize"
       :load-more-messages="toLoad.length > 0 ? loadMoreMessages : null"
-      :async-mode="asyncMode"
-      :scroll-bottom="scrollBottom"
+      :async-mode="false"
+      :scroll-bottom="true"
       :display-header="true"
-      :send-images="true"
+      :send-images="false"
       :profile-picture-config="profilePictureConfig"
-      @onImageClicked="onImageClicked"
-      @onImageSelected="onImageSelected"
-      @onMessageSubmit="onMessageSubmit"
       @onClose="onClose"
-    >
-      <!--@onType="onType"-->
-      <!--
-      <template v-slot:header>
-        <div>
-          <p
-            v-for="(participant, index) in participants"
-            :key="index"
-            class="custom-title"
-          >
-            {{ participant.name }}
-          </p>
-        </div>
-      </template>
-      -->
-    </Chat>
+    ></Chat>
   </div>
 </template>
 
@@ -87,15 +69,14 @@ export default {
         submitImageIcon: "#b91010"
       },
       borderStyle: {
-        topLeft: "10px",
-        topRight: "10px",
-        bottomLeft: "10px",
-        bottomRight: "10px"
+        topLetft: "0px",
+        topRigh: "0px",
+        bottomLeft: "0px",
+        bottomRight: "0px"
       },
-      hideCloseButton: false,
+      hideCloseButton: true,
       submitIconSize: 30,
       closeButtonIconSize: "20px",
-      asyncMode: false,
       toLoad: [{}],
       scrollBottom: {
         messageSent: true,
@@ -123,12 +104,14 @@ export default {
     this.idP = this.$route.params.id;
     await this.getParticipant();
     await this.getMyself();
-    await this.getMessages();
+    //await this.getMessages();
+    await setInterval(this.loadMoreMessages, 1000);
   },
   methods: {
     async loadMoreMessages(resolve) {
-      //console.log("loadMoreMessages");
+      console.log("loadMoreMessages");
       await this.getMessages();
+
       setTimeout(() => {
         resolve(this.toLoad); //We end the loading state and add the messages
         //Make sure the loaded messages are also added to our local messages copy or they will be lost
@@ -136,74 +119,51 @@ export default {
         this.messages.unshift(...this.toLoad);
 
         this.toLoad = [];
-      }, 1000);
+      }, 500);
       //console.log("Voy a cargar mensajes: ");
       //console.log(Object.values(this.toLoad));
     },
     onMessageSubmit: function(message) {
-      let fecha = new Date(message.timestamp).toISOString();
+      if (message.content !== " " || message.content.length === 0) {
+        let fecha = new Date(message.timestamp).toISOString();
 
-      let messageData = {
-        idChat: this.idChat,
-        content: message.content,
-        timestamp: fecha.substring(0, fecha.length - 2),
-        participantId: parseInt(message.participantId)
-      };
+        let messageData = {
+          idChat: this.idChat,
+          content: message.content,
+          timestamp: fecha.substring(0, fecha.length - 2),
+          participantId: parseInt(message.participantId)
+        };
 
-      //console.log("Se va a hacer messageData");
-      this.__submitToServer(messageData);
+        //console.log("Se va a hacer messageData");
+        this.__submitToServer(messageData);
 
-      /*
-       * example simulating an upload callback.
-       * It's important to notice that even when your message wasn't send
-       * yet to the server you have to add the message into the array
-       */
-      //console.log("Mensaje: " + Object.values(message));
-      this.messages.push(this.message);
-      //console.log("Mensajes: " + Object.values(this.messages));
+        /*
+         * example simulating an upload callback.
+         * It's important to notice that even when your message wasn't send
+         * yet to the server you have to add the message into the array
+         */
+        //console.log("Mensaje: " + Object.values(message));
+        this.messages.push(this.message);
+        //console.log("Mensajes: " + Object.values(this.messages));
 
-      /*
-       * you can update message state after the server response
-       */
-      // timeout simulating the request
-      setTimeout(() => {
-        message.uploaded = true;
-      }, 2000);
-    },
-    onClose() {
-      this.visible = false;
-    },
-    onImageSelected(files, message) {
-      let src =
-        "https://149364066.v2.pressablecdn.com/wp-content/uploads/2017/03/vue.jpg";
-      this.messages.push(message);
-      /**
-       * This timeout simulates a requisition that uploads the image file to the server.
-       * It's up to you implement the request and deal with the response in order to
-       * update the message status and the message URL
-       */
-      setTimeout(
-        res => {
+        /*
+         * you can update message state after the server response
+         */
+        // timeout simulating the request
+        setTimeout(() => {
           message.uploaded = true;
-          message.src = res.src;
-        },
-        3000,
-        { src }
-      );
+        }, 1000);
+      }
     },
-    onImageClicked(message) {
-      /**
-       * This is the callback function that is going to be executed when some image is clicked.
-       * You can add your code here to do whatever you need with the image clicked. A common situation is to display the image clicked in full screen.
-       */
-      console.log("Image clicked", message.src);
-    },
+
     async getMessages() {
+      //console.log("Entro en getMessages");
       await axios
         .get(`${server.baseURL}/chat/${this.myId}/${this.idP}`, {
           headers: { token: localStorage.token }
         })
         .then(data => (this.toLoad = data.data));
+      //console.log(Object.values(this.toLoad));
       this.tratarToLoad();
     },
     async getParticipant() {
@@ -260,3 +220,12 @@ export default {
   }
 };
 </script>
+
+<style>
+.message-content {
+  width: 150%;
+}
+.container-message-manager {
+  height: 100px;
+}
+</style>
