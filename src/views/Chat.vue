@@ -61,7 +61,7 @@ export default {
       visible: true,
       participants: [],
       myself: {},
-      messages: [{}],
+      messages: [],
       msgIndex: "",
       chatTitle: "Chat privado",
       placeholder: "Enviar mensaje",
@@ -96,43 +96,7 @@ export default {
       submitIconSize: 30,
       closeButtonIconSize: "20px",
       asyncMode: false,
-      //Aquí se tienen que cargar los mensajes
-      //PROBLEMA: participantId en lugar de ser 2, es "2", y no lo detecta como un número
-      toLoad: [
-        {}
-        /*
-        {
-          content: "Hola!",
-          participantId: 7,
-          timestamp: "2020-03-19T16:38:43.000Z",
-          type: "text"
-        },
-        {
-          content: "Hola! Qué tal??",
-          participantId: 2,
-          timestamp: "2020-03-19T16:38:43.000Z",
-          type: "text"
-        },
-        {
-          content: "Bien y tú?",
-          participantId: 7,
-          timestamp: "2020-03-19T16:38:43.000Z",
-          type: "text"
-        },
-        {
-          content: "Bieeeen",
-          participantId: 2,
-          timestamp: "2020-03-19T16:38:44.000Z",
-          type: "text"
-        },
-        {
-          content: "Te gustaría que hicieramos un intercambio?",
-          participantId: 2,
-          timestamp: "2020-03-19T16:38:44.000Z",
-          type: "text"
-        }
-        */
-      ],
+      toLoad: [{}],
       scrollBottom: {
         messageSent: true,
         messageReceived: false
@@ -153,20 +117,18 @@ export default {
     };
   },
   async created() {
-    this.getMyId();
-    this.getIdP();
+    //this.getMyId();
+    this.myId = localStorage.getItem("id");
+    //this.getIdP();
+    this.idP = this.$route.params.id;
     await this.getParticipant();
     await this.getMyself();
     await this.getMessages();
   },
   methods: {
-    /*onType: function(event) {
-      //here you can set any behavior
-    },*/
     async loadMoreMessages(resolve) {
-      console.log("loadMoreMessages");
+      //console.log("loadMoreMessages");
       await this.getMessages();
-      //this.tratarToLoad();
       setTimeout(() => {
         resolve(this.toLoad); //We end the loading state and add the messages
         //Make sure the loaded messages are also added to our local messages copy or they will be lost
@@ -179,10 +141,7 @@ export default {
       //console.log(Object.values(this.toLoad));
     },
     onMessageSubmit: function(message) {
-      //console.log("message");
-      //console.log(new Date(message.timestamp).toISOString());
       let fecha = new Date(message.timestamp).toISOString();
-      //console.log(fecha.substring(0, fecha.length - 2));
 
       let messageData = {
         idChat: this.idChat,
@@ -190,24 +149,8 @@ export default {
         timestamp: fecha.substring(0, fecha.length - 2),
         participantId: parseInt(message.participantId)
       };
-      /*
-      console.log(Object.values(messageData));
-      console.log(this.idChat);
-      console.log(message.content);
-      console.log(fecha.substring(0, fecha.length - 2));
-      console.log(parseInt(message.participantId));
-      */
-      /*console.log(
-        "idChat: " +
-          this.idChat +
-          " content: " +
-          message.content +
-          " timestamp: " +
-          moment().format(message.timestamp) +
-          " participantId: " +
-          message.participantId
-      );*/
-      console.log("Se va a hacer messageData");
+
+      //console.log("Se va a hacer messageData");
       this.__submitToServer(messageData);
 
       /*
@@ -261,30 +204,26 @@ export default {
           headers: { token: localStorage.token }
         })
         .then(data => (this.toLoad = data.data));
-      console.log("toLoad");
-      console.log(Object.values(this.toLoad));
       this.tratarToLoad();
-      console.log(Object.values(this.toLoad));
-      //this.tratarToLoad();
     },
     async getParticipant() {
-      console.log("participant: ");
-      console.log(this.idP);
+      //console.log("participant: ");
+      //console.log(this.idP);
       await axios
         .get(`${server.baseURL}/chat/participant/${this.idP}`)
         .then(data => (this.participants = data.data));
-      console.log("participant");
-      console.log(Object.values(this.participants));
+      //console.log("participant");
+      //console.log(Object.values(this.participants));
     },
     async getMyself() {
-      console.log("myself");
-      console.log(this.myId);
+      //console.log("myself");
+      //console.log(this.myId);
       await axios
         .get(`${server.baseURL}/chat/myself/${this.myId}`, {
           headers: { token: localStorage.token }
         })
         .then(data => (this.myself = data.data));
-      console.log(Object.values(this.myself));
+      //console.log(Object.values(this.myself));
     },
     tratarToLoad() {
       for (var i in this.toLoad) {
@@ -299,7 +238,7 @@ export default {
             alert("No se ha podido enviar el mensaje");
           }
         });
-    },
+    } /*,
     getMyId() {
       this.myId = localStorage.getItem("id");
       console.log("My id is: ");
@@ -317,7 +256,7 @@ export default {
         console.log("The idP: " + this.idP);
         return this.$route.params.idA;
       }
-    }
+    }*/
   }
 };
 </script>

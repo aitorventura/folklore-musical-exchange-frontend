@@ -56,7 +56,7 @@
           <br />
           <div class="btn-group" style="margin-bottom: 20px;">
             <router-link
-              :to="{ name: 'Chat', params: { idA: chat.idA , idB: chat.idB } }"
+              :to="{ name: 'Chat', params: { id: (chat.idA == myId? chat.idB : chat.idA) } }"
               class="btn btn-sm btn-outline-primary"
             >Ver chat</router-link>
           </div>
@@ -88,8 +88,8 @@ export default {
     };
   },
   created() {
+    this.myId = localStorage.getItem("id");
     this.fetchChats();
-    this.getMyId();
   },
   /*computed: {
     filterName() {
@@ -104,9 +104,6 @@ export default {
       axios
         .get(`${server.baseURL}/chat/all/${myId}`)
         .then(data => (this.chats = data.data));
-    },
-    async getMyId() {
-      this.myId = await localStorage.getItem("id");
     }
   }
 };

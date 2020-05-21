@@ -106,7 +106,7 @@
                 <br />
                 <br />
                 <router-link
-                  :to="{ name: 'Chat', params: { idA: mgroup.id , idB: myId }}"
+                  :to="{ name: 'Chat', params: { id: mgroup.id }}"
                   class="btn btn-sm btn-outline-primary"
                 >Enviar mensaje</router-link>
               </div>

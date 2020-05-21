@@ -1,54 +1,49 @@
 <template>
-
-  <div id="app">
-    <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
+<div id="app">
+  <head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
   </head>
-   
 
-    <!-- Falta que los elementos se alinean al centro de cada columna -->
-      <div v-if="logged">
-        <b-navbar toggleable="lg" type="dark">
-          <b-navbar-brand href="/">
-            <img
-              src="./assets/logoBlanco.png"
-              alt="logo"
-              style="width:40px;"
-                />
-          </b-navbar-brand>
-          <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+  <!-- Falta que los elementos se alinean al centro de cada columna -->
+  <div v-if="logged">
+    <b-navbar toggleable="lg" type="dark">
+      <b-navbar-brand href="/">
+        <img src="./assets/logoBlanco.png" alt="logo" style="width:40px;" />
+      </b-navbar-brand>
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-          <b-collapse id="nav-collapse" is-nav>
-            <b-navbar-nav>
-              <b-nav-item href="/">Home</b-nav-item>
-              
-            </b-navbar-nav>
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav>
+          <b-nav-item href="/">Home</b-nav-item>
+        </b-navbar-nav>
 
-            <!-- Right aligned nav items -->
-            <b-navbar-nav class="ml-auto">
-              <b-nav-item href="/listMGroups" right>Agrupaciones Musicales</b-nav-item> 
-              <b-nav-item href="/listMusicalExchanges">Intercambios Musicales</b-nav-item> 
-              <b-nav-item v-if="!person" href="/musicalexchange/create">Crear Intercambio Musical</b-nav-item> 
-              <b-nav-item v-if="!person">
-                <router-link :to="{ name: 'GetMG', params: { id: id } }"
-                            class="b-nav-item href">Perfil
-                </router-link>
-              </b-nav-item>
-              <b-nav-item v-if="person">
-                <router-link :to="{ name: 'GetP', params: { id: id } }"
-                            class="b-nav-item href">Perfil
-                </router-link>
-              </b-nav-item>
-              <b-nav-item href="#" @click="logout">Desconectarse</b-nav-item>
-            </b-navbar-nav>
-          </b-collapse>
-        </b-navbar>
-        
-       <!-- <b-row class="row p-3 background">
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item href="/listMGroups" right>Agrupaciones Musicales</b-nav-item>
+          <b-nav-item href="/listMusicalExchanges">Intercambios Musicales</b-nav-item>
+          <b-nav-item v-if="!person" href="/musicalexchange/create">Crear Intercambio Musical</b-nav-item>
+          <b-nav-item v-if="logged">
+            <router-link :to="{ name: 'ChatList' }" class="b-nav-item href">Chats</router-link>
+          </b-nav-item>
+          <b-nav-item v-if="!person">
+            <router-link :to="{ name: 'GetMG', params: { id: id } }" class="b-nav-item href">Perfil</router-link>
+          </b-nav-item>
+          <b-nav-item v-if="person">
+            <router-link :to="{ name: 'GetP', params: { id: id } }" class="b-nav-item href">Perfil</router-link>
+          </b-nav-item>
+
+          <b-nav-item href="#" @click="logout">Desconectarse</b-nav-item>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+
+    <!-- <b-row class="row p-3 background">
           <b-col class="mr-auto"> 
             <a class="navbar-brand" href="/">
          
@@ -89,8 +84,8 @@
                         >Perfil</router-link
                       >
           </b-col>
-        </b-row> -->
-      <!--<nav id="nav" class="navbar navbar-default navbar-fixed-top">
+    </b-row>-->
+    <!--<nav id="nav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
           <div class="navbar-header">
             <button
@@ -118,11 +113,11 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
-              </li> -->
-              <!-- <li v-if="person" class="nav-item">
+    </li>-->
+    <!-- <li v-if="person" class="nav-item">
                 <a class="nav-link" href="/listPeople">ListPeople</a>
-              </li> -->
-              <!--<li class="nav-item">
+    </li>-->
+    <!--<li class="nav-item">
                 <a class="nav-link" href="/listMGroups">Agrupaciones Musicales</a>
               </li>
               <li class="nav-item">
@@ -156,36 +151,31 @@
             </ul>
           </div>
         </div>
-      </nav> -->
-      </div> 
-      <div v-if="!logged">
-        <b-navbar toggleable="lg" type="dark">
-          <b-navbar-brand href="/">
-            <img
-              src="./assets/logoBlanco.png"
-              alt="logo"
-              style="width:40px;"
-                />
-          </b-navbar-brand>
-          <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+    </nav>-->
+  </div>
+  <div v-if="!logged">
+    <b-navbar toggleable="lg" type="dark">
+      <b-navbar-brand href="/">
+        <img src="./assets/logoBlanco.png" alt="logo" style="width:40px;" />
+      </b-navbar-brand>
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-          <b-collapse id="nav-collapse" is-nav>
-            <b-navbar-nav>
-              <b-nav-item href="/">Home</b-nav-item>
-              
-            </b-navbar-nav>
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav>
+          <b-nav-item href="/">Home</b-nav-item>
+        </b-navbar-nav>
 
-            <!-- Right aligned nav items -->
-            <b-navbar-nav class="ml-auto">
-              <b-nav-item href="/listMGroups" right>Agrupaciones Musicales</b-nav-item>
-              <b-nav-item href="/listMusicalExchanges">Intercambios Musicales</b-nav-item>
-              <b-nav-item href="/user/create">Registro</b-nav-item>
-              <b-nav-item href="/login">Login</b-nav-item>
-            </b-navbar-nav>
-          </b-collapse>
-        </b-navbar>
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item href="/listMGroups" right>Agrupaciones Musicales</b-nav-item>
+          <b-nav-item href="/listMusicalExchanges">Intercambios Musicales</b-nav-item>
+          <b-nav-item href="/user/create">Registro</b-nav-item>
+          <b-nav-item href="/login">Login</b-nav-item>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
 
-<!--
+    <!--
         <b-row class="row p-3 background">
           <b-col class="mr-auto"> 
             <a class="navbar-brand" href="/">
@@ -214,8 +204,8 @@
           <b-col class="col-1 nav-item">
              <a class="nav-link" href="/login">Login</a>
           </b-col>
-        </b-row> -->
-     <!-- <nav id="nav" class="navbar navbar-default navbar-fixed-top">
+    </b-row>-->
+    <!-- <nav id="nav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
           <div class="navbar-header">
             <button
@@ -260,12 +250,10 @@
             </ul>
           </div>
         </div>
-      </nav> -->
-      </div>
-      <router-view />
-   
+    </nav>-->
   </div>
-  
+  <router-view />
+</div>
 </template>
 
 <script>
@@ -275,7 +263,7 @@ export default {
     return {
       logged: false,
       person: false,
-      id : -1
+      id: -1
     };
   },
   created() {
@@ -286,17 +274,15 @@ export default {
     samePerson() {
       if (localStorage.getItem("id") != null) {
         this.logged = true;
-        this.id = localStorage.getItem("id")
-                console.log(this.logged)
-
+        this.id = localStorage.getItem("id");
+        console.log(this.logged);
       } else {
         this.logged = false;
-                console.log(this.logged)
-
+        console.log(this.logged);
       }
     },
-    getRole(){
-      if(localStorage.getItem("role") == "PERSON"){
+    getRole() {
+      if (localStorage.getItem("role") == "PERSON") {
         this.person = true;
       } else {
         this.person = false;
@@ -305,8 +291,7 @@ export default {
     logout() {
       localStorage.clear();
       router.push({ name: "Home" });
-      window.location.reload()
-
+      window.location.reload();
     }
   }
 };
