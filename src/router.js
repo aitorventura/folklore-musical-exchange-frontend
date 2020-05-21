@@ -253,8 +253,7 @@ const router = new Router({
       },
     },
     {
-      //FIXME: HE puesto /chat/:id
-      path: "/chat",
+      path: "/chat/:id",
       name: "Chat",
       component: ChatComponent,
       meta: {
