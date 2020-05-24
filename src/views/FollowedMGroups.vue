@@ -1,47 +1,52 @@
 <template>
 <body>
-  <table class="table text-center" style="padding: 30px">
-    <tr v-for="mgroup in filterName" :key="mgroup.id" class="border" style="padding: 30px">
-      <td scope="col border justify-content-center" style="padding-right: 40px;">
-        <div class="p-3">
-          <img v-bind:src="mgroup.image" height="160" width="160" />
-        </div>
-      </td>
-      <td scope="col justify-content-center" style="padding-left: 20px;">
-        <div class="text-left">
-          <h2>{{ mgroup.name }}</h2>
-        </div>
-        <div class="text-left">
-          <br />
-          <p>
-            <strong>Ciudad:</strong>
-            {{ mgroup.city }}
-          </p>
-          <br />
-          <p>{{ mgroup.nameType }}</p>
-        </div>
-      </td>
-      <br />
-      <br />
-      <br />
-      <br />
-      <div class="btn-group justify-content-center" style="margin-bottom: 20px;">
-        <router-link
-          :to="{ name: 'GetMG', params: { id: mgroup.id } }"
-          class="btn btn-sm btn-outline-primary p-3"
-        >Más información</router-link>
-        <br />
-        <button
-          class="btn btn-sm btn-outline-danger p-3"
-          v-on:click="deleteSubscriptionMG()"
-        >Dejar de seguir</button>
-        <router-link
-          :to="{ name: 'Chat', params: { id: mgroup.id }}"
-          class="btn btn-sm btn-outline-primary"
-        >Enviar mensaje</router-link>
+<div class="p-4" v-if="mgroups.length === 0">
+  <h3>No sigues a ningún grupo</h3>
+</div>
+<div class="thumbnail p-3" v-if="mgroups.length !== 0">
+    <div class="text-center p-3" style="padding: 30px; text-align: center;">
+      <h2>Suscripciones</h2>
+    </div>
+    <div v-for="mgroup in mgroups" :key="mgroup.id" class="border row magen" >
+      <div class="col-2 p-4">
+         <img v-bind:src="mgroup.image" class="img-fluid" alt="Musical Group image" />
       </div>
-    </tr>
-  </table>
+      <div class="col-1">
+      </div>
+       <div class="col p-4">
+        <div class="row">
+          <div class="col p-3 justify-content-start">
+            <h4>{{mgroup.name}}</h4>
+            <p>{{mgroup.nameType}}</p>
+            <br />
+          </div>
+        </div>
+         <div class="row centrado">
+            <div class="col-4 p-3"></div>
+            <div class="col-2 p-3">
+              <div>
+                <div
+                  class="btn btn-sm btn-outline-danger"
+                  v-on:click="deleteSubscriptionMG(mgroup.id)"
+                  >Dejar de seguir
+                </div>
+              </div>
+            </div>
+            <div class="col-2 p-3">
+              <div>
+                <router-link
+                  :to="{ name: 'Chat', params: { id: mgroup.id }}"
+                  class="btn btn-sm btn-outline-primary"
+                >Enviar mensaje
+                </router-link>
+              </div>
+            </div>
+            <div class="col-4 p-3"></div>
+        </div>
+      </div>
+    </div>
+  <!--</div>-->
+</div>  
 </body>
 </template>
 
@@ -79,20 +84,19 @@ export default {
     getFollowedMGroups() {
       axios
         .get(`${server.baseURL}/subscriptionMG/${this.id}`)
-        //.then(data => (this.mgroups = data.data)
-        .then(data => {
-          console.log(data);
-        });
+        .then(data => (this.mgroups = data.data)
+        );
     },
-    deleteSubscriptionMG(id) {
+    deleteSubscriptionMG(idMG) {
       axios
         .delete(
-          `${server.baseURL}/subscriptionMG/${localStorage.getItem("id")}/${id}`
+          `${server.baseURL}/subscriptionMG/${localStorage.getItem("id")}/${idMG}`
         )
         .then(data => {
-          if (data.data === true) {
+            
+            console.log("he borrado la suscripción de la agrupación");
             window.location.reload();
-          }
+      
         });
     }
   }
@@ -116,15 +120,7 @@ export default {
 </style>
 
 <style scoped>
-td {
-  padding: 5px;
-}
-tr,
-th,
-table {
-  border: 0cm;
-  align-items: center;
-}
+
 .thumbnail {
   align-content: center;
   align-items: center;
@@ -134,14 +130,18 @@ table {
   border-left-width: 1cm;
   border-right-width: 1cm;
   color: #2d2d30;
-} /*
-table {
-  border: 0cm;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  text-align: center;
-}*/
+} 
+
+.image-size {
+  height: 20px;
+  width: 20px;
+}
+
+.magen {
+  padding: 10px;
+  margin: 30px;
+}
+
 body {
   font: 400 15px/1.8 Lato, sans-serif;
   color: whitesmoke;
@@ -159,11 +159,13 @@ body {
 .blanco {
   background-color: white;
 }
-/*
-.oscuro {
-  height: 100vh;
-  background-color: #2d2d30;
-}*/
+
+.centrado {
+  align-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 .centerBlock {
   display: table;
   margin: auto;
