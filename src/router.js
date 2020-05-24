@@ -253,9 +253,9 @@ const router = new Router({
       },
     },
     {
-      path: "/chat/:id",
-      name: "Chat",
-      component: ChatComponent,
+      path: "/chat/list",
+      name: "ChatList",
+      component: ChatListComponent,
       meta: {
         authenticated: true,
         isLogin: false,
@@ -266,9 +266,9 @@ const router = new Router({
       },
     },
     {
-      path: "/chat/list",
-      name: "ChatList",
-      component: ChatListComponent,
+      path: "/chat/:id",
+      name: "Chat",
+      component: ChatComponent,
       meta: {
         authenticated: true,
         isLogin: false,

@@ -27,7 +27,7 @@
 
     <!-- <div class="row"> -->
 
-    <div class="thumbnail" v-if="chats.length !== 0">
+    <div class="thumbnail" id="margin" v-if="chats.length !== 0">
       <!--
       <ejs-textbox
         id="textbox"
@@ -38,28 +38,28 @@
         width="200px"
       ></ejs-textbox>
       -->
+
       <table>
-        <tr v-for="chat in chats" :key="chat.id">
-          <td scope="col p-3" style="padding-right: 40px;"></td>
-          <td scope="col" style="padding-left: 20px;">
+        <!-- Debería actualizarse esto pero no sé cómo-->
+        <tr v-for="chat in chats" :key="chat.id" scope="col p-3" style="padding-right: 40px;">
+          <td scope="col p-3" style="padding-right: 40px;">
             <div class="text-left">
               <h2>{{ chat.name }}</h2>
             </div>
           </td>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <div class="btn-group" style="margin-bottom: 20px;">
-            <router-link
-              :to="{ name: 'Chat', params: { id: (chat.idA == myId? chat.idB : chat.idA) } }"
-              class="btn btn-sm btn-outline-primary"
-            >Ver chat</router-link>
-          </div>
+
+          <td scope="col" style="padding-left: 20px;">
+            <div v-if="chat.unread != 0">{{chat.unread}}</div>
+          </td>
+
+          <td scope="col" style="padding-left: 20px;">
+            <div class="btn-group" style="margin-bottom: 20px;">
+              <router-link
+                :to="{ name: 'Chat', params: { id: (chat.idA == myId? chat.idB : chat.idA) } }"
+                class="btn btn-sm btn-outline-primary"
+              >Ver chat</router-link>
+            </div>
+          </td>
         </tr>
       </table>
     </div>
@@ -89,7 +89,8 @@ export default {
   },
   created() {
     this.myId = localStorage.getItem("id");
-    this.fetchChats();
+    setInterval(this.fetchChats(), 1000);
+    //setInterval(window.location.reload(), 500);
   },
   /*computed: {
     filterName() {
@@ -134,6 +135,7 @@ th,
 table {
   border: 0cm;
   align-items: center;
+  align-content: center;
 }
 .thumbnail {
   align-content: center;
@@ -156,7 +158,7 @@ body {
   font: 400 15px/1.8 Lato, sans-serif;
   color: whitesmoke;
   background-color: #2d2d30;
-  height: 100%;
+  height: 90.9vh;
   /*height: 100%;
   width: 100%;
   padding: 0;

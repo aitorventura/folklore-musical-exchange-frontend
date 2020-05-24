@@ -13,12 +13,13 @@
       :submit-icon-size="submitIconSize"
       :submit-image-icon-size="submitImageIconSize"
       :load-more-messages="toLoad.length > 0 ? loadMoreMessages : null"
-      :async-mode="false"
+      :async-mode="true"
       :scroll-bottom="true"
       :display-header="true"
       :send-images="false"
       :profile-picture-config="profilePictureConfig"
       @onClose="onClose"
+      @onMessageSubmit="onMessageSubmit"
     ></Chat>
   </div>
 </template>
@@ -94,7 +95,8 @@ export default {
       },
       //idChat lo cogeré de la ruta cuando esté la lista de chats
       idP: 0,
-      myId: 0
+      myId: 0,
+      newMessage: false
     };
   },
   async created() {
@@ -104,33 +106,39 @@ export default {
     this.idP = this.$route.params.id;
     await this.getParticipant();
     await this.getMyself();
-    //await this.getMessages();
-    await setInterval(this.loadMoreMessages, 1000);
+    //await setInterval(this.loadMoreMessages, 1000);
+    //await this.loadMoreMessages;
   },
   methods: {
     async loadMoreMessages(resolve) {
-      console.log("loadMoreMessages");
-      await this.getMessages();
+      setInterval(async () => {
+        await this.getMessages();
+        setTimeout(() => {
+          resolve(this.toLoad); //We end the loading state and add the messages
+          //Make sure the loaded messages are also added to our local messages copy or they will be lost
 
-      setTimeout(() => {
-        resolve(this.toLoad); //We end the loading state and add the messages
-        //Make sure the loaded messages are also added to our local messages copy or they will be lost
-
-        this.messages.unshift(...this.toLoad);
-
-        this.toLoad = [];
-      }, 500);
-      //console.log("Voy a cargar mensajes: ");
-      //console.log(Object.values(this.toLoad));
+          console.log(this.messages.length + " - " + this.toLoad.length);
+          if (this.messages.length !== this.toLoad.length || this.newMessage) {
+            this.messages.length = 0;
+            this.messages.unshift(...this.toLoad);
+            this.toLoad = [];
+            this.newMessage = false;
+          }
+        }, 1000);
+      }, 1000);
+      //this.tratarToLoad();
     },
     onMessageSubmit: function(message) {
       if (message.content !== " " || message.content.length === 0) {
+        this.newMessage = true;
         let fecha = new Date(message.timestamp).toISOString();
 
         let messageData = {
           idChat: this.idChat,
           content: message.content,
           timestamp: fecha.substring(0, fecha.length - 2),
+          uploaded: "true",
+          viewed: "false",
           participantId: parseInt(message.participantId)
         };
 
@@ -150,47 +158,43 @@ export default {
          * you can update message state after the server response
          */
         // timeout simulating the request
+
         setTimeout(() => {
           message.uploaded = true;
-        }, 1000);
+        }, 2000);
       }
     },
 
     async getMessages() {
-      //console.log("Entro en getMessages");
       await axios
         .get(`${server.baseURL}/chat/${this.myId}/${this.idP}`, {
           headers: { token: localStorage.token }
         })
         .then(data => (this.toLoad = data.data));
-      //console.log(Object.values(this.toLoad));
       this.tratarToLoad();
     },
     async getParticipant() {
-      //console.log("participant: ");
-      //console.log(this.idP);
       await axios
         .get(`${server.baseURL}/chat/participant/${this.idP}`)
         .then(data => (this.participants = data.data));
-      //console.log("participant");
-      //console.log(Object.values(this.participants));
     },
     async getMyself() {
-      //console.log("myself");
-      //console.log(this.myId);
       await axios
         .get(`${server.baseURL}/chat/myself/${this.myId}`, {
           headers: { token: localStorage.token }
         })
         .then(data => (this.myself = data.data));
-      //console.log(Object.values(this.myself));
     },
     tratarToLoad() {
       for (var i in this.toLoad) {
         this.toLoad[i].participantId = parseInt(this.toLoad[i].participantId);
+        this.toLoad[i].viewed = this.toLoad[i].viewed === "true";
+
+        //this.toLoad[i].uploaded = true;
       }
     },
     __submitToServer(data) {
+      console.log("Se envía el mensaje");
       axios
         .post(`${server.baseURL}/chat/newmsg/${this.myId}/${this.idP}`, data)
         .then(data => {
@@ -198,25 +202,7 @@ export default {
             alert("No se ha podido enviar el mensaje");
           }
         });
-    } /*,
-    getMyId() {
-      this.myId = localStorage.getItem("id");
-      console.log("My id is: ");
-      console.log(parseInt(this.myId));
-      return localStorage.getItem("id");
-    },
-    getIdP() {
-      let myIdd = localStorage.getItem("id");
-      if (myIdd === this.$route.params.idA) {
-        this.idP = this.$route.params.idB;
-        console.log("The idP: " + this.idP);
-        return this.$route.params.idB;
-      } else {
-        this.idP = this.$route.params.idA;
-        console.log("The idP: " + this.idP);
-        return this.$route.params.idA;
-      }
-    }*/
+    }
   }
 };
 </script>
