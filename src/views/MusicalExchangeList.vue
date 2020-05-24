@@ -23,7 +23,7 @@
         </div>
       </div>
       <!--</div> -->
-      <div class v-if="musicalexchanges.length !== 0">
+      <div class="centrado" v-if="musicalexchanges.length !== 0">
         <div class="thumbnail">
           <br />
           <ejs-textbox
@@ -62,19 +62,24 @@
             width="300px"
           ></ejs-multiselect>
 
-          <div class="row justify-content-center p-4" align-v="center">
+          <div class="centrado row justify-content-center p-4" align-v="centrado">
             <div
               v-for="musicalexchange in filterName"
               :key="musicalexchange.id"
-              class="col-4 p-4 justify-content-center"
+              class="col-4 p-4 justify-content-center centrado"
             >
               <b-card
-                img-src="https://picsum.photos/600/300/?image=25"
-                img-alt="Image"
-                img-top
                 style="max-width: 35rem;"
                 class="mb-2"
               >
+                <div class="row">
+                  <div class="col pb-3">
+                    <img v-bind:src="musicalexchange.imageA" class="img-fluid" alt="Responsive image" />
+                  </div>
+                  <div class="col pb-3">
+                    <img v-bind:src="musicalexchange.imageB" class="img-fluid" alt="Responsive image" />
+                  </div>
+                </div>
                 <b-card-text>
                   <div class="row">
                     <div class="col">
@@ -253,13 +258,13 @@ export default {
         .then(data => (this.musicalexchanges = data.data));
     },
     deleteMGroup(id) {
-      axios
+     /* axios
         .delete(`${server.baseURL}/musicalexchange/${id}`, {
           headers: { token: localStorage.token }
         })
         .then(data => {
           window.location.reload();
-        });
+        });*/
     },
     getAgrupaciones() {
       axios
@@ -401,6 +406,7 @@ table {
   flex-direction: column;
   text-align: center;
 }*/
+
 body {
   font: 400 15px/1.8 Lato, sans-serif;
   color: whitesmoke;
@@ -442,7 +448,9 @@ body {
   color: #000;
 }
 
-.texto-centrado {
+.centrado {
+  align-content: center;
+  align-items: center;
   text-align: center;
 }
 
