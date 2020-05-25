@@ -1,7 +1,10 @@
 <template>
-  <table>
-    <tr>
-      <td scope="col p-3" style="padding-right: 40px;">
+  <div class="background-table">
+    <table>
+      <tr>
+        <td scope="col p-3" style="padding-right: 40px;">
+          <div class="thumbnail" id="margin" v-if="chats.length !== 0">
+            <!--
         <div v-if="mgroup.length !== 0">
           <table>
             <tr>
@@ -26,26 +29,6 @@
               </td>
             </tr>
           </table>
-          <!--<table class="table table-borderless">
-          <tr>
-            <td scope="col p-3" style="padding-right: 40px;">
-              <div class="bordered">
-                <img v-bind:src="person.image" height="400" width="400" />
-              </div>
-            </td>
-            <td scope="col" style="padding-left: 20px;">
-              <div class="text-left">
-                <h2>{{ person.name }} {{ person.surname }}</h2>
-                <h4>Usuario: {{ person.username }}</h4>
-              </div>
-              <div class="text-left">
-                <br />
-                <p>Email: {{ person.email }}</p>
-                <p>Ciudad: {{ person.city }}</p>
-              </div>
-            </td>
-          </tr>
-          </table>-->
         </div>
 
         <div v-if="mgroup.length == 0 && participants.length>0">
@@ -65,34 +48,85 @@
             </tr>
           </table>
         </div>
-      </td>
-      <td scope="col" style="padding-left: 20px;">
-        <div class="ventana">
-          <Chat
-            :participants="participants"
-            :myself="myself"
-            :messages="messages"
-            :chat-title="chatTitle"
-            :placeholder="placeholder"
-            :colors="colors"
-            :border-style="borderStyle"
-            :hide-close-button="hideCloseButton"
-            :close-button-icon-size="closeButtonIconSize"
-            :submit-icon-size="submitIconSize"
-            :submit-image-icon-size="submitImageIconSize"
-            :load-more-messages="toLoad.length > 0 ? loadMoreMessages : null"
-            :async-mode="true"
-            :scroll-bottom="scrollBottom"
-            :display-header="true"
-            :send-images="false"
-            :profile-picture-config="profilePictureConfig"
-            @onClose="onClose"
-            @onMessageSubmit="onMessageSubmit"
-          ></Chat>
-        </div>
-      </td>
-    </tr>
-  </table>
+            -->
+
+            <table>
+              <!-- Debería actualizarse esto pero no sé cómo-->
+              <tr v-for="chat in chats" :key="chat.id" scope="col p-3" style="padding-right: 40px;">
+                <td scope="col p-3" style="padding-right: 40px;">
+                  <div class="text-left">
+                    <h4>{{ chat.name }}</h4>
+                  </div>
+                </td>
+
+                <td scope="col" style="padding-left: 20px;">
+                  <div v-if="chat.unread != 0">{{chat.unread}}</div>
+                </td>
+
+                <td scope="col" style="padding-left: 20px;">
+                  <div class="btn-group" style="margin-bottom: 20px;">
+                    <button
+                      class="btn btn-sm btn-outline-primary"
+                      v-on:click="openChat(chat.idA == myId? chat.idB : chat.idA)"
+                    >Ver chat</button>
+
+                    <!--<router-link
+                  :to="{ name: 'Chat', params: { id: (chat.idA == myId? chat.idB : chat.idA) } }"
+                  v-on:click="reload()"
+                  class="btn btn-sm btn-outline-primary"
+                    >Ver chat</router-link>-->
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div v-if="chats.length === 0">
+            <div class="container">
+              <div class="alert" classappend="alert-dark">
+                <img src="../assets/logoBlanco.png" style="width:300px;" />
+
+                <br />
+                <!--<h2>No user found at the moment</h2>-->
+                <h3>No se ha encontrado ningún chat</h3>
+                <br />
+                <p>
+                  Pulsa el botón de inicio para volver a la página principal o
+                  utiliza el navegador para volver atrás
+                </p>
+              </div>
+              <div th:align="center">
+                <a href="/" class="btn btn-primary" th:align="left">Página principal</a>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td scope="col">
+          <div class="ventana">
+            <Chat
+              v-if="visible"
+              :participants="participants"
+              :myself="myself"
+              :messages="messages"
+              :chat-title="chatTitle"
+              :placeholder="placeholder"
+              :colors="colors"
+              :border-style="borderStyle"
+              :hide-close-button="hideCloseButton"
+              :load-more-messages="toLoad.length > 0 ? loadMoreMessages : null"
+              :async-mode="true"
+              :scroll-bottom="scrollBottom"
+              :display-header="true"
+              :send-images="false"
+              :profile-picture-config="profilePictureConfig"
+              :timestamp-config="timestampConfig"
+              @onClose="onClose"
+              @onMessageSubmit="onMessageSubmit"
+            ></Chat>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
 </template>
 
 <script>
@@ -101,6 +135,7 @@ import axios from "axios";
 import { Chat } from "vue-quick-chat";
 import "vue-quick-chat/dist/vue-quick-chat.css";
 import moment from "moment";
+import router from "../router";
 // Load Locales ('en' comes loaded by default)
 require("moment/locale/es");
 // Choose Locale
@@ -164,13 +199,24 @@ export default {
           borderRadius: "50%"
         }
       },
+      timestampConfig: {
+        type: Object,
+        required: false,
+        default: () => {
+          return {
+            format: "dd-MM-YYYY HH:mm",
+            relative: false
+          };
+        }
+      },
       //idChat lo cogeré de la ruta cuando esté la lista de chats
       idP: 0,
       myId: 0,
       newMessage: false,
       mgroup: {},
       person: {},
-      first: true
+      first: true,
+      chats: []
     };
   },
   async created() {
@@ -180,12 +226,14 @@ export default {
     this.idP = this.$route.params.id;
     this.getMGroup();
     this.getPerson();
+    this.fetchChats();
     await this.getParticipant();
     await this.getMyself();
 
     //await setInterval(this.loadMoreMessages, 1000);
     //await this.loadMoreMessages;
   },
+
   methods: {
     async loadMoreMessages(resolve) {
       setInterval(async () => {
@@ -252,6 +300,9 @@ export default {
         }, 2000);
       }
     },
+    onClose() {
+      this.visible = false;
+    },
     getMGroup() {
       console.log("Entramos en getMGroup " + this.$route.params.id);
       axios
@@ -307,6 +358,17 @@ export default {
             alert("No se ha podido enviar el mensaje");
           }
         });
+    },
+    async fetchChats() {
+      let myId = await localStorage.getItem("id");
+      axios
+        .get(`${server.baseURL}/chat/all/${myId}`)
+        .then(data => (this.chats = data.data));
+    },
+    openChat(id) {
+      router.push({ name: "Chat", params: { id: id } });
+
+      window.location.reload();
     }
   }
 };
@@ -316,9 +378,9 @@ export default {
 td {
   width: 50vw;
 }
-/*table {
-  width: 99.99vw;
-}*/
+.background-table {
+  background-color: #2d2d30;
+}
 .message-content {
   width: 150%;
 }
@@ -327,5 +389,58 @@ td {
 }
 .ventana {
   height: 90vh;
+}
+.thumbnail {
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 100%;
+  border-color: #fff;
+  border-left-width: 1cm;
+  border-right-width: 1cm;
+  color: #2d2d30;
+} /*
+table {
+  border: 0cm;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}*/
+body {
+  font: 400 15px/1.8 Lato, sans-serif;
+  color: whitesmoke;
+  background-color: #2d2d30;
+  height: 90.9vh;
+  /*height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: flex;*/
+}
+.blanco {
+  background-color: white;
+}
+/*
+.oscuro {
+  height: 100vh;
+  background-color: #2d2d30;
+}*/
+
+.btn {
+  padding: 6px 15px;
+  background-color: #333;
+  color: #f1f1f1;
+  border-radius: 0;
+  transition: 0.2s;
+}
+.btn:hover,
+.btn:focus {
+  border: 1px solid #333;
+  background-color: #fff;
+  color: #000;
 }
 </style>
