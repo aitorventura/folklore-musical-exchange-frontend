@@ -1,27 +1,98 @@
 <template>
-  <div>
-    <Chat
-      :participants="participants"
-      :myself="myself"
-      :messages="messages"
-      :chat-title="chatTitle"
-      :placeholder="placeholder"
-      :colors="colors"
-      :border-style="borderStyle"
-      :hide-close-button="hideCloseButton"
-      :close-button-icon-size="closeButtonIconSize"
-      :submit-icon-size="submitIconSize"
-      :submit-image-icon-size="submitImageIconSize"
-      :load-more-messages="toLoad.length > 0 ? loadMoreMessages : null"
-      :async-mode="true"
-      :scroll-bottom="true"
-      :display-header="true"
-      :send-images="false"
-      :profile-picture-config="profilePictureConfig"
-      @onClose="onClose"
-      @onMessageSubmit="onMessageSubmit"
-    ></Chat>
-  </div>
+  <table>
+    <tr>
+      <td scope="col p-3" style="padding-right: 40px;">
+        <div v-if="mgroup.length !== 0">
+          <table>
+            <tr>
+              <td scope="col p-3" style="padding-right: 40px;">
+                <div class="bordered">
+                  <img v-bind:src="mgroup.image" height="300" width="300" />
+                </div>
+              </td>
+              <td scope="col" style="padding-left: 20px;">
+                <div class="text-left">
+                  <h2>{{ mgroup.name }}</h2>
+                  <h4>Usuario: {{ mgroup.username }}</h4>
+                </div>
+                <div class="text-left">
+                  <br />
+                  <p>Email: {{ mgroup.email }}</p>
+                  <p>Ciudad: {{ mgroup.city }}</p>
+                  <p>Número de miembros: {{ mgroup.members }}</p>
+                  <p>Tipo de agrupación: {{ mgroup.nameType }}</p>
+                  <p>Descripción: {{ mgroup.description }}</p>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <!--<table class="table table-borderless">
+          <tr>
+            <td scope="col p-3" style="padding-right: 40px;">
+              <div class="bordered">
+                <img v-bind:src="person.image" height="400" width="400" />
+              </div>
+            </td>
+            <td scope="col" style="padding-left: 20px;">
+              <div class="text-left">
+                <h2>{{ person.name }} {{ person.surname }}</h2>
+                <h4>Usuario: {{ person.username }}</h4>
+              </div>
+              <div class="text-left">
+                <br />
+                <p>Email: {{ person.email }}</p>
+                <p>Ciudad: {{ person.city }}</p>
+              </div>
+            </td>
+          </tr>
+          </table>-->
+        </div>
+
+        <div v-if="mgroup.length == 0 && participants.length>0">
+          <table>
+            <tr>
+              <td scope="col p-3" style="padding-right: 20px;">
+                <div class="bordered">
+                  <img v-bind:src="participants[0].profilePicture" height="200" width="200" />
+                </div>
+              </td>
+              <td scope="col" style="padding-left: 10px;">
+                <div class="text-left">
+                  <h2>Nombre de usuario:</h2>
+                  <h4>{{ participants[0].name }}</h4>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </td>
+      <td scope="col" style="padding-left: 20px;">
+        <div class="ventana">
+          <Chat
+            :participants="participants"
+            :myself="myself"
+            :messages="messages"
+            :chat-title="chatTitle"
+            :placeholder="placeholder"
+            :colors="colors"
+            :border-style="borderStyle"
+            :hide-close-button="hideCloseButton"
+            :close-button-icon-size="closeButtonIconSize"
+            :submit-icon-size="submitIconSize"
+            :submit-image-icon-size="submitImageIconSize"
+            :load-more-messages="toLoad.length > 0 ? loadMoreMessages : null"
+            :async-mode="true"
+            :scroll-bottom="scrollBottom"
+            :display-header="true"
+            :send-images="false"
+            :profile-picture-config="profilePictureConfig"
+            @onClose="onClose"
+            @onMessageSubmit="onMessageSubmit"
+          ></Chat>
+        </div>
+      </td>
+    </tr>
+  </table>
 </template>
 
 <script>
@@ -81,7 +152,7 @@ export default {
       toLoad: [{}],
       scrollBottom: {
         messageSent: true,
-        messageReceived: false
+        messageReceived: true
       },
       displayHeader: true,
       profilePictureConfig: {
@@ -96,7 +167,10 @@ export default {
       //idChat lo cogeré de la ruta cuando esté la lista de chats
       idP: 0,
       myId: 0,
-      newMessage: false
+      newMessage: false,
+      mgroup: {},
+      person: {},
+      first: true
     };
   },
   async created() {
@@ -104,8 +178,11 @@ export default {
     this.myId = localStorage.getItem("id");
     //this.getIdP();
     this.idP = this.$route.params.id;
+    this.getMGroup();
+    this.getPerson();
     await this.getParticipant();
     await this.getMyself();
+
     //await setInterval(this.loadMoreMessages, 1000);
     //await this.loadMoreMessages;
   },
@@ -114,11 +191,22 @@ export default {
       setInterval(async () => {
         await this.getMessages();
         setTimeout(() => {
-          resolve(this.toLoad); //We end the loading state and add the messages
-          //Make sure the loaded messages are also added to our local messages copy or they will be lost
+          if (
+            this.messages.length !== this.toLoad.length ||
+            this.newMessage ||
+            this.first
+          ) {
+            this.first = false;
 
-          console.log(this.messages.length + " - " + this.toLoad.length);
-          if (this.messages.length !== this.toLoad.length || this.newMessage) {
+            if (this.newMessage) {
+              setTimeout(1000);
+            }
+
+            resolve(this.toLoad); //We end the loading state and add the messages
+            //Make sure the loaded messages are also added to our local messages copy or they will be lost
+
+            //console.log(this.messages.length + " - " + this.toLoad.length);
+
             this.messages.length = 0;
             this.messages.unshift(...this.toLoad);
             this.toLoad = [];
@@ -164,7 +252,24 @@ export default {
         }, 2000);
       }
     },
+    getMGroup() {
+      console.log("Entramos en getMGroup " + this.$route.params.id);
+      axios
+        .get(`${server.baseURL}/musicalgroup/${this.$route.params.id}`)
+        .then(data => (this.mgroup = data.data));
 
+      Object.values(this.mgroup);
+    },
+    getPerson() {
+      console.log("Entramos en getPerson " + this.idP);
+      axios
+        .get(`${server.baseURL}/person/${this.idP}`, {
+          headers: { token: localStorage.token }
+        })
+        .then(data => (this.person = data.data));
+
+      Object.values(this.person);
+    },
     async getMessages() {
       await axios
         .get(`${server.baseURL}/chat/${this.myId}/${this.idP}`, {
@@ -208,10 +313,19 @@ export default {
 </script>
 
 <style>
+td {
+  width: 50vw;
+}
+/*table {
+  width: 99.99vw;
+}*/
 .message-content {
   width: 150%;
 }
 .container-message-manager {
   height: 100px;
+}
+.ventana {
+  height: 90vh;
 }
 </style>
