@@ -49,16 +49,15 @@
           </td>
 
           <td scope="col" style="padding-left: 20px;">
-            <div v-if="chat.unread != 0">{{chat.unread}}</div>
-          </td>
-
-          <td scope="col" style="padding-left: 20px;">
             <div class="btn-group" style="margin-bottom: 20px;">
               <router-link
                 :to="{ name: 'Chat', params: { id: (chat.idA == myId? chat.idB : chat.idA) } }"
                 class="btn btn-sm btn-outline-primary"
               >Ver chat</router-link>
             </div>
+          </td>
+          <td scope="col" style="padding-left: 20px;">
+            <div v-if="chat.unread != 0">{{chat.unread}}</div>
           </td>
         </tr>
       </table>
@@ -155,11 +154,13 @@ table {
   text-align: center;
 }*/
 body {
+  background-color: #2d2d30;
   font: 400 15px/1.8 Lato, sans-serif;
   color: whitesmoke;
-  background-color: #2d2d30;
+
+  /*
   height: 90.9vh;
-  /*height: 100%;
+  height: 100%;
   width: 100%;
   padding: 0;
   margin: 0;

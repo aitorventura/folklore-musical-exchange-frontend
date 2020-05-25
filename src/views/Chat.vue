@@ -60,10 +60,6 @@
                 </td>
 
                 <td scope="col" style="padding-left: 20px;">
-                  <div v-if="chat.unread != 0">{{chat.unread}}</div>
-                </td>
-
-                <td scope="col" style="padding-left: 20px;">
                   <div class="btn-group" style="margin-bottom: 20px;">
                     <button
                       class="btn btn-sm btn-outline-primary"
@@ -76,6 +72,9 @@
                   class="btn btn-sm btn-outline-primary"
                     >Ver chat</router-link>-->
                   </div>
+                </td>
+                <td scope="col" style="padding-left: 20px;">
+                  <div v-if="chat.unread != 0">{{chat.unread}}</div>
                 </td>
               </tr>
             </table>
@@ -200,14 +199,8 @@ export default {
         }
       },
       timestampConfig: {
-        type: Object,
-        required: false,
-        default: () => {
-          return {
-            format: "dd-MM-YYYY HH:mm",
-            relative: false
-          };
-        }
+        format: "dd-MM-yyyy HH:mm",
+        relative: true
       },
       //idChat lo cogeré de la ruta cuando esté la lista de chats
       idP: 0,
@@ -238,30 +231,28 @@ export default {
     async loadMoreMessages(resolve) {
       setInterval(async () => {
         await this.getMessages();
-        setTimeout(() => {
-          if (
-            this.messages.length !== this.toLoad.length ||
-            this.newMessage ||
-            this.first
-          ) {
-            this.first = false;
+        //setTimeout(() => {
+        if (
+          this.messages.length !== this.toLoad.length ||
+          this.newMessage ||
+          this.first
+        ) {
+          this.first = false;
 
-            if (this.newMessage) {
-              setTimeout(1000);
-            }
-
-            resolve(this.toLoad); //We end the loading state and add the messages
-            //Make sure the loaded messages are also added to our local messages copy or they will be lost
-
-            //console.log(this.messages.length + " - " + this.toLoad.length);
-
-            this.messages.length = 0;
-            this.messages.unshift(...this.toLoad);
-            this.toLoad = [];
-            this.newMessage = false;
+          resolve(this.toLoad); //We end the loading state and add the messages
+          //Make sure the loaded messages are also added to our local messages copy or they will be lost
+          if (this.newMessage) {
+            setTimeout(500);
           }
-        }, 1000);
+          //console.log(this.messages.length + " - " + this.toLoad.length);
+
+          this.messages.length = 0;
+          this.messages.unshift(...this.toLoad);
+          this.toLoad = [];
+          this.newMessage = false;
+        }
       }, 1000);
+      //}, 1000);
       //this.tratarToLoad();
     },
     onMessageSubmit: function(message) {
@@ -408,10 +399,11 @@ table {
   text-align: center;
 }*/
 body {
+  background-color: #2d2d30;
   font: 400 15px/1.8 Lato, sans-serif;
   color: whitesmoke;
-  background-color: #2d2d30;
-  height: 90.9vh;
+
+  /*height: 90.9vh;*/
   /*height: 100%;
   width: 100%;
   padding: 0;
