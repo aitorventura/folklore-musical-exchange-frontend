@@ -130,8 +130,7 @@ export default {
     this.id = this.$route.params.id;
     this.getPerson();
     this.getNameTypes();
-    
-    //this.getSubscriptions();
+    this.getSubscriptions();
   },
   methods: {
     editPerson() {
@@ -209,6 +208,22 @@ export default {
         .then(data => (this.person = data.data)
         );
        
+    },
+    getSubscriptions() {
+      axios
+        .get(`${server.baseURL}/subscription/${this.id}`, {
+        })
+        .then(data => {
+          let subs = Object.values(data);
+          let s = subs[0];
+          if(subs.length !== 0){
+            var i = 0;
+            for(i=0; i < s.length; i++) {
+              console.log(""+Object.values(s[i]));
+            }
+           
+          }
+        });
     },
     getNameTypes() {
       axios
