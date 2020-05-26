@@ -1,114 +1,115 @@
 <template>
-  <body>
-    <div class="container" id="margin">
-      <div class="thumbnail col-md-12 form-wrapper" id="centro">
-        <h4 class="text-center mt-20">
+<body>
+  <div class="container" id="margin">
+    <div class="thumbnail col-md-12 form-wrapper" id="centro">
+      <h4 class="text-center mt-20">
         <!--  <small>
             <button class="btn btn-success" v-on:click="navigate()">
               View All People
             </button>
-          </small> -->
-        </h4>
-        <div class="col-md-12 form-wrapper">
-          <h2>Editar perfil</h2>
-          <form id="create-post-form" @submit.prevent="editPerson">
-            <div class="form-group col-md-6">
-              <label for="title">Nombre</label>
-              <input
-                type="text"
-                id="name"
-                v-model="person.name"
-                name="title"
-                class="form-control"
-                placeholder="Enter name"
-              />
-            </div>
-            <div class="form-group col-md-6">
-              <label for="title">Apellidos</label>
-              <input
-                type="text"
-                id="surname"
-                v-model="person.surname"
-                name="title"
-                class="form-control"
-                placeholder="Enter surname"
-              />
-            </div>
-            <div class="form-group col-md-6">
-              <label for="title">Usuario</label>
-              <input
-                type="text"
-                id="username"
-                v-model="person.username"
-                name="title"
-                class="form-control"
-                placeholder="Enter username"
-              />
-            </div>
-            <div class="form-group col-md-6">
-              <label for="title">Email</label>
-              <input
-                type="text"
-                id="email"
-                v-model="person.email"
-                name="title"
-                class="form-control"
-                placeholder="Enter email"
-              />
-            </div>
-            <div class="form-group col-md-6">
-              <label for="title">Ciudad</label>
-              <input
-                type="text"
-                id="city"
-                v-model="person.city"
-                name="title"
-                class="form-control"
-                placeholder="Enter city"
-                value="person.city"
-              />
-            </div>
-            <div class="form-group col-md-6">
-              <label for="title">Selecciona tus intereses:</label> <br />
-              <ejs-multiselect
-                :id="currentSubscriptions"
-                v-model="currentSubscriptions"
-                :dataSource="nameTypes"
-                placeholder="Select your interests"
-                mode="CheckBox"
-                :fields="fields"
-                :showSelectAll="showSelectAll"
-                selectAllText="Seleccionar todos"
-                unSelectAllText="Deseleccionar todos"
-                width="200px"
-              ></ejs-multiselect>
-            </div>
+        </small>-->
+      </h4>
+      <div class="col-md-12 form-wrapper">
+        <h2>Editar perfil</h2>
+        <form id="create-post-form" @submit.prevent="editPerson">
+          <div class="form-group col-md-6">
+            <label for="title">Nombre</label>
+            <input
+              type="text"
+              id="name"
+              v-model="person.name"
+              name="title"
+              class="form-control"
+              placeholder="Enter name"
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="title">Apellidos</label>
+            <input
+              type="text"
+              id="surname"
+              v-model="person.surname"
+              name="title"
+              class="form-control"
+              placeholder="Enter surname"
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="title">Usuario</label>
+            <input
+              type="text"
+              id="username"
+              v-model="person.username"
+              name="title"
+              class="form-control"
+              placeholder="Enter username"
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="title">Email</label>
+            <input
+              type="text"
+              id="email"
+              v-model="person.email"
+              name="title"
+              class="form-control"
+              placeholder="Enter email"
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="title">Ciudad</label>
+            <input
+              type="text"
+              id="city"
+              v-model="person.city"
+              name="title"
+              class="form-control"
+              placeholder="Enter city"
+              value="person.city"
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="title">Selecciona tus intereses:</label>
+            <br />
+            <ejs-multiselect
+              :id="currentSubscriptions"
+              v-model="currentSubscriptions"
+              :dataSource="nameTypes"
+              placeholder="Select your interests"
+              mode="CheckBox"
+              :fields="fields"
+              :showSelectAll="showSelectAll"
+              selectAllText="Seleccionar todos"
+              unSelectAllText="Deseleccionar todos"
+              width="200px"
+            ></ejs-multiselect>
+          </div>
 
-            <div class="form-group col-md-12">
-              <label for="title">Imagen</label>
-              <input
-                type="file"
-                id="image"
-                @change="onFileChange"
-                name="title"
-                class="form-control"
-                placeholder="Enter image"
-                accept="image/*"
-                multiple="false"
-              />
+          <div class="form-group col-md-12">
+            <label for="title">Imagen</label>
+            <input
+              type="file"
+              id="image"
+              @change="onFileChange"
+              name="title"
+              class="form-control"
+              placeholder="Enter image"
+              accept="image/*"
+              multiple="false"
+            />
           </div>
           <div class="form-group col-md-12">
-           <h2> Imagen actual de perfil: </h2>
-                <img v-bind:src="person.image" height="400" width="400"/>
+            <h2>Imagen actual de perfil:</h2>
+            <img v-bind:src="person.image" height="400" width="400" />
           </div>
-            <div class="form-group col-md-12 pull-right">
-              <button class="btn" type="submit">Guardar cambios</button>
-            </div>
-          </form>
-        </div>
+          <div class="form-group col-md-12 pull-right">
+            <button class="btn" type="submit">Guardar cambios</button>
+          </div>
+        </form>
       </div>
     </div>
-  </body>
+  </div>
+</body>
 </template>
 
 <script>
@@ -181,7 +182,6 @@ export default {
         });
     },
     onFileChange(e) {
-
       //this.image = e.target.files[0];
       //console.log("Nombre imagen: ", this.image.name);
       var files = e.target.files || e.dataTransfer.files;
@@ -197,7 +197,7 @@ export default {
         vm.image = e.target.result;
       };
       reader.readAsDataURL(file);
-      console.log(image)
+      console.log(image);
       this.image = image;
     },
     getPerson() {
@@ -205,25 +205,24 @@ export default {
         .get(`${server.baseURL}/person/${this.id}`, {
           headers: { token: localStorage.token }
         })
-        .then(data => (this.person = data.data)
-        );
-       
+        .then(data => (this.person = data.data));
     },
     getSubscriptions() {
-      axios
-        .get(`${server.baseURL}/subscription/${this.id}`, {
-        })
-        .then(data => {
-          let subs = Object.values(data);
-          let s = subs[0];
-          if(subs.length !== 0){
-            var i = 0;
-            for(i=0; i < s.length; i++) {
-              console.log(""+Object.values(s[i]));
-            }
-           
+      axios.get(`${server.baseURL}/subscription/${this.id}`, {}).then(data => {
+        let subs = Object.values(data);
+        let s = subs[0];
+        if (subs.length !== 0) {
+          var i = 0;
+          for (i = 0; i < s.length; i++) {
+            var type = "" + Object.values(s[i]);
+            console.log("" + Object.values(s[i]));
+            this.currentSubscriptions.push(type.split(",")[1]);
           }
-        });
+
+          //this.currentSubscriptions.push("Banda");
+          //this.currentSubscriptions.push(subs);
+        }
+      });
     },
     getNameTypes() {
       axios
