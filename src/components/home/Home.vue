@@ -71,12 +71,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
-            <div>
-                <p>Si estas interesado en conocer todas las diferentes agrupaciones musicales que hay no dudes en entrar en el</p>
-                <button onclick="location.href='/listMGroups'" class="btn btn-info">Listado de agrupaciones</button>
-            </div>
-        </div>
+    
 
 
     </div>

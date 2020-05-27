@@ -157,7 +157,7 @@ export default {
         )
         .then(data => {
           if (data.data === 0) {
-            router.push({ name: "PeopleList" });
+            router.push({ name: "GetP" });
           } else {
             if (data.data === 1) {
               alert(

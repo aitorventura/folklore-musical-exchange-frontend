@@ -19,15 +19,23 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-nav-item href="/">Home</b-nav-item>
-        </b-navbar-nav>
+       
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item href="/listMGroups" right>Agrupaciones Musicales</b-nav-item>
-          <b-nav-item href="/listMusicalExchanges">Intercambios Musicales</b-nav-item>
-          <b-nav-item v-if="!person" href="/musicalexchange/create">Crear Intercambio Musical</b-nav-item>
+          <b-nav-item>
+         <router-link :to="{ name: 'Home' }" class="b-nav-item href">Home</router-link>
+
+          </b-nav-item>
+          <b-nav-item >          
+            <router-link :to="{ name: 'MGroupList' }" class="b-nav-item href">Agrupaciones Musicales</router-link>
+          </b-nav-item>
+          <b-nav-item>
+              <router-link :to="{ name: 'MusicalExchangeList' }" class="b-nav-item href">Intercambios Musicales</router-link>
+          </b-nav-item>
+          <b-nav-item v-if="!person">
+          <router-link :to="{ name: 'CreateMusicalExchangeComponent' }" class="b-nav-item href">  Crear Intercambio Musical</router-link>
+          </b-nav-item>
           <b-nav-item v-if="logged">
             <router-link :to="{ name: 'ChatList' }" class="b-nav-item href">Chats</router-link>
           </b-nav-item>
@@ -38,120 +46,14 @@
             <router-link :to="{ name: 'GetP', params: { id: id } }" class="b-nav-item href">Perfil</router-link>
           </b-nav-item>
 
-          <b-nav-item href="#" @click="logout">Desconectarse</b-nav-item>
+          <b-nav-item @click="logout">
+            <router-link :to="{ name: 'Home' }" class="b-nav-item href">Desconectarse</router-link>
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
 
-    <!-- <b-row class="row p-3 background">
-          <b-col class="mr-auto"> 
-            <a class="navbar-brand" href="/">
-         
-                <img
-                  src="./assets/logoBlanco.png"
-                  alt="logo"
-                  style="width:40px;"
-                />
-              
-            </a>
-          </b-col>
-          <b-col class="col-1 nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </b-col>
-          <b-col class="col-2 nav-item">
-            <a class="nav-link" href="/listMGroups">Agrupaciones Musicales</a>
-          </b-col>
-          <b-col class="col-2 nav-item">
-            <a class="nav-link" href="/listMusicalExchanges"
-                    >Intercambios Musicales</a>
-          </b-col>
-          <b-col class="col-2 nav-item" v-if="!person">
-            <a class="nav-link" href="/musicalexchange/create"
-              >Crear Intercambio Musical</a
-            >     
-          </b-col>
-          <b-col v-if="person" class="col-1 nav-item">
-            <router-link
-                        :to="{ name: 'GetP', params: { id: id } }"
-                        class="nav-link"
-                        >Perfil</router-link
-                      >
-          </b-col>
-          <b-col v-if="!person" class="col-1 nav-item">
-            <router-link
-                        :to="{ name: 'GetMG', params: { id: id } }"
-                        class="nav-link"
-                        >Perfil</router-link
-                      >
-          </b-col>
-    </b-row>-->
-    <!--<nav id="nav" class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button
-              type="button"
-              class="navbar-toggle"
-              data-toggle="collapse"
-              data-target="#myNavbar"
-            >
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">
-              <a>
-                <img
-                  src="./assets/logoBlanco.png"
-                  alt="logo"
-                  style="width:40px;"
-                />
-              </a>
-            </a>
-           
-          </div>
-          <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-              <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
-    </li>-->
-    <!-- <li v-if="person" class="nav-item">
-                <a class="nav-link" href="/listPeople">ListPeople</a>
-    </li>-->
-    <!--<li class="nav-item">
-                <a class="nav-link" href="/listMGroups">Agrupaciones Musicales</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/listMusicalExchanges"
-                  >Intercambios Musicales</a
-                >
-              </li>
-              <li v-if="!person" class="nav-item">
-                <a class="nav-link" href="/musicalexchange/create"
-                  >Crear Intercambio Musical</a
-                >
-              </li>
-              <li v-if="person" class="nav-item">
-                 <router-link
-                      :to="{ name: 'GetP', params: { id: id } }"
-                      class="nav-link"
-                      >Perfil</router-link
-                    >
-              </li>
-
-               <li v-if="!person" class="nav-item">
-                 <router-link
-                      :to="{ name: 'GetMG', params: { id: id } }"
-                      class="nav-link"
-                      >Perfil</router-link
-                    >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" @click="logout">Cerrar Sesión</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-    </nav>-->
+  
   </div>
   <div v-if="!logged">
     <b-navbar toggleable="lg" type="dark">
@@ -161,96 +63,30 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-nav-item href="/">Home</b-nav-item>
-        </b-navbar-nav>
-
+      
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item href="/listMGroups" right>Agrupaciones Musicales</b-nav-item>
-          <b-nav-item href="/listMusicalExchanges">Intercambios Musicales</b-nav-item>
-          <b-nav-item href="/user/create">Registro</b-nav-item>
-          <b-nav-item href="/login">Login</b-nav-item>
+           <b-nav-item>
+         <router-link :to="{ name: 'Home' }" class="b-nav-item href">Home</router-link>
+
+          </b-nav-item>
+          <b-nav-item >          
+            <router-link :to="{ name: 'MGroupList' }" class="b-nav-item href">Agrupaciones Musicales</router-link>
+          </b-nav-item>
+          <b-nav-item>
+              <router-link :to="{ name: 'MusicalExchangeList' }" class="b-nav-item href">Intercambios Musicales</router-link>
+          </b-nav-item>
+          <b-nav-item>
+              <router-link :to="{ name: 'Register' }" class="b-nav-item href">Registro</router-link>
+          </b-nav-item>
+           <b-nav-item>
+              <router-link :to="{ name: 'Login' }" class="b-nav-item href">Login</router-link>
+          </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
 
-    <!--
-        <b-row class="row p-3 background">
-          <b-col class="mr-auto"> 
-            <a class="navbar-brand" href="/">
-              <a>
-                <img
-                  src="./assets/logoBlanco.png"
-                  alt="logo"
-                  style="width:40px;"
-                />
-              </a>
-            </a>
-          </b-col>
-          <b-col class="col-1 nav-item">
-            <a class="nav-link" href="/">Home</a>
-          </b-col>
-          <b-col class="col-2 nav-item">
-            <a class="nav-link" href="/listMGroups">Agrupaciones Musicales</a>
-          </b-col>
-          <b-col class="col-2 nav-item">
-            <a class="nav-link" href="/listMusicalExchanges"
-                    >Intercambios Musicales</a>
-          </b-col>
-          <b-col class="col-1 nav-item">
-             <a class="nav-link" href="/user/create">Registro</a>
-          </b-col>
-          <b-col class="col-1 nav-item">
-             <a class="nav-link" href="/login">Login</a>
-          </b-col>
-    </b-row>-->
-    <!-- <nav id="nav" class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button
-              type="button"
-              class="navbar-toggle"
-              data-toggle="collapse"
-              data-target="#myNavbar"
-            >
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">
-              <a>
-                <img
-                  src="./assets/logoBlanco.png"
-                  alt="logo"
-                  style="width:40px;"
-                />
-              </a>
-            </a>
-          </div>
-          <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-              <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/user/create">Registro</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/listMGroups">Agrupaciones Musicales</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/listMusicalExchanges"
-                  >Intercambios Musicales</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-    </nav>-->
+    
   </div>
   <router-view />
 </div>
@@ -297,6 +133,9 @@ export default {
 };
 </script>
 <style scoped>
+b-nav-item {
+  color: #ffffff;
+}
 .jumbotron {
   background-color: #465bff;
   color: #fff;
@@ -324,6 +163,7 @@ export default {
 .carousel-caption h3 {
   color: #fff !important;
 }
+
 
 h1,
 h2,
@@ -454,4 +294,5 @@ img.imgcenter {
 .errorRojo {
   color: red;
 }
+
 </style>

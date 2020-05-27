@@ -40,11 +40,6 @@ const router = new Router({
         isMusicalExchange: false,
       },
     },
-    {
-      path: "/followed/:id",
-      name: "FollowedMGroups",
-      component: GetFollowedComponent,
-    },
 
     {
       path: "/login",
@@ -181,6 +176,20 @@ const router = new Router({
         hasToBeGroup: false,
         needId: true,
         isMusicalExchange: false,
+      },
+    },
+
+    {
+      path: "/followed/:id",
+      name: "FollowedMGroups",
+      component: GetFollowedComponent,
+      meta: {
+      authenticated: true,
+      isLogin: false,
+      hasToBePerson: true,
+      hasToBeGroup: false,
+      needId: true,
+      isMusicalExchange: false
       },
     },
 
