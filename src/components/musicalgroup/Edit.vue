@@ -15,6 +15,7 @@
             type="text"
             id="name"
             v-model="mgroup.name"
+            maxlength="50"
             name="title"
             class="form-control"
             placeholder="Enter name"
@@ -27,6 +28,7 @@
           <input
             type="text"
             id="username"
+            maxlength="15"
             v-model="mgroup.username"
             name="title"
             class="form-control"
@@ -40,6 +42,7 @@
           <input
             type="text"
             id="email"
+            maxlength="30"
             v-model="mgroup.email"
             name="title"
             class="form-control"
@@ -55,6 +58,7 @@
             cols="50"
             type="textarea"
             id="description"
+            maxlength="255"
             v-model="mgroup.description"
             name="title"
             class="form-control"
@@ -96,6 +100,7 @@
             name="title"
             class="form-control"
             placeholder="Enter city"
+            maxlength="80"
             value="mgroup.city"
           />
         </div>

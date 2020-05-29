@@ -79,6 +79,7 @@
                   <td>
                     <input
                       type="text"
+                      maxlength="50"
                       id="place"
                       v-model="place"
                       name="title"
@@ -99,6 +100,8 @@
                       cols="50"
                       type="textarea"
                       id="description"
+                      maxlength="255"
+
                       v-model="description"
                       name="title"
                       class="form-control"
@@ -119,6 +122,8 @@
                       type="textarea"
                       id="repertoire"
                       v-model="repertoire"
+                      maxlength="255"
+
                       name="title"
                       class="form-control"
                       placeholder="Enter repertoire"
@@ -152,6 +157,7 @@
                       type="texto"
                       id="crowdfundingLink"
                       v-model="crowdfundingLink"
+                      maxlength="255"
                       name="title"
                       class="form-control"
                       placeholder="Crowdfunding link"

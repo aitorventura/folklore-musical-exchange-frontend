@@ -269,8 +269,12 @@ export default {
           participantId: parseInt(message.participantId)
         };
 
+        if(messageData.content.length > 16777214){
+          alert("No puedes enviar un mensaje de más de 255 caracteres")
+        }else {
+          this.__submitToServer(messageData);
+        }
         //console.log("Se va a hacer messageData");
-        this.__submitToServer(messageData);
 
         /*
          * example simulating an upload callback.

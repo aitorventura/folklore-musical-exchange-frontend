@@ -20,6 +20,7 @@
                   <input
                     type="text"
                     id="name"
+                    maxlength="50"
                     v-model="name"
                     name="title"
                     class="form-control"
@@ -36,6 +37,7 @@
                   <input
                     type="text"
                     id="username"
+                    maxlength="15"
                     v-model="username"
                     name="title"
                     class="form-control"
@@ -52,6 +54,8 @@
                   <input
                     type="password"
                     id="password"
+                    minlength="8"
+                    maxlength="20"
                     v-model="password"
                     name="title"
                     class="form-control"
@@ -68,6 +72,7 @@
                   <input
                     type="text"
                     id="email"
+                    maxlength="30"
                     v-model="email"
                     name="title"
                     class="form-control"
@@ -86,6 +91,7 @@
                     cols="50"
                     type="textarea"
                     id="description"
+                    maxlength="255"
                     v-model="description"
                     name="title"
                     class="form-control"
@@ -135,6 +141,7 @@
                     type="text"
                     id="city"
                     v-model="city"
+                    maxlength="80"
                     name="title"
                     class="form-control"
                     value="mgroup.city"
