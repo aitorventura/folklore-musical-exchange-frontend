@@ -270,7 +270,7 @@ export default {
         };
 
         if(messageData.content.length > 16777214){
-          alert("No puedes enviar un mensaje de más de 255 caracteres")
+          alert("No puedes enviar un mensaje tan largo")
         }else {
           this.__submitToServer(messageData);
         }
