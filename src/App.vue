@@ -34,7 +34,7 @@
               <router-link :to="{ name: 'MusicalExchangeList' }" class="b-nav-item href">Intercambios Musicales</router-link>
           </b-nav-item>
           <b-nav-item v-if="!person">
-          <router-link :to="{ name: 'CreateMusicalExchangeComponent' }" class="b-nav-item href">  Crear Intercambio Musical</router-link>
+          <router-link :to="{ name: 'CreateME' }" class="b-nav-item href">  Crear Intercambio Musical</router-link>
           </b-nav-item>
           <b-nav-item v-if="logged">
             <router-link :to="{ name: 'ChatList' }" class="b-nav-item href">Chats</router-link>
