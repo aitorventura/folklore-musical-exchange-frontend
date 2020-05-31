@@ -39,32 +39,25 @@
         <div class="row">
           <div class="col-6">
             <img v-bind:src="hostMusicalGroup.image" height="300" width="300" />
+            <br />
+            <br />
             <p>Anfitrión: {{ hostMusicalGroup.name }}</p>
-            <p>Fecha: {{ musicalexchange.date }}</p>
+            <p>Fecha: {{ musicalexchange.date | moment }}</p>
             <p>Descripción: {{ musicalexchange.description }}</p>
           </div>
           <div class="col-6">
             <img v-bind:src="invitedMusicalGroup.image" height="300" width="300" />
+            <br />
+            <br />
             <p>Invitado: {{ invitedMusicalGroup.name }}</p>
             <p>Lugar: {{ musicalexchange.place }}</p>
-            <p>Repertorio: {{ musicalexchange.repertoire }}</p>
+            <p v-if="musicalexchange.repertoire.length>0">Repertorio: {{ musicalexchange.repertoire }}</p>
           </div>
         </div>
-        <!--tr>
-          <td>Anfitrión: {{ hostMusicalGroup.name }}</td>
-          <td>Invitado: {{ invitedMusicalGroup.name }}</td>
-        </tr>
-        <tr>
-          <td>Fecha: {{ musicalexchange.date }}</td>
-          <td>Lugar: {{ musicalexchange.place }}</td>
-        </tr>
-        <tr>
-          <td>Descripción: {{ musicalexchange.description }}</td>
-          <td>Repertorio: {{ musicalexchange.repertoire }}</td>
-        </tr-->
+  
         <tr v-if="musicalexchange.neededMoney > 0">
+          <td>Dinero necesario: {{ musicalexchange.neededMoney }} €</td>
           <td>Enlace para donar: {{ musicalexchange.crowdfundingLink }}</td>
-          <td>Dinero necesario: {{ musicalexchange.neededMoney }}</td>
         </tr>
         <!--/table-->
       </div>
@@ -77,6 +70,10 @@
 import { server } from "../../helper";
 import axios from "axios";
 import router from "../../router";
+/*MOMENT PARA LA FECHA*/
+import moment from "moment";
+require("moment/locale/es");
+moment.locale("es");
 export default {
   data() {
     return {
@@ -91,6 +88,11 @@ export default {
     await this.getMusicalExchange();
     this.getMusicalGroupHost(this.musicalexchange.idMGroupA);
     this.getMusicalGroupInvited(this.musicalexchange.idMGroupB);
+  },
+  filters: {
+    moment: function(date) {
+      return moment(date).format("DD/MM/YYYY, HH:mm");
+    },
   },
   methods: {
     async getMusicalExchange() {
