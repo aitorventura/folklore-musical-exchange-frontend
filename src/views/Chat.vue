@@ -305,7 +305,9 @@ export default {
     onMessageSubmit: function(message) {
       if (message.content !== " " || message.content.length === 0) {
         this.newMessage = true;
-        let fecha = new Date(message.timestamp).toISOString();
+        //console.log(message.timestamp);
+        var tzoffset = new Date().getTimezoneOffset() * 60000;
+        let fecha = new Date(message.timestamp - tzoffset).toISOString();
 
         let messageData = {
           idChat: this.idChat,
@@ -321,7 +323,6 @@ export default {
         } else {
           this.__submitToServer(messageData);
         }
-        //console.log("Se va a hacer messageData");
 
         /*
          * example simulating an upload callback.
@@ -346,7 +347,6 @@ export default {
       this.visible = false;
     },
     getMGroup() {
-      console.log("Entramos en getMGroup " + this.$route.params.id);
       axios
         .get(`${server.baseURL}/musicalgroup/${this.$route.params.id}`)
         .then((data) => (this.mgroup = data.data));
@@ -354,7 +354,6 @@ export default {
       Object.values(this.mgroup);
     },
     getPerson() {
-      console.log("Entramos en getPerson " + this.idP);
       axios
         .get(`${server.baseURL}/person/${this.idP}`, {
           headers: { token: localStorage.token },
