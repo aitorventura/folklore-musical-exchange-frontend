@@ -52,7 +52,12 @@
 
             <table>
               <!-- Debería actualizarse esto pero no sé cómo-->
-              <tr v-for="chat in chats" :key="chat.id" scope="col p-3" style="padding-right: 40px;">
+              <tr
+                v-for="chat in chats"
+                :key="chat.id"
+                scope="col p-3"
+                style="padding-right: 40px;"
+              >
                 <td scope="col p-3" style="padding-right: 40px;">
                   <div class="text-left">
                     <h4>{{ chat.name }}</h4>
@@ -63,8 +68,12 @@
                   <div class="btn-group" style="margin-bottom: 20px;">
                     <button
                       class="btn btn-sm btn-outline-primary"
-                      v-on:click="openChat(chat.idA == myId? chat.idB : chat.idA)"
-                    >Ver chat</button>
+                      v-on:click="
+                        openChat(chat.idA == myId ? chat.idB : chat.idA)
+                      "
+                    >
+                      Ver chat
+                    </button>
 
                     <!--<router-link
                   :to="{ name: 'Chat', params: { id: (chat.idA == myId? chat.idB : chat.idA) } }"
@@ -74,7 +83,7 @@
                   </div>
                 </td>
                 <td scope="col" style="padding-left: 20px;">
-                  <div v-if="chat.unread != 0">{{chat.unread}}</div>
+                  <div v-if="chat.unread != 0">{{ chat.unread }}</div>
                 </td>
               </tr>
             </table>
@@ -94,7 +103,9 @@
                 </p>
               </div>
               <div th:align="center">
-                <a href="/" class="btn btn-primary" th:align="left">Página principal</a>
+                <a href="/" class="btn btn-primary" th:align="left"
+                  >Página principal</a
+                >
               </div>
             </div>
           </div>
@@ -142,7 +153,7 @@ moment.locale("es");
 
 export default {
   components: {
-    Chat
+    Chat,
   },
   data() {
     return {
@@ -156,37 +167,73 @@ export default {
       colors: {
         header: {
           bg: "#d30303",
-          text: "#fff"
+          text: "#fff",
         },
         message: {
           myself: {
             bg: "#fff",
-            text: "#bdb8b8"
+            text: "#bdb8b8",
           },
           others: {
             bg: "#fb4141",
-            text: "#fff"
+            text: "#fff",
           },
           messagesDisplay: {
-            bg: "#f7f3f3"
-          }
+            bg: "#f7f3f3",
+          },
         },
         submitIcon: "#b91010",
-        submitImageIcon: "#b91010"
+        submitImageIcon: "#b91010",
       },
       borderStyle: {
         topLetft: "0px",
         topRigh: "0px",
         bottomLeft: "0px",
-        bottomRight: "0px"
+        bottomRight: "0px",
       },
       hideCloseButton: true,
       submitIconSize: 30,
       closeButtonIconSize: "20px",
       toLoad: [{}],
+      /*toLoad: [
+        {
+          content: "Hey, John Doe! How are you today?",
+          myself: false,
+          participantId: 2,
+          timestamp: {
+            year: 2011,
+            month: 3,
+            day: 5,
+            hour: 10,
+            minute: 10,
+            second: 3,
+            millisecond: 123
+          },
+          uploaded: true,
+          viewed: true,
+          type: "text"
+        },
+        {
+          content: "Hey, Adam! I'm feeling really fine this evening.",
+          myself: true,
+          participantId: 3,
+          timestamp: {
+            year: 2010,
+            month: 0,
+            day: 5,
+            hour: 19,
+            minute: 10,
+            second: 3,
+            millisecond: 123
+          },
+          uploaded: true,
+          viewed: true,
+          type: "text"
+        }
+      ],*/
       scrollBottom: {
         messageSent: true,
-        messageReceived: true
+        messageReceived: true,
       },
       displayHeader: true,
       profilePictureConfig: {
@@ -195,12 +242,12 @@ export default {
         styles: {
           width: "30px",
           height: "30px",
-          borderRadius: "50%"
-        }
+          borderRadius: "50%",
+        },
       },
       timestampConfig: {
-        format: "dd-MM-yyyy HH:mm",
-        relative: true
+        format: "dd/MM/yyyy, HH:mm",
+        relative: false,
       },
       //idChat lo cogeré de la ruta cuando esté la lista de chats
       idP: 0,
@@ -209,7 +256,7 @@ export default {
       mgroup: {},
       person: {},
       first: true,
-      chats: []
+      chats: [],
     };
   },
   async created() {
@@ -266,12 +313,12 @@ export default {
           timestamp: fecha.substring(0, fecha.length - 2),
           uploaded: "true",
           viewed: "false",
-          participantId: parseInt(message.participantId)
+          participantId: parseInt(message.participantId),
         };
 
-        if(messageData.content.length > 16777214){
-          alert("No puedes enviar un mensaje tan largo")
-        }else {
+        if (messageData.content.length > 16777214) {
+          alert("No puedes enviar un mensaje tan largo");
+        } else {
           this.__submitToServer(messageData);
         }
         //console.log("Se va a hacer messageData");
@@ -302,7 +349,7 @@ export default {
       console.log("Entramos en getMGroup " + this.$route.params.id);
       axios
         .get(`${server.baseURL}/musicalgroup/${this.$route.params.id}`)
-        .then(data => (this.mgroup = data.data));
+        .then((data) => (this.mgroup = data.data));
 
       Object.values(this.mgroup);
     },
@@ -310,31 +357,31 @@ export default {
       console.log("Entramos en getPerson " + this.idP);
       axios
         .get(`${server.baseURL}/person/${this.idP}`, {
-          headers: { token: localStorage.token }
+          headers: { token: localStorage.token },
         })
-        .then(data => (this.person = data.data));
+        .then((data) => (this.person = data.data));
 
       Object.values(this.person);
     },
     async getMessages() {
       await axios
         .get(`${server.baseURL}/chat/${this.myId}/${this.idP}`, {
-          headers: { token: localStorage.token }
+          headers: { token: localStorage.token },
         })
-        .then(data => (this.toLoad = data.data));
+        .then((data) => (this.toLoad = data.data));
       this.tratarToLoad();
     },
     async getParticipant() {
       await axios
         .get(`${server.baseURL}/chat/participant/${this.idP}`)
-        .then(data => (this.participants = data.data));
+        .then((data) => (this.participants = data.data));
     },
     async getMyself() {
       await axios
         .get(`${server.baseURL}/chat/myself/${this.myId}`, {
-          headers: { token: localStorage.token }
+          headers: { token: localStorage.token },
         })
-        .then(data => (this.myself = data.data));
+        .then((data) => (this.myself = data.data));
     },
     tratarToLoad() {
       for (var i in this.toLoad) {
@@ -348,7 +395,7 @@ export default {
       console.log("Se envía el mensaje");
       axios
         .post(`${server.baseURL}/chat/newmsg/${this.myId}/${this.idP}`, data)
-        .then(data => {
+        .then((data) => {
           if (data.data === 1) {
             alert("No se ha podido enviar el mensaje");
           }
@@ -358,14 +405,14 @@ export default {
       let myId = await localStorage.getItem("id");
       axios
         .get(`${server.baseURL}/chat/all/${myId}`)
-        .then(data => (this.chats = data.data));
+        .then((data) => (this.chats = data.data));
     },
     openChat(id) {
       router.push({ name: "Chat", params: { id: id } });
 
       window.location.reload();
-    }
-  }
+    },
+  },
 };
 </script>
 
