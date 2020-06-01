@@ -2,57 +2,18 @@
   <div class="background-table">
     <table>
       <tr>
-        <td scope="col p-3" style="padding-right: 40px;">
+        <td
+          class="text-center"
+          scope="col p-3"
+          style="padding-right: 40px; color:whitesmoke"
+        >
+          <h1>Lista de chats</h1>
+          <br />
           <div class="thumbnail" id="margin" v-if="chats.length !== 0">
-            <!--
-        <div v-if="mgroup.length !== 0">
-          <table>
-            <tr>
-              <td scope="col p-3" style="padding-right: 40px;">
-                <div class="bordered">
-                  <img v-bind:src="mgroup.image" height="300" width="300" />
-                </div>
-              </td>
-              <td scope="col" style="padding-left: 20px;">
-                <div class="text-left">
-                  <h2>{{ mgroup.name }}</h2>
-                  <h4>Usuario: {{ mgroup.username }}</h4>
-                </div>
-                <div class="text-left">
-                  <br />
-                  <p>Email: {{ mgroup.email }}</p>
-                  <p>Ciudad: {{ mgroup.city }}</p>
-                  <p>Número de miembros: {{ mgroup.members }}</p>
-                  <p>Tipo de agrupación: {{ mgroup.nameType }}</p>
-                  <p>Descripción: {{ mgroup.description }}</p>
-                </div>
-              </td>
-            </tr>
-          </table>
-        </div>
-
-        <div v-if="mgroup.length == 0 && participants.length>0">
-          <table>
-            <tr>
-              <td scope="col p-3" style="padding-right: 20px;">
-                <div class="bordered">
-                  <img v-bind:src="participants[0].profilePicture" height="200" width="200" />
-                </div>
-              </td>
-              <td scope="col" style="padding-left: 10px;">
-                <div class="text-left">
-                  <h2>Nombre de usuario:</h2>
-                  <h4>{{ participants[0].name }}</h4>
-                </div>
-              </td>
-            </tr>
-          </table>
-        </div>
-            -->
-
             <table>
               <!-- Debería actualizarse esto pero no sé cómo-->
               <tr
+                class="text-center"
                 v-for="chat in chats"
                 :key="chat.id"
                 scope="col p-3"
@@ -83,7 +44,11 @@
                   </div>
                 </td>
                 <td scope="col" style="padding-left: 20px;">
-                  <div v-if="chat.unread != 0">{{ chat.unread }}</div>
+                  <div v-if="chat.unread != 0">
+                    <h4>
+                      <strong> {{ chat.unread }} </strong>
+                    </h4>
+                  </div>
                 </td>
               </tr>
             </table>

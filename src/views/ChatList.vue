@@ -1,34 +1,36 @@
 <template>
-<body>
-  <div class="container-fluid" border="0.5cm">
-    <div class="text-center" heigth="100vh">
-      <h1>Lista de chats</h1>
+  <body>
+    <div class="container-fluid" border="0.5cm">
+      <div class="text-center" heigth="100vh">
+        <h1>Lista de chats</h1>
+        <br />
+        <div v-if="chats.length === 0">
+          <div class="container">
+            <div class="alert" classappend="alert-dark">
+              <img src="../assets/logoBlanco.png" style="width:300px;" />
 
-      <div v-if="chats.length === 0">
-        <div class="container">
-          <div class="alert" classappend="alert-dark">
-            <img src="../assets/logoBlanco.png" style="width:300px;" />
-
-            <br />
-            <!--<h2>No user found at the moment</h2>-->
-            <h3>No se ha encontrado ningún chat</h3>
-            <br />
-            <p>
-              Pulsa el botón de inicio para volver a la página principal o
-              utiliza el navegador para volver atrás
-            </p>
-          </div>
-          <div th:align="center">
-            <a href="/" class="btn btn-primary" th:align="left">Página principal</a>
+              <br />
+              <!--<h2>No user found at the moment</h2>-->
+              <h3>No se ha encontrado ningún chat</h3>
+              <br />
+              <p>
+                Pulsa el botón de inicio para volver a la página principal o
+                utiliza el navegador para volver atrás
+              </p>
+            </div>
+            <div th:align="center">
+              <a href="/" class="btn btn-primary" th:align="left"
+                >Página principal</a
+              >
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- <div class="row"> -->
+      <!-- <div class="row"> -->
 
-    <div class="thumbnail" id="margin" v-if="chats.length !== 0">
-      <!--
+      <div class="thumbnail" id="margin" v-if="chats.length !== 0">
+        <!--
       <ejs-textbox
         id="textbox"
         v-model="searchName"
@@ -39,31 +41,44 @@
       ></ejs-textbox>
       -->
 
-      <table>
-        <!-- Debería actualizarse esto pero no sé cómo-->
-        <tr v-for="chat in chats" :key="chat.id" scope="col p-3" style="padding-right: 40px;">
-          <td scope="col p-3" style="padding-right: 40px;">
-            <div class="text-left">
-              <h2>{{ chat.name }}</h2>
-            </div>
-          </td>
+        <table>
+          <!-- Debería actualizarse esto pero no sé cómo-->
+          <tr
+            v-for="chat in chats"
+            :key="chat.id"
+            scope="col p-3"
+            style="padding-right: 40px;"
+          >
+            <td scope="col p-3" style="padding-right: 40px;">
+              <div class="text-left">
+                <h2>{{ chat.name }}</h2>
+              </div>
+            </td>
 
-          <td scope="col" style="padding-left: 20px;">
-            <div class="btn-group" style="margin-bottom: 20px;">
-              <router-link
-                :to="{ name: 'Chat', params: { id: (chat.idA == myId? chat.idB : chat.idA) } }"
-                class="btn btn-sm btn-outline-primary"
-              >Ver chat</router-link>
-            </div>
-          </td>
-          <td scope="col" style="padding-left: 20px;">
-            <div v-if="chat.unread != 0">{{chat.unread}}</div>
-          </td>
-        </tr>
-      </table>
+            <td scope="col" style="padding-left: 20px;">
+              <div class="btn-group" style="margin-bottom: 20px;">
+                <router-link
+                  :to="{
+                    name: 'Chat',
+                    params: { id: chat.idA == myId ? chat.idB : chat.idA },
+                  }"
+                  class="btn btn-sm btn-outline-primary"
+                  >Ver chat</router-link
+                >
+              </div>
+            </td>
+            <td scope="col" style="padding-left: 20px;">
+              <div v-if="chat.unread != 0">
+                <h4>
+                  <strong> {{ chat.unread }} </strong>
+                </h4>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 </template>
 
 <script>
@@ -78,7 +93,7 @@ export default {
   data() {
     return {
       chats: [],
-      myId: 0
+      myId: 0,
       //searchName: ""
       //searchType: [],
       //fields: { text: "name", value: "name" },
@@ -103,9 +118,9 @@ export default {
       let myId = await localStorage.getItem("id");
       axios
         .get(`${server.baseURL}/chat/all/${myId}`)
-        .then(data => (this.chats = data.data));
-    }
-  }
+        .then((data) => (this.chats = data.data));
+    },
+  },
 };
 </script>
 
