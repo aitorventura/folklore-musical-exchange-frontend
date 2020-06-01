@@ -1,10 +1,6 @@
 <template>
 
   <body>
-  <br />
-  <br />
-  <br />
-
   <div class="thumbnail">
 
     <h1>

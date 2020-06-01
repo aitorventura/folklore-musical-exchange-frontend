@@ -1,14 +1,8 @@
 <template>
 <body>
+<br />
   <div class="container" id="margin">
     <div class="thumbnail col-md-12 form-wrapper" id="centro">
-      <h4 class="text-center mt-20">
-        <!--  <small>
-            <button class="btn btn-success" v-on:click="navigate()">
-              View All People
-            </button>
-        </small>-->
-      </h4>
       <div class="col-md-12 form-wrapper">
         <h2>Editar perfil</h2>
         <form id="create-post-form" @submit.prevent="editPerson">
@@ -269,11 +263,11 @@ body {
   font: 400 15px/1.8 Lato, sans-serif;
   color: #777;
   background-color: #2d2d30;
-  height: 100vh;
-  /*height: 100%;
+  /*height: 100vh;*/
+  height: 100%;
   width: 100%;
   padding: 0;
-  */
+  
   justify-content: center;
   align-items: center;
   flex-direction: column;

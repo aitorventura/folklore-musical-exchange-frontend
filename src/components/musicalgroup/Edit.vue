@@ -1,13 +1,13 @@
 <template>
 <body>
-  <div>
-    <h4 class="text-center mt-20">
-      <small>
-        <button class="btn btn-success" v-on:click="navigate()">View All Musicals Groups</button>
-      </small>
-    </h4>
+  <br />
+  <div class="container" id="margin">
+    <div class="thumbnail col-md-12 form-wrapper" id="centro">
+     
     <div class="col-md-12 form-wrapper">
-      <h2>Edit Musical Group</h2>
+      <h2>Editar perfil</h2>
+      <br />
+      <br />
       <form id="create-post-form" @submit.prevent="editMGroup">
         <div class="form-group col-md-12">
           <label for="title">Name</label>
@@ -124,9 +124,10 @@
         </div>
 
         <div class="form-group col-md-4 pull-right">
-          <button class="btn btn-success" type="submit">Edit musical group</button>
+          <button class="btn btn-success" type="submit">Guardar cambios</button>
         </div>
       </form>
+    </div>
     </div>
   </div>
 </body>
@@ -166,7 +167,7 @@ export default {
         .put(`${server.baseURL}/musicalgroup/${this.id}`, mgroupData, {headers: {token: localStorage.token}})
         .then(data => {
           if (data.data === 0) {
-            router.push({ name: "MusicalExchangeList" });
+            router.push({ name: "GetMG" });
           } else {
             if (data.data === 1) {
               alert(
@@ -178,18 +179,6 @@ export default {
                   "El usuario que quiere emplear ya está registrado en la plataforma, por favor, pruebe con otro."
                 );
               }
-              /*
-              else {
-                if (data.data === 3){
-                  alert("Error al crear el usuario");
-                }
-                else {
-                if (data.data === 4){
-                  alert("Error al crear la agrupación");
-                }
-              }
-              }
-              */
             }
           }
         });
@@ -231,3 +220,51 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+td {
+  padding: 3px;
+}
+.thumbnail {
+  line-height: 100%;
+  border-color: #fff;
+  border-left-width: 1cm;
+  border-right-width: 1cm;
+}
+#margin {
+  margin-left: 2cm;
+  margin-right: 2cm;
+}
+#centro {
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+body {
+  font: 400 15px/1.8 Lato, sans-serif;
+  color: #777;
+  background-color: #2d2d30;
+  /*height: 100vh;*/
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+}
+.btn {
+  padding: 6px 15px;
+  background-color: #333;
+  color: #f1f1f1;
+  border-radius: 0;
+  transition: 0.2s;
+}
+.btn:hover,
+.btn:focus {
+  border: 1px solid #333;
+  background-color: #fff;
+  color: #000;
+}
+</style>

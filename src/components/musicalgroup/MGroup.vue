@@ -36,13 +36,7 @@
                 :to="{ name: 'EditMG', params: { id: mgroup.id } }"
                 class="btn btn-sm btn-outline-secondary"
               >Editar perfil</router-link>
-              <br />
-
-              <br />
-              <button
-                class="btn btn-sm btn-outline-danger"
-                v-on:click="deletePerson(mgroup.id)"
-              >Borrar cuenta</button>
+              <br />             
             </div>
           </div>
         </td>
@@ -53,10 +47,10 @@
       <button class="btn btn-sm btn-outline-primary" v-on:click="createSubscriptionMG()">Seguir</button>
     </div>
     <div v-if="loggedAndPerson && subscribed">
-      <button
+     <!-- <button
         class="btn btn-sm btn-outline-danger"
         v-on:click="deleteSubscriptionMG()"
-      >Dejar de seguir</button>
+      >Dejar de seguir</button> -->
     </div>
     <!-- </div> -->
   </div>
@@ -104,6 +98,14 @@ export default {
         this.mgroup = data.data;
         this.isSameUser();
       });
+    },
+    deleteMgroup(id) {
+       axios.delete(`${server.baseURL}/mgroup/${id}`, {headers: {token: localStorage.token}}).then(data => {
+        localStorage.clear();
+        window.push("Home");
+      });
+      /*router.push({ name: "Home" });
+      window.location.reload();*/
     },
     isPerson() {
       axios

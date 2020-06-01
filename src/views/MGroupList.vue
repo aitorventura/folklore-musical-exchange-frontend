@@ -60,26 +60,7 @@
       ></ejs-multiselect>
 
       <br />
-      <!--
-      <div class="p-3" v-for="mgroup in filterName" :key="mgroup.id">
-        <div class="row p-4 border" >
-          <div class="col-2 ">
-            <img v-bind:src="mgroup.image" height="160" width="160" />
-          </div>
-          <div class="col justify-content-start">
-            <h2>{{ mgroup.name }}</h2>
-          </div>
-          <div class="col-2 justify-content-center texto-centrado">
-            <div class="btn-group justify-content-center texto-centrado">
-              <router-link
-                :to="{ name: 'GetMG', params: { id: mgroup.id } }"
-                class="btn btn-sm btn-outline-primary"
-              >Más información</router-link>
-            </div>
-          </div>
-        </div>
-      </div>
-      -->
+  
       <div class="row justify-content-center" align-v="center">
         <div v-for="mgroup in filterName" :key="mgroup.id" class="col-3 justify-content-center">
           <img class="card-img-top" v-bind:src="mgroup.image" alt="Card image" />

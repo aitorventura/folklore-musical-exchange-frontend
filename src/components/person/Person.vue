@@ -44,12 +44,12 @@
                       </router-link
                     > 
                      
-              <button
+             <!-- <button
                 class="btn btn-sm btn-outline-danger p-3"
                 v-on:click="deletePerson(person.id)"
               >
                 Borrar cuenta
-              </button>
+              </button> -->
               </div>
             </div>
           </td>
@@ -96,7 +96,7 @@ export default {
     },
 
     deletePerson(id) {
-      axios.delete(`${server.baseURL}/person/${id}`).then(data => {
+      axios.delete(`${server.baseURL}/person/${id}`, {headers: {token: localStorage.token}}).then(data => {
         window.push("Home");
       });
     },
