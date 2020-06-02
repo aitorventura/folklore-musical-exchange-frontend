@@ -1,6 +1,9 @@
 <template>
 <body>
-  <!--Si se quiere en blanco se quita el thumbnail-->
+  <div class="text-center" style="color: whitesmoke;">
+      <h1>{{ mgroup.name }}</h1>
+      <br />
+  </div>
   <div class="thumbnail" id="margin">
     <table>
       <tr>
@@ -11,22 +14,32 @@
         </td>
         <td scope="col" style="padding-left: 20px;">
           <div class="text-left">
-            <h2>{{ mgroup.name }}</h2>
-            <h4>Usuario: {{ mgroup.username }}</h4>
+            <h2><strong>Usuario:</strong> {{ mgroup.username }}</h2>
           </div>
           <div class="text-left">
             <br />
-            <p>Email: {{ mgroup.email }}</p>
-            <p>Ciudad: {{ mgroup.city }}</p>
-            <p>Número de miembros: {{ mgroup.members }}</p>
-            <p>Tipo de agrupación: {{ mgroup.nameType }}</p>
-            <p>Descripción: {{ mgroup.description }}</p>
+            <h4><strong>Email: </strong>{{ mgroup.email }}</h4>
+            <h4><strong>Ciudad: </strong>{{ mgroup.city }}</h4>
+            <h4><strong>Número de miembros: </strong>{{ mgroup.members }}</h4>
+            <h4><strong>Tipo de agrupación: </strong>{{ mgroup.nameType }}</h4>
+            <br />
+            <h4><strong>Descripción: </strong></h4>
+            <div>
+              <h4>{{ mgroup.description }}</h4>
+            </div>
           </div>
           <br />
-          <div v-if="mgroup.id != myId">
+          <div v-if="mgroup.id != myId && this.myId!==null">
             <br />
             <router-link
               :to="{ name: 'Chat', params: { id: mgroup.id }}"
+              class="btn btn-sm btn-outline-primary"
+            >Enviar mensaje</router-link>
+          </div>
+          <div v-if="this.myId===null">
+            <br />
+            <router-link
+              :to="{ name: 'Login'}"
               class="btn btn-sm btn-outline-primary"
             >Enviar mensaje</router-link>
           </div>
@@ -75,6 +88,7 @@ export default {
   },
   created() {
     this.myId = localStorage.getItem("id");
+    console.log("id: "+this.myId);
     this.id = this.$route.params.id;
     this.getMGroup();
   },

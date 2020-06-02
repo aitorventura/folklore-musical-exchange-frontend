@@ -103,7 +103,8 @@ export default {
   },
   created() {
     this.myId = localStorage.getItem("id");
-    setInterval(this.fetchChats(), 1000);
+    //setInterval(this.fetchChats(), 1000);
+    this.startInterval();
     //setInterval(window.location.reload(), 500);
   },
   /*computed: {
@@ -120,6 +121,11 @@ export default {
         .get(`${server.baseURL}/chat/all/${myId}`)
         .then((data) => (this.chats = data.data));
     },
+    startInterval: async function () {
+      setInterval(async () => {
+                        await this.fetchChats();
+                   }, 1000);
+    }
   },
 };
 </script>

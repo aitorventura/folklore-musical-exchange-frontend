@@ -1,63 +1,42 @@
 <template>
 <body>
   <div class="container">
-    <!--div class="text-center">
-      <h1>Musical Group</h1>
-    </div-->
+    <div class="text-center" style="color: whitesmoke;">
+      <h1>Información del intercambio musical</h1>
+      <br />
+    </div>
     <div v-if="musicalexchange.id === null">
-      <h2>No musical exchange found at the moment</h2>
+      <h2>No se puede mostrar la información del intercambio</h2>
     </div>
     <!-- <div class="row"> -->
     <div class="thumbnail">
-      <div class="container">
-        <!--table class="table table-bordered">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">idMGroupA</th>
-            <th scope="col">idMGroupB</th>
-            <th scope="col">Date</th>
-            <th scope="col">Place</th>
-            <th scope="col">Description</th>
-            <th scope="col">Repertoire</th>
-            <th scope="col">Needed Money</th>
-            <th scope="col">Crowdfunding Link</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{ musicalexchange.idMGroupA }}</td>
-            <td>{{ musicalexchange.idMGroupB }}</td>
-            <td>{{ musicalexchange.date }}</td>
-            <td>{{ musicalexchange.place }}</td>
-            <td>{{ musicalexchange.description }}</td>
-            <td>{{ musicalexchange.repertoire }}</td>
-            <td>{{ musicalexchange.neededMoney }}</td>
-            <td>{{ musicalexchange.crowdfundingLink }}</td>
-          </tr>
-        </tbody-->
-
-        <div class="row">
+      <div class="">
+        <div class="row p-3">
           <div class="col-6">
-            <img v-bind:src="hostMusicalGroup.image" height="300" width="300" />
-            <br />
-            <br />
-            <p>Anfitrión: {{ hostMusicalGroup.name }}</p>
-            <p>Fecha: {{ musicalexchange.date | moment }}</p>
-            <p>Descripción: {{ musicalexchange.description }}</p>
+            <div>
+              <img v-bind:src="hostMusicalGroup.image" height="300" width="300" />
+              <br />
+              <br />
+              <p>Anfitrión: {{ hostMusicalGroup.name }}</p>
+              <p>Fecha: {{ musicalexchange.date | moment }}</p>
+              <p>Descripción: {{ musicalexchange.description }}</p>
+            </div>
           </div>
           <div class="col-6">
-            <img v-bind:src="invitedMusicalGroup.image" height="300" width="300" />
-            <br />
-            <br />
-            <p>Invitado: {{ invitedMusicalGroup.name }}</p>
-            <p>Lugar: {{ musicalexchange.place }}</p>
-            <p v-if="musicalexchange.repertoire.length>0">Repertorio: {{ musicalexchange.repertoire }}</p>
+            <div>
+              <img v-bind:src="invitedMusicalGroup.image" height="300" width="300" />
+              <br />
+              <br />
+              <p>Invitado: {{ invitedMusicalGroup.name }}</p>
+              <p>Lugar: {{ musicalexchange.place }}</p>
+              <p v-if="musicalexchange.repertoire!=null || musicalexchange.repertoire!=undefined">Repertorio: {{ musicalexchange.repertoire }}</p>
+            </div>
           </div>
         </div>
   
-        <tr v-if="musicalexchange.neededMoney > 0">
-          <td>Dinero necesario: {{ musicalexchange.neededMoney }} €</td>
-          <td>Enlace para donar: {{ musicalexchange.crowdfundingLink }}</td>
+        <tr>
+          <td v-if="musicalexchange.neededMoney > 0">Dinero necesario: {{ musicalexchange.neededMoney }} €</td>
+          <td v-if="musicalexchange.crowdfundingLink!=null || musicalexchange.crowdfundingLink!=undefined">Enlace para donar: {{ musicalexchange.crowdfundingLink }}</td>
         </tr>
         <!--/table-->
       </div>
@@ -86,8 +65,8 @@ export default {
   async created() {
     this.id = this.$route.params.id;
     await this.getMusicalExchange();
-    this.getMusicalGroupHost(this.musicalexchange.idMGroupA);
-    this.getMusicalGroupInvited(this.musicalexchange.idMGroupB);
+    await this.getMusicalGroupHost(this.musicalexchange.idMGroupA);
+    await this.getMusicalGroupInvited(this.musicalexchange.idMGroupB);
   },
   filters: {
     moment: function(date) {
@@ -100,13 +79,13 @@ export default {
         .get(`${server.baseURL}/musicalexchange/${this.id}`)
         .then(data => (this.musicalexchange = data.data));
     },
-    getMusicalGroupHost(id) {
-      axios
+    async getMusicalGroupHost(id) {
+      await axios
         .get(`${server.baseURL}/musicalgroup/${id}`)
         .then(data => (this.hostMusicalGroup = data.data));
     },
-    getMusicalGroupInvited(id) {
-      axios
+    async getMusicalGroupInvited(id) {
+      await axios
         .get(`${server.baseURL}/musicalgroup/${id}`)
         .then(data => (this.invitedMusicalGroup = data.data));
     },
@@ -143,10 +122,10 @@ body {
   color: #777;
   background-color: #2d2d30;
   height: 100vh;
-  /*height: 100%;
+/*  height: 100%;
   width: 100%;
-  padding: 0;
-  */
+  padding: 0;*/
+  
   justify-content: center;
   align-items: center;
   flex-direction: column;

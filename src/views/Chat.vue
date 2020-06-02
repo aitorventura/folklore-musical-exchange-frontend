@@ -234,22 +234,24 @@ export default {
     this.fetchChats();
     await this.getParticipant();
     await this.getMyself();
-
+    this.startInterval();
+    console.log(this.$router.currentRoute.path);
     //await setInterval(this.loadMoreMessages, 1000);
     //await this.loadMoreMessages;
   },
 
   methods: {
+    startInterval: async function () {
+      setInterval(async () => {
+                        await this.fetchChats();
+                   }, 1000);
+    },
     async loadMoreMessages(resolve) {
       setInterval(async () => {
-        await this.getMessages();
-        //setTimeout(() => {
-        if (
-          this.messages.length !== this.toLoad.length ||
-          this.newMessage ||
-          this.first
-        ) {
-          this.first = false;
+        let urlChat = '/chat/'+this.idP;
+        if (this.$router.currentRoute.path == urlChat) {
+            await this.getMessages();
+            this.first = false;
 
           resolve(this.toLoad); //We end the loading state and add the messages
           //Make sure the loaded messages are also added to our local messages copy or they will be lost
@@ -263,13 +265,22 @@ export default {
           this.toLoad = [];
           this.newMessage = false;
         }
+        
+        //setTimeout(() => {
+        /*if (
+          this.messages.length !== this.toLoad.length ||
+          this.newMessage ||
+          this.first
+        ) {*/
+          
+        //}
       }, 1000);
       //}, 1000);
       //this.tratarToLoad();
     },
     onMessageSubmit: function(message) {
       if (message.content !== " " || message.content.length === 0) {
-        this.newMessage = true;
+        
         //console.log(message.timestamp);
         var tzoffset = new Date().getTimezoneOffset() * 60000;
         let fecha = new Date(message.timestamp - tzoffset).toISOString();
@@ -294,6 +305,7 @@ export default {
          * It's important to notice that even when your message wasn't send
          * yet to the server you have to add the message into the array
          */
+         console.log("estoy en el chat");
         //console.log("Mensaje: " + Object.values(message));
         this.messages.push(this.message);
         //console.log("Mensajes: " + Object.values(this.messages));
@@ -304,6 +316,7 @@ export default {
         // timeout simulating the request
 
         setTimeout(() => {
+          this.newMessage = true;
           message.uploaded = true;
         }, 2000);
       }
@@ -373,7 +386,6 @@ export default {
     },
     openChat(id) {
       router.push({ name: "Chat", params: { id: id } });
-
       window.location.reload();
     },
   },
