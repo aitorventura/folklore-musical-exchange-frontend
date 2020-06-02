@@ -1,10 +1,9 @@
 <template>
   <body>
-
     <div class="thumbnail" id="margin">
       <div class="col-md-12 form-wrapper" id="centro">
         <h2>Registro como agrupación musical</h2>
-        <br>
+        <br />
         <form
           id="create-post-form"
           @submit.prevent="createMusicalGroup"
@@ -72,7 +71,7 @@
                   <input
                     type="text"
                     id="email"
-                    maxlength="30"
+                    maxlength="50"
                     v-model="email"
                     name="title"
                     class="form-control"

@@ -42,7 +42,7 @@
           <input
             type="text"
             id="email"
-            maxlength="30"
+            maxlength="50"
             v-model="mgroup.email"
             name="title"
             class="form-control"

@@ -3,8 +3,8 @@
     <div class="thumbnail" id="margin">
       <div class="col-md-12 form-wrapper" id="centro">
         <h2>Registro como persona interesada</h2>
-        <br>
-        <br>
+        <br />
+        <br />
         <form id="create-post-form" @submit.prevent="createPerson">
           <table border="0">
             <th>
@@ -86,7 +86,7 @@
                     type="text"
                     id="email"
                     v-model="email"
-                    maxlength="30"
+                    maxlength="50"
                     name="title"
                     class="form-control"
                     required

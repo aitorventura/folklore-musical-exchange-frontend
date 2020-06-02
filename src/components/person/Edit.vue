@@ -1,6 +1,6 @@
 <template>
 <body>
-<br />
+  <br />
   <div class="container" id="margin">
     <div class="thumbnail col-md-12 form-wrapper" id="centro">
       <div class="col-md-12 form-wrapper">
@@ -47,7 +47,7 @@
             <input
               type="text"
               id="email"
-              maxlength="30"
+              maxlength="50"
               v-model="person.email"
               name="title"
               class="form-control"
@@ -267,7 +267,7 @@ body {
   height: 100%;
   width: 100%;
   padding: 0;
-  
+
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -287,4 +287,3 @@ body {
   color: #000;
 }
 </style>
-
