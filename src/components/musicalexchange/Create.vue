@@ -169,7 +169,7 @@
                   <td></td>
                   <td align="right">
                     <button class="btn btn-success" type="submit">
-                      Create Musical exchange
+                      Crear intercambio
                     </button>
                   </td>
                 </tr>
