@@ -1,5 +1,7 @@
 <template>
   <body>
+  <br />
+
     <div class="container-fluid" border="0.5cm">
       <div class="text-center" heigth="100vh">
         <h1>Lista de chats</h1>
@@ -178,6 +180,7 @@ body {
   background-color: #2d2d30;
   font: 400 15px/1.8 Lato, sans-serif;
   color: whitesmoke;
+   height: 100vh;
 
   /*
   height: 90.9vh;

@@ -17,9 +17,11 @@
               <img v-bind:src="hostMusicalGroup.image" height="300" width="300" />
               <br />
               <br />
-              <p>Anfitrión: {{ hostMusicalGroup.name }}</p>
-              <p>Fecha: {{ musicalexchange.date | moment }}</p>
-              <p>Descripción: {{ musicalexchange.description }}</p>
+              <h4><strong>Anfitrión: </strong>{{ hostMusicalGroup.name }}</h4>
+              <h4><strong>Fecha: </strong>{{ musicalexchange.date | moment }}</h4>
+              <div>
+                <h4><strong>Descripción: </strong> {{ musicalexchange.description }}</h4>
+              </div>
             </div>
           </div>
           <div class="col-6">
@@ -27,16 +29,16 @@
               <img v-bind:src="invitedMusicalGroup.image" height="300" width="300" />
               <br />
               <br />
-              <p>Invitado: {{ invitedMusicalGroup.name }}</p>
-              <p>Lugar: {{ musicalexchange.place }}</p>
-              <p v-if="musicalexchange.repertoire!=null || musicalexchange.repertoire!=undefined">Repertorio: {{ musicalexchange.repertoire }}</p>
+              <h4><strong>Invitado: </strong>{{ invitedMusicalGroup.name }}</h4>
+              <h4><strong>Lugar: </strong>{{ musicalexchange.place }}</h4>
+              <h4 v-if="musicalexchange.repertoire!=null || musicalexchange.repertoire!=undefined"><strong>Repertorio: </strong>{{ musicalexchange.repertoire }}</h4>
             </div>
           </div>
         </div>
   
         <tr>
-          <td v-if="musicalexchange.neededMoney > 0">Dinero necesario: {{ musicalexchange.neededMoney }} €</td>
-          <td v-if="musicalexchange.crowdfundingLink!=null || musicalexchange.crowdfundingLink!=undefined">Enlace para donar: {{ musicalexchange.crowdfundingLink }}</td>
+          <td v-if="musicalexchange.neededMoney > 0"><strong>Dinero necesario: </strong>{{ musicalexchange.neededMoney }} €</td>
+          <td v-if="musicalexchange.crowdfundingLink!=null || musicalexchange.crowdfundingLink!=undefined"><strong>Donar: <a href="#">{{musicalexchange.crowdfundingLink}}</a></strong></td>
         </tr>
         <!--/table-->
       </div>

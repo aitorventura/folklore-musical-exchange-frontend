@@ -43,28 +43,33 @@
               class="btn btn-sm btn-outline-primary"
             >Enviar mensaje</router-link>
           </div>
-          <div class="text-right" v-if="sameUser">
-            <div>
-              <router-link
-                :to="{ name: 'EditMG', params: { id: mgroup.id } }"
-                class="btn btn-sm btn-outline-secondary"
-              >Editar perfil</router-link>
-              <br />             
-            </div>
+
+          <div>
+            <tr>
+              <td class="text-right" v-if="sameUser">
+                  <router-link
+                    :to="{ name: 'EditMG', params: { id: mgroup.id } }"
+                    class="btn btn-sm btn-outline-secondary"
+                  >Editar perfil</router-link>
+                  <br />             
+              </td>
+              <td  v-if="loggedAndPerson && !subscribed">
+                <button class="btn btn-sm btn-outline-primary" v-on:click="createSubscriptionMG()">Seguir</button>
+              </td>
+              <td  v-if="loggedAndPerson && subscribed">
+                <button
+                  class="btn btn-sm btn-outline-danger"
+                  v-on:click="deleteSubscriptionMG()"
+                >Dejar de seguir</button>
+              </td>
+            </tr>
           </div>
+
         </td>
       </tr>
     </table>
 
-    <div v-if="loggedAndPerson && !subscribed">
-      <button class="btn btn-sm btn-outline-primary" v-on:click="createSubscriptionMG()">Seguir</button>
-    </div>
-    <div v-if="loggedAndPerson && subscribed">
-     <!-- <button
-        class="btn btn-sm btn-outline-danger"
-        v-on:click="deleteSubscriptionMG()"
-      >Dejar de seguir</button> -->
-    </div>
+    
     <!-- </div> -->
   </div>
 </body>
