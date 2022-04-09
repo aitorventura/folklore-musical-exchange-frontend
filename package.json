@@ -20,7 +20,7 @@
     "bootstrap-vue": "^2.13.1",
     "core-js": "^3.6.4",
     "jquery": "^1.9.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "peer": "^0.5.2",
     "vue": "^2.6.11",
     "vue-moment": "^4.1.0",
